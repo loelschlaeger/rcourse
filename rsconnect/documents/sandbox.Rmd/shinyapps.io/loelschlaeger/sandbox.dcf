@@ -1,0 +1,13 @@
+name: sandbox
+title: sandbox
+username:
+account: loelschlaeger
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5623236
+bundleId: 5564046
+url: https://loelschlaeger.shinyapps.io/sandbox/
+when: 1644483249.2254
+lastSyncTime: 1644483249.2254
+asMultiple: FALSE
+asStatic: FALSE
