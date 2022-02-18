@@ -1,7 +1,7 @@
 ---
 title: "How to {ggplot2}"
 author: "Lennart Oelschl&auml;ger"
-date: '`r Sys.Date()`'
+date: '`r format(Sys.Date(),"%d.%m.%Y")`'
 output: slidy_presentation
 ---
   
@@ -19,33 +19,36 @@ The {ggplot2} package implements a *grammar of graphics*, a series of distinct t
 
 ### What is this course about?
 
-Being in decent control of {ggplot2} to produce meaningful plots. 
+Being in "decent control" of {ggplot2} to produce meaningful plots. 
 
-### Requirements
+### What do you need?
 
-Some R skills. A not too old version of R. Optionally RStudio.
+Basic R skills + a not-too-old version of R + RStudio
 
-### References
+### My sources
 
-- Wickham 2016
-- Tufte (1983): The Visual Display of Quantitative Information
-- Wilkinson 2005
+- Healy (2019): [Data Visualization: A practical introduction](https://socviz.co/)
+- Wickham (2016): [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/)
+- Wilkinson (2005): The Grammar of Graphics
+- [Tufte](https://en.wikipedia.org/wiki/Edward_Tufte) (1983): The Visual Display of Quantitative Information
 
-### Found Errors? Have suggestions?
+### Found mistakes? Have suggestions?
 
-I'm sure you have! Please leave a note [here](). `r emo::ji("wish")`
+I'm sure you have! Please leave a note [here](https://github.com/loelschlaeger/howtoggplot2/issues/new/choose). `r emo::ji("wish")`
 
 ## Our first plot
 
 Load {ggplot2}.
 
 ```{r}
+# install.packages(ggplot2)
 library(ggplot2)
 ```
 
-We need data, what about ...
+We need data, let's go with an excerpt from the famous [Gapminder dataset](https://www.gapminder.org/tools):
 
 ```{r}
+# install.packages(gapminder)
 library(gapminder)
 head(gapminder)
 str(gapminder)
@@ -64,13 +67,56 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ```
 
-### Let's recap
+There are more of them which we can simply add (literally add!):
+
+```{r, message=FALSE}
+p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
+p <- p + geom_point() + geom_smooth()
+p
+```
+
+As a final step for now, we improve the x-axis scale and its labels.
+
+```{r, message=FALSE}
+p + scale_x_log10(labels = scales::dollar)
+```
+
+### Recap
 
 1. Call `ggplot()`
 2. Set `data = ...`
 3. Set `mapping = aes(...)`
-4. Add `+ geom_point()`
+4. Add one (or more) `geom_*()` functions
+5. Adjust the scale
 
 ## It's your turn
 
-Text
+This course includes tutorials! `r emo::ji("sunglasses")`
+
+Executing the following lines gives you access to the course material:
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("loelschlaeger/howtoggplot2")
+library(howtoggplot2)
+```
+
+To start the tutorial, type:
+
+```{r, eval = FALSE}
+tutorial()
+```
+
+To open a copy of these slides, type:
+
+```{r, eval = FALSE}
+slides()
+```
+
+To submit an issue on GitHub about this course, type:
+
+```{r, eval = FALSE}
+issue()
+```
+
+## More aesthetic(s)
