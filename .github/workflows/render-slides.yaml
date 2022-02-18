@@ -21,8 +21,10 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v1
       
-      - name: Install rmarkdown
-        run: Rscript -e 'install.packages("rmarkdown")'
+      - name: Install dependenciess
+        run: |
+          install.packages(c("devtools","rmarkdown"))
+          devtools::install_github("hadley/emo")
       
       - name: Render slides
         run: Rscript -e 'rmarkdown::render("inst/slides.Rmd")'
