@@ -6,7 +6,7 @@ name: render-slides
 
 jobs:
   render-slides:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -23,7 +23,7 @@ jobs:
       
       - name: Install dependenciess
         run: |
-          install.packages(c("remotes","rmarkdown","ggplot2","gapminder"))
+          install.packages(c("remotes","rmarkdown","tidyverse","gapminder"))
           remotes::install_github("hadley/emo")
         shell: Rscript {0}
       
