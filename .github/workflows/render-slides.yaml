@@ -23,7 +23,7 @@ jobs:
       
       - name: Install dependenciess
         run: |
-          install.packages(c("remotes","rmarkdown","tidyverse","gapminder"))
+          install.packages(c("remotes","rmarkdown","ggplot2","gapminder"))
           remotes::install_github("hadley/emo")
         shell: Rscript {0}
       
