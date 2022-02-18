@@ -23,8 +23,8 @@ jobs:
       
       - name: Install dependenciess
         run: |
-          install.packages(c("devtools","rmarkdown"))
-          devtools::install_github("hadley/emo")
+          install.packages(c("remotes","rmarkdown"))
+          remotes::install_github("hadley/emo")
         shell: Rscript {0}
       
       - name: Render slides
