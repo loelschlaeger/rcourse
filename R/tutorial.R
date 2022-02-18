@@ -2,9 +2,9 @@
 #'
 #' @return
 #' No return value.
-#' 
+#'
 #' @export
-#' 
+#'
 #' @importFrom learnr run_tutorial
 
 tutorial <- function() {

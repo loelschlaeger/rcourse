@@ -2,7 +2,7 @@
 #'
 #' @return
 #' No return value.
-#' 
+#'
 #' @export
 #' @importFrom utils browseURL
 
