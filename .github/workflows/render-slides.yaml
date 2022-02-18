@@ -30,6 +30,7 @@ jobs:
       - name: Render slides
         run: | 
           rmarkdown::render("inst/slides.Rmd")
+        shell: Rscript {0}
       
       - name: Commit results
         run: |
