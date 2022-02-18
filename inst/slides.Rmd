@@ -1,0 +1,76 @@
+---
+title: "How to {ggplot2}"
+author: "Lennart Oelschl&auml;ger"
+date: '`r Sys.Date()`'
+output: slidy_presentation
+---
+  
+## Why and what 
+
+Welcome to this tiny course on data visualization in R with [{ggplot2}](https://ggplot2.tidyverse.org/)! `r emo::ji("wave")`
+
+### Why do we care?
+
+Potentially, plots can [beautifully inform](https://en.wikipedia.org/wiki/Charles_Joseph_Minard#The_map_of_Napoleon's_Russian_campaign) or [horribly mislead](https://en.wikipedia.org/wiki/Misleading_graph#Truncated_graph). [Colors](https://michaelbach.de/ot) and [shape](http://vis.stanford.edu/files/2010-MTurk-CHI.pdf) matter! `r emo::ji("balance_scale")`
+
+### Why {ggplot2}?
+
+The {ggplot2} package implements a *grammar of graphics*, a series of distinct tasks to make a graphic.
+
+### What is this course about?
+
+Being in decent control of {ggplot2} to produce meaningful plots. 
+
+### Requirements
+
+Some R skills. A not too old version of R. Optionally RStudio.
+
+### References
+
+- Wickham 2016
+- Tufte (1983): The Visual Display of Quantitative Information
+- Wilkinson 2005
+
+### Found Errors? Have suggestions?
+
+I'm sure you have! Please leave a note [here](). `r emo::ji("wish")`
+
+## Our first plot
+
+Load {ggplot2}.
+
+```{r}
+library(ggplot2)
+```
+
+We need data, what about ...
+
+```{r}
+library(gapminder)
+head(gapminder)
+str(gapminder)
+```
+
+First, we tell the `ggplot()` function what data we are using and what variables we wish to see on each axis:
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) 
+```
+
+Something is missing ... `r emo::ji("thinking")` We need an additional layer, a `geom_*` function!
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+```
+
+### Let's recap
+
+1. Call `ggplot()`
+2. Set `data = ...`
+3. Set `mapping = aes(...)`
+4. Add `+ geom_point()`
+
+## It's your turn
+
+Text

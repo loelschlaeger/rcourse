@@ -1,0 +1,14 @@
+Package: howtoggplot2
+Title: A Tiny Course on {ggplot2}
+Version: 0.1.0
+Authors@R: 
+    person("Lennart", "Oelschl\U00E4ger", 
+           email = "lennart.oelschlaeger@uni-bielefeld.de", 
+           role = c("aut", "cre"))
+Description: Slides and tutorials on {gglot2} for data visualization in R.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports: learnr
+Depends: R (>= 4.0.0)
