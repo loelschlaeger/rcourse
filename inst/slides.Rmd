@@ -92,7 +92,7 @@ Finally, we can use the `ggsave()` function to save our plot:
 ggsave("some_descriptive_name.pdf")
 ```
 
-### Recap: The main workflow in {ggplot2}
+### Recap
 
 1. Call `ggplot()`
 2. Set `data = ...`
@@ -129,5 +129,3 @@ To submit an issue on GitHub about this course, type:
 ```{r, eval = FALSE}
 issue()
 ```
-
-## More aesthetic(s)

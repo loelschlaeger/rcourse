@@ -2,7 +2,8 @@
 title: "Tutorial"
 output: 
   learnr::tutorial:
-    allow_skip: true
+    allow_skip: false
+    progressive: true
 runtime: shiny_prerendered
 description: >
   The practical part of the "How to {ggplot2}" course.
@@ -17,10 +18,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Part 1: Our first plot
 
+### From scratch
+
 Try to reproduce our scatter plot of the `gapminder` dataset, where we put `gdpPercap` on the x- and `lifeExp` on the y-axis and added a smoothed line.
 
 ```{r firstplot, exercise = TRUE}
-
+ggplot(data = ?, mapping = ?) + 
+  ? + 
+  ?
 ```
 
 ```{r firstplot-solution}
@@ -29,10 +34,14 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth()
 ```
 
+### A bit too linear
+
 Per default, {ggplot2} uses a generalized additive model to derive the smoothed line, but other options exist. Try adding `method = "lm"` as an argument to `geom_smooth()` to use a linear model instead. Is the linear model adequate?
 
 ```{r lm, exercise = TRUE}
-
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth()
 ```
 
 ```{r lm-solution}
@@ -40,6 +49,8 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + 
   geom_smooth(method = "lm")
 ```
+
+### Order matters
 
 Does anything happen if you put the `geom_smooth()` function before the `geom_point()` function?
 
@@ -49,10 +60,14 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ```
 
+### Improving the scale
+
 Probably, we could improve the graphic if we transform the x-axis from a linear to a log scale. Do you remember how to do this? Additionally, polish the x-axis format to dollar values.
 
 ```{r log, exercise = TRUE}
-
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
 ```
 
 ```{r log-solution}
@@ -62,7 +77,9 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   scale_x_log10(scales::dollar)
 ```
 
-There is another popular aesthetic to map a variable to a color. Try the following and understand what happens:
+### Bringing color into the game
+
+There is another popular aesthetic that maps a variable to a color. Try the following and understand what happens:
 
 ```{r color, exercise = TRUE}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) + 
@@ -81,6 +98,8 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_point(color = "green")
 ```
 
+### Too much is too much
+
 Consider the following plot. We have a smoothing line for each separate continent. This might be a bit confusing, can you change the code such that we have only one overall smoothing line but still have the points color-coded by continents?
 
 ```{r one-smooth, exercise = TRUE}
@@ -96,6 +115,8 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth() +
   scale_x_log10()
 ```
+
+### Quiz time!
 
 ```{r quiz}
 quiz(
@@ -114,6 +135,6 @@ quiz(
 )
 ```
 
-## Part 2: More aesthetic(s)
+## Part 2:
 
 
