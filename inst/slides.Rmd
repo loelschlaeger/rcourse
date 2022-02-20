@@ -75,19 +75,30 @@ p <- p + geom_point() + geom_smooth()
 p
 ```
 
-As a final step for now, we improve the x-axis scale and its labels.
+As a last polishing step for now, we improve the x-axis scale and the plot labels.
 
 ```{r, message=FALSE}
-p + scale_x_log10(labels = scales::dollar)
+p + scale_x_log10(labels = scales::dollar) +
+  labs(x = "GDP per capita",
+       y = "Life expectancy in years",
+       title = "Economic growth as an indicator for life expectancy",
+       subtitle = "Data points are country-years",
+       caption = "Source: Gapminder")
 ```
 
-### Recap
+Finally, we can use the `ggsave()` function to save our plot:
+
+```{r, eval = FALSE}
+ggsave("some_descriptive_name.pdf")
+```
+
+### Recap: The main workflow in {ggplot2}
 
 1. Call `ggplot()`
 2. Set `data = ...`
 3. Set `mapping = aes(...)`
 4. Add one (or more) `geom_*()` functions
-5. Adjust the scale
+5. Adjust the scale and labels
 
 ## It's your turn
 

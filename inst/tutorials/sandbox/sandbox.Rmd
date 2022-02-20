@@ -41,7 +41,15 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth(method = "lm")
 ```
 
-Probably, we could improve if we transform the x-axis from a linear to a log scale. Do you remember how to do this? Additionally, you can polish the x-axis format to dollar values.
+Does anything happen if you put the `geom_smooth()` function before the `geom_point()` function?
+
+```{r order, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_smooth(method = "lm") +
+  geom_point()
+```
+
+Probably, we could improve the graphic if we transform the x-axis from a linear to a log scale. Do you remember how to do this? Additionally, polish the x-axis format to dollar values.
 
 ```{r log, exercise = TRUE}
 
@@ -52,6 +60,41 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + 
   geom_smooth(method = "lm") +
   scale_x_log10(scales::dollar)
+```
+
+There is another popular aesthetic to map a variable to a color. Try the following and understand what happens:
+
+```{r color, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) + 
+  geom_point()
+```
+
+Say we want to ink each point green. Why does the following not work? How to fix it?
+
+```{r green, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = "green")) + 
+  geom_point()
+```
+
+```{r green-solution}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(color = "green")
+```
+
+Consider the following plot. We have a smoothing line for each separate continent. This might be a bit confusing, can you change the code such that we have only one overall smoothing line but still have the points color-coded by continents?
+
+```{r one-smooth, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent, fill = continent)) + 
+  geom_point() + 
+  geom_smooth() +
+  scale_x_log10()
+```
+
+```{r one-smooth-solution}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(mapping = aes(color = continent)) + 
+  geom_smooth() +
+  scale_x_log10()
 ```
 
 ```{r quiz}
@@ -72,3 +115,5 @@ quiz(
 ```
 
 ## Part 2: More aesthetic(s)
+
+
