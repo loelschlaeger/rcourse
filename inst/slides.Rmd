@@ -25,6 +25,8 @@ Being in "decent control" of {ggplot2} to produce meaningful plots.
 
 Basic R skills + a not-too-old version of R + RStudio
 
+### At the end of the day...
+
 ### My sources
 
 - Healy (2019): [Data Visualization: A practical introduction](https://socviz.co/)
@@ -92,7 +94,7 @@ Finally, we can use the `ggsave()` function to save our plot:
 ggsave("some_descriptive_name.pdf")
 ```
 
-### Recap
+### The {ggplot2} workflow
 
 1. Call `ggplot()`
 2. Set `data = ...`
@@ -129,3 +131,68 @@ To submit an issue on GitHub about this course, type:
 ```{r, eval = FALSE}
 issue()
 ```
+
+## Facets and more geoms
+
+Our goal is to plot the trajectory of life expectancy over time for each country in the gapminder data. 
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line()
+```
+
+We must not forget to group by country! `r emo::ji("light_bulb")`
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(aes(group = country))
+```
+
+But can you make sense of this mess? Luckily, we can group by continents:
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(aes(group = country)) +
+  facet_wrap(~continent)
+```
+
+Better don't `facet_wrap(~country)`... Let's polish our plot with the things we already learned:
+
+```{r, message = FALSE}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(color = "grey", aes(group = country)) +
+  geom_smooth() +
+  facet_wrap(~continent) +
+  labs(x = "Year",
+       y = "Life expectancy",
+       title = "Life expectancy over time on five continents")
+```
+
+Notice that we supplied a formula to `facet_wrap`. This can be more advanced, for example (with `facet_grid`):
+
+```{r, message = FALSE, warning = FALSE}
+ggplot(data = socviz::gss_sm, mapping = aes(x = age, y = childs)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth() +
+  facet_grid(sex ~ race) +
+  labs(x = "Age",
+       y = "Childs",
+       title = "Relationship between age and number of childs",
+       subtitle = "Separated by sex (in rows) and race (in columns)")
+```
+
+As a last input for this part, we learn three new geoms.
+
+### Bar plots
+
+```{r}
+ggplot(data = socviz::gss_sm, mapping = aes(x = religion)) +
+  geom_bar()
+```
+
+Using relative instead of absolute counts on the y-axis is covered in the tutorials.
+
+### Histograms
+
+
+### Density plots
