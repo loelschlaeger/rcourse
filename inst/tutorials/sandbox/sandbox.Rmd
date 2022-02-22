@@ -193,4 +193,45 @@ ggplot(socviz::gss_sm,aes(x = religion, fill = religion)) +
 
 ### Histograms
 
+Executing the following code will result in a message and a warning (both not the end of the world). Try to understand their meaning.
+
+```{r, histogram}
+ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
+  geom_histogram()
+```
+
+```{r, histogram-solution}
+# the data set includes NA's which causes the warning
+sum(is.na(socviz::gss_sm$age)) 
+
+# choosing a number of bins silences the message
+ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
+  geom_histogram(bins = 20)
+```
+
 ### Density plots
+
+We used the following code to plot a density of the life expectations in the gapminder data set for the year 2007. Employ aesthetics to separate the densities by continent.
+
+```{r, density}
+ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+       mapping = aes(x = lifeExp)) +
+  geom_density()
+```
+
+```{r, density-solution}
+ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+       mapping = aes(x = lifeExp, fill = continent, color = continent)) +
+  geom_density(alpha = 0.5)
+```
+
+All densities look (more or less) bimodal - any idea why that could be?
+
+### One question at the end...
+
+```{r quiz}
+question("When using `geom_bar()`, {ggplot2}...",
+  answer("plots the raw data."),
+  answer("transforms the data before plotting.", correct = TRUE)
+)
+```
