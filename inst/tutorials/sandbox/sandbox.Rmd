@@ -227,6 +227,30 @@ ggplot(data = subset(gapminder::gapminder, subset = year == 2007),
 
 All densities look (more or less) bimodal - any idea why that could be?
 
+### Boxplots
+
+Together we built the following boxplot. Exchange `geom_boxplot()` by `geom_violin()` to create a violin plot instead. Which one do you prefer?
+
+```{r, boxplot}
+ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+       mapping = aes(x = pop,
+                     y = reorder(continent, pop))) +
+  geom_boxplot() +
+  scale_x_log10() + 
+  labs(y = NULL,
+       x = "Populations in 2007")
+```
+
+```{r, boxplot}
+ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+       mapping = aes(x = pop,
+                     y = reorder(continent, pop))) +
+  geom_violin() +
+  scale_x_log10() + 
+  labs(y = NULL,
+       x = "Populations in 2007")
+```
+
 ### One question at the end...
 
 ```{r quiz}

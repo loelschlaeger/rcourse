@@ -181,7 +181,7 @@ ggplot(data = socviz::gss_sm, mapping = aes(x = age, y = childs)) +
        subtitle = "Separated by sex (in rows) and race (in columns)")
 ```
 
-As a last input for this part, we learn three new geoms.
+As a last input for this part, we learn four new geoms.
 
 ### Bar plots
 
@@ -209,4 +209,18 @@ ggplot(data = subset(gapminder::gapminder, subset = year == 2007),
   geom_density()
 ```
 
+### Boxplots
 
+```{r}
+ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+       mapping = aes(x = pop,
+                     y = reorder(continent, pop))) +
+  geom_boxplot() +
+  scale_x_log10() + 
+  labs(y = NULL,
+       x = "Populations in 2007")
+```
+
+We look at a variant on the basic boxplot that {ggplot2} offers in the tutorials.
+
+## Annotations
