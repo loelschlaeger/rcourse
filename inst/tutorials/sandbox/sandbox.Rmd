@@ -23,9 +23,7 @@ knitr::opts_chunk$set(echo = FALSE)
 Try to reproduce our scatter plot of the `gapminder` dataset, where we put `gdpPercap` on the x- and `lifeExp` on the y-axis and added a smoothed line.
 
 ```{r firstplot, exercise = TRUE}
-ggplot(data = ?, mapping = ?) + 
-  ? + 
-  ?
+# Hint: ggplot(data = <?>, mapping = ?) + ? + ?
 ```
 
 ```{r firstplot-solution}
@@ -52,7 +50,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 
 ### Order matters
 
-Does anything happen if you put the `geom_smooth()` function before the `geom_point()` function?
+Does anything change if you switch the `geom_smooth()` and the `geom_point()` function?
 
 ```{r order, exercise = TRUE}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
@@ -118,7 +116,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 
 ### Quiz time!
 
-```{r quiz}
+```{r quiz1}
 quiz(
   question("Which of the R packages listed below can we load to access the `ggplot()` function?",
     answer("gapminder"),
@@ -195,7 +193,7 @@ ggplot(socviz::gss_sm,aes(x = religion, fill = religion)) +
 
 Executing the following code will result in a message and a warning (both not the end of the world). Try to understand their meaning.
 
-```{r, histogram}
+```{r, histogram, exercise = TRUE}
 ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
   geom_histogram()
 ```
@@ -213,7 +211,7 @@ ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
 
 We used the following code to plot a density of the life expectations in the gapminder data set for the year 2007. Employ aesthetics to separate the densities by continent.
 
-```{r, density}
+```{r, density, exercise = TRUE}
 ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
        mapping = aes(x = lifeExp)) +
   geom_density()
@@ -231,7 +229,7 @@ All densities look (more or less) bimodal - any idea why that could be?
 
 Together we built the following boxplot. Exchange `geom_boxplot()` by `geom_violin()` to create a violin plot instead. Which one do you prefer?
 
-```{r, boxplot}
+```{r, boxplot, exercise = TRUE}
 ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
        mapping = aes(x = pop,
                      y = reorder(continent, pop))) +
@@ -241,7 +239,7 @@ ggplot(data = subset(gapminder::gapminder, subset = year == 2007),
        x = "Populations in 2007")
 ```
 
-```{r, boxplot}
+```{r, boxplot-solution}
 ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
        mapping = aes(x = pop,
                      y = reorder(continent, pop))) +
@@ -251,11 +249,87 @@ ggplot(data = subset(gapminder::gapminder, subset = year == 2007),
        x = "Populations in 2007")
 ```
 
-### One question at the end...
+### Two questions at the end...
 
-```{r quiz}
-question("When using `geom_bar()`, {ggplot2}...",
-  answer("plots the raw data."),
-  answer("transforms the data before plotting.", correct = TRUE)
+```{r quiz2}
+quiz(
+  question("When using `geom_bar()`, {ggplot2}...",
+    answer("plots the raw data."),
+    answer("transforms the data before plotting.", correct = TRUE)
+  ),
+  question("Which of the following geoms require a specification of the `y` mapping?",
+    answer("`geom_point()`", correct = TRUE),
+    answer("`geom_histogram()`"),
+    answer("`geom_boxplot()`"),
+    answer("`geom_density()`")
+  )
 )
+```
+
+## Part 3: Annotations
+
+### Point annotations
+
+Remember out scatter plot about the presidental elections?
+
+1. Annotate each point via `ggrepel::geom_text_repel()`,
+2. add a title and labels for the axes, and
+3. adjust the labels of the scales to percentages.
+
+```{r, annotation, exercise = TRUE}
+ggplot(data = socviz::elections_historic, 
+       mapping = aes(x = popular_pct,
+                     y = ec_pct,
+                     label = winner_label)) +
+  geom_point() 
+```
+
+```{r, annotation-solution}
+ggplot(data = socviz::elections_historic, 
+       mapping = aes(x = popular_pct,
+                     y = ec_pct,
+                     label = winner_label)) +
+  geom_point() +
+  ggrepel::geom_text_repel() +
+  scale_x_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Winner's share of Popular Vote", 
+       y = "Winner's share of Electoral College Vote", 
+       title = "Presidental Elections: Popular and Electoral College Margins", 
+       subtitle = "1824 - 2016")
+```
+
+### Outliers
+
+Building on the following code, annotate the results of Donald Trump in 2016:
+
+```{r, trump, exercise = TRUE}
+ggplot(data = socviz::elections_historic, 
+       mapping = aes(x = popular_pct,
+                     y = ec_pct,
+                     label = winner_label)) +
+  geom_point() +
+  scale_x_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Winner's share of Popular Vote", 
+       y = "Winner's share of Electoral College Vote", 
+       title = "Presidental Elections: Popular and Electoral College Margins", 
+       subtitle = "1824 - 2016")
+```
+
+```{r, trump-solution}
+ggplot(data = socviz::elections_historic, 
+       mapping = aes(x = popular_pct,
+                     y = ec_pct,
+                     label = winner_label)) +
+  geom_point() +
+  scale_x_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Winner's share of Popular Vote", 
+       y = "Winner's share of Electoral College Vote", 
+       title = "Presidental Elections: Popular and Electoral College Margins", 
+       subtitle = "1824 - 2016") +
+  ggrepel::geom_text_repel(
+    data = subset(socviz::elections_historic, year == 2016)
+  )
 ```
