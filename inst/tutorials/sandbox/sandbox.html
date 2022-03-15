@@ -139,7 +139,7 @@ if (window.hljs) {
 </div>
 <div id="section-order-matters" class="section level3">
 <h3>Order matters</h3>
-<p>Does anything change if you switch the <code>geom_smooth()</code> and the <code>geom_point()</code> function?</p>
+<p>Switch the order of the <code>geom_smooth()</code> and the <code>geom_point()</code> function. Does anything happen to the plot?</p>
 <div class="tutorial-exercise" data-label="order" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
   geom_smooth(method = &quot;lm&quot;) +
@@ -149,7 +149,7 @@ if (window.hljs) {
 </div>
 <div id="section-improving-the-scale" class="section level3">
 <h3>Improving the scale</h3>
-<p>Probably, we could improve the graphic if we transform the x-axis from a linear to a log scale. Do you remember how to do this? Additionally, polish the x-axis format to dollar values.</p>
+<p>Probably, we could improve the graphic if we transform the x-axis from a linear to a log scale. Do you remember how to do this?</p>
 <div class="tutorial-exercise" data-label="log" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
   geom_point() + 
@@ -160,7 +160,7 @@ if (window.hljs) {
 <pre class="text"><code>ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
   geom_point() + 
   geom_smooth(method = &quot;lm&quot;) +
-  scale_x_log10(scales::dollar)</code></pre>
+  scale_x_log10()</code></pre>
 </div>
 </div>
 <div id="section-bringing-color-into-the-game" class="section level3">
@@ -224,7 +224,7 @@ if (window.hljs) {
 <h2>Part 2: Facets and more geoms</h2>
 <div id="section-everything-on-the-line" class="section level3">
 <h3>Everything on the line</h3>
-<p>Remember that we discussed the following code? Adjust it such that all facets are plotted in one row. You can consult <code>?facet_grip</code> for help.</p>
+<p>Remember that we discussed the following code? Adjust it such that all facets are plotted in one row. You can consult <code>?facet_wrap</code> for help.</p>
 <div class="tutorial-exercise" data-label="one-row" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
   geom_line(color = &quot;grey&quot;, aes(group = country)) +
@@ -458,7 +458,7 @@ ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
 <h3>Get the voting results on the map</h3>
 <p>We first merge our coordinates with the election data. Take a look at the generated object with <code>head(us_states_elec)</code>.</p>
 <div class="tutorial-exercise" data-label="voting_data" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code># library(socviz)
+<pre class="text"><code>election &lt;- socviz::election
 election$region &lt;- tolower(election$state)
 us_states_elec &lt;- dplyr::left_join(us_states, election)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -516,6 +516,10 @@ library(learnr)
 library(ggplot2)
 library(gapminder)
 knitr::opts_chunk$set(echo = FALSE)
+election <- socviz::election
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- dplyr::left_join(us_states, election)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -545,7 +549,9 @@ output$`tutorial-exercise-firstplot-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "firstplot", code = "# Hint: ggplot(data = <?>, mapping = ?) + ? + ?", 
         opts = list(label = "\"firstplot\"", exercise = "TRUE"), 
@@ -584,7 +590,9 @@ output$`tutorial-exercise-lm-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "lm", code = "ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + \n  geom_point() + \n  geom_smooth()", 
         opts = list(label = "\"lm\"", exercise = "TRUE"), engine = "r")), 
@@ -622,7 +630,9 @@ output$`tutorial-exercise-order-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "order", code = "ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + \n  geom_smooth(method = \"lm\") +\n  geom_point()", 
         opts = list(label = "\"order\"", exercise = "TRUE"), 
@@ -659,13 +669,15 @@ output$`tutorial-exercise-log-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "log", code = "ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + \n  geom_point() + \n  geom_smooth(method = \"lm\")", 
         opts = list(label = "\"log\"", exercise = "TRUE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + ", 
     "  geom_point() + ", "  geom_smooth(method = \"lm\") +", 
-    "  scale_x_log10(scales::dollar)"), chunk_opts = list(label = "log-solution")), 
+    "  scale_x_log10()"), chunk_opts = list(label = "log-solution")), 
     test_cases = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
         prompt = FALSE, comment = NA, highlight = FALSE, size = "normalsize", 
@@ -698,7 +710,9 @@ output$`tutorial-exercise-color-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "color", code = "ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) + \n  geom_point()", 
         opts = list(label = "\"color\"", exercise = "TRUE"), 
@@ -734,7 +748,9 @@ output$`tutorial-exercise-green-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "green", code = "ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = \"green\")) + \n  geom_point()", 
         opts = list(label = "\"green\"", exercise = "TRUE"), 
@@ -772,7 +788,9 @@ output$`tutorial-exercise-one-smooth-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "one-smooth", code = "ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent, fill = continent)) + \n  geom_point() + \n  geom_smooth() +\n  scale_x_log10()", 
         opts = list(label = "\"one-smooth\"", exercise = "TRUE"), 
@@ -806,16 +824,16 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz1-1", question = structure("Which of the R packages listed below can we load to access the <code>ggplot()<\u002fcode> function?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_3295ab2", 
+"character")), answers = list(structure(list(id = "lnr_ans_95b13f4", 
     option = "gapminder", value = "gapminder", label = structure("gapminder", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d96d24b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_51faae4", 
     option = "ggplot", value = "ggplot", label = structure("ggplot", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_86c3d92", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3df21e2", 
     option = "ggplot2", value = "ggplot2", label = structure("ggplot2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_853a172", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2c2768a", 
     option = "tidyverse", value = "tidyverse", label = structure("tidyverse", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -826,25 +844,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-1-answer", question = "quiz1-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the R packages listed below can we load to access the <code>ggplot()<\u002fcode> function?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 955390721.055112, options = list()), class = c("learnr_checkbox", 
+    seed = 612727840.714676, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-2", question = structure("What is the <code>aes()<\u002fcode> function good for? Telling {ggplot2} ...", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_af92ff9", 
+"character")), answers = list(structure(list(id = "lnr_ans_68062c", 
     option = "what data we use.", value = "what data we use.", 
     label = structure("what data we use.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2df2b8b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_54383bc", 
     option = "what relationships we want to see.", value = "what relationships we want to see.", 
     label = structure("what relationships we want to see.", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6c7fa28", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cc7a63d", 
     option = "the plot type we want to produce.", value = "the plot type we want to produce.", 
     label = structure("the plot type we want to produce.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3b55068", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e5d1c66", 
     option = "that we want to adjust the x-axis.", value = "that we want to adjust the x-axis.", 
     label = structure("that we want to adjust the x-axis.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -856,7 +874,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-2-answer", question = "quiz1-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat is the <code>aes()<\u002fcode> function good for? Telling {ggplot2} ...\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 796035176.129317, options = list()), class = c("learnr_radio", 
+    seed = 2009443646.06428, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -869,7 +887,9 @@ output$`tutorial-exercise-one-row-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "one-row", code = "ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +\n  geom_line(color = \"grey\", aes(group = country)) +\n  geom_smooth() +\n  facet_wrap(~continent) +\n  labs(x = \"Year\",\n       y = \"Life expectancy\",\n       title = \"Life expectancy over time on five continents\")", 
         opts = list(label = "\"one-row\"", exercise = "TRUE"), 
@@ -915,7 +935,9 @@ output$`tutorial-exercise-data-overview-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "data-overview", code = "pillar::glimpse(socviz::gss_sm)", 
         opts = list(label = "\"data-overview\"", exercise = "TRUE"), 
@@ -952,7 +974,9 @@ output$`tutorial-exercise-barplot-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "barplot", code = "ggplot(socviz::gss_sm,aes(x = religion)) +\n  geom_bar(aes(y = ..prop.., group = 1))", 
         opts = list(label = "\"barplot\"", exercise = "TRUE"), 
@@ -990,7 +1014,9 @@ output$`tutorial-exercise-barplot-color-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "barplot-color", code = "ggplot(socviz::gss_sm,aes(x = religion, color = religion)) +\n  geom_bar()", 
         opts = list(label = "\"barplot-color\"", exercise = "TRUE"), 
@@ -1031,7 +1057,9 @@ output$`tutorial-exercise-histogram-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "histogram", code = "ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +\n  geom_histogram()", 
         opts = list(label = "\"histogram\"", exercise = "TRUE"), 
@@ -1073,7 +1101,9 @@ output$`tutorial-exercise-density-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "density", code = "ggplot(data = subset(gapminder::gapminder, subset = year == 2007), \n       mapping = aes(x = lifeExp)) +\n  geom_density()", 
         opts = list(label = "\"density\"", exercise = "TRUE"), 
@@ -1114,7 +1144,9 @@ output$`tutorial-exercise-boxplot-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "boxplot", code = "ggplot(data = subset(gapminder::gapminder, subset = year == 2007), \n       mapping = aes(x = pop,\n                     y = reorder(continent, pop))) +\n  geom_boxplot() +\n  scale_x_log10() + \n  labs(y = NULL,\n       x = \"Populations in 2007\")", 
         opts = list(label = "\"boxplot\"", exercise = "TRUE"), 
@@ -1151,11 +1183,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz2-1", question = structure("When using <code>geom_bar()<\u002fcode>, {ggplot2}...", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_e0903b6", 
+"character")), answers = list(structure(list(id = "lnr_ans_6d8f729", 
     option = "plots the raw data.", value = "plots the raw data.", 
     label = structure("plots the raw data.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d0f9d12", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_26ee0ff", 
     option = "transforms the data before plotting.", value = "transforms the data before plotting.", 
     label = structure("transforms the data before plotting.", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -1167,24 +1199,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz2-1-answer", question = "quiz2-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhen using <code>geom_bar()<\u002fcode>, {ggplot2}...\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 591028432.724781, options = list()), class = c("learnr_radio", 
+    seed = 1673517484.22071, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz2-2", question = structure("Which of the following geoms require a specification of the <code>y<\u002fcode> mapping?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a466bcd", 
+"character")), answers = list(structure(list(id = "lnr_ans_236f34d", 
     option = "`geom_point()`", value = "`geom_point()`", label = structure("<code>geom_point()<\u002fcode>", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_31e4144", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c58b330", 
     option = "`geom_histogram()`", value = "`geom_histogram()`", 
     label = structure("<code>geom_histogram()<\u002fcode>", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2d1d304", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_28096d8", 
     option = "`geom_boxplot()`", value = "`geom_boxplot()`", 
     label = structure("<code>geom_boxplot()<\u002fcode>", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fd71dbd", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1176dd2", 
     option = "`geom_density()`", value = "`geom_density()`", 
     label = structure("<code>geom_density()<\u002fcode>", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -1196,7 +1228,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz2-2-answer", question = "quiz2-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following geoms require a specification of the <code>y<\u002fcode> mapping?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1693672455.21132, options = list()), class = c("learnr_radio", 
+    seed = 241700898.887449, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1209,7 +1241,9 @@ output$`tutorial-exercise-annotation-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "annotation", code = "ggplot(data = socviz::elections_historic, \n       mapping = aes(x = popular_pct,\n                     y = ec_pct,\n                     label = winner_label)) +\n  geom_point() ", 
         opts = list(label = "\"annotation\"", exercise = "TRUE"), 
@@ -1256,7 +1290,9 @@ output$`tutorial-exercise-trump-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "trump", code = "ggplot(data = socviz::elections_historic, \n       mapping = aes(x = popular_pct,\n                     y = ec_pct,\n                     label = winner_label)) +\n  geom_point() +\n  scale_x_continuous(labels = scales::percent) +\n  scale_y_continuous(labels = scales::percent) +\n  labs(x = \"Winner's share of Popular Vote\", \n       y = \"Winner's share of Electoral College Vote\", \n       title = \"Presidental Elections: Popular and Electoral College Margins\", \n       subtitle = \"1824 - 2016\")", 
         opts = list(label = "\"trump\"", exercise = "TRUE"), 
@@ -1307,7 +1343,9 @@ output$`tutorial-exercise-usmap-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "usmap", code = "us_states <- map_data(\"state\")\nggplot(data = us_states, aes(x = long, y = lat, group = group)) +\n  geom_polygon()", 
         opts = list(label = "\"usmap\"", exercise = "TRUE"), 
@@ -1348,7 +1386,9 @@ output$`tutorial-exercise-projection-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "projection", code = "us_states <- map_data(\"state\")\nggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +\n  geom_polygon() +\n  guides(fill = \"none\")", 
         opts = list(label = "\"projection\"", exercise = "TRUE"), 
@@ -1390,9 +1430,11 @@ output$`tutorial-exercise-voting_data-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "voting_data", code = "# library(socviz)\nelection$region <- tolower(election$state)\nus_states_elec <- dplyr::left_join(us_states, election)", 
+    chunks = list(list(label = "voting_data", code = "election <- socviz::election\nelection$region <- tolower(election$state)\nus_states_elec <- dplyr::left_join(us_states, election)", 
         opts = list(label = "\"voting_data\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, test_cases = NULL, options = list(
@@ -1412,7 +1454,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "voting_data", exercise = TRUE, 
-        code = c("# library(socviz)", "election$region <- tolower(election$state)", 
+        code = c("election <- socviz::election", "election$region <- tolower(election$state)", 
         "us_states_elec <- dplyr::left_join(us_states, election)"
         ), out.width.px = 624, out.height.px = 384, params.src = " voting_data, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1428,7 +1470,9 @@ output$`tutorial-exercise-winner-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "winner", code = "ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +\n  geom_polygon(color = \"grey\", size = 0.1) +\n  coord_map(projection = \"albers\", lat0 = 39, lat1 = 45)", 
         opts = list(label = "\"winner\"", exercise = "TRUE"), 
@@ -1471,7 +1515,9 @@ output$`tutorial-exercise-perc-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
-"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)"
+"library(ggplot2)", "library(gapminder)", "knitr::opts_chunk$set(echo = FALSE)", 
+"election <- socviz::election", "us_states <- map_data(\"state\")", 
+"election$region <- tolower(election$state)", "us_states_elec <- dplyr::left_join(us_states, election)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "perc", code = "ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_trump)) +\n  geom_polygon(color = \"grey\", size = 0.1) +\n  coord_map(projection = \"albers\", lat0 = 39, lat1 = 45) +\n  theme_void() +\n  theme(legend.position = \"bottom\", \n        plot.title = element_text(hjust = 0.5)) +\n  labs(title = \"Votes for Trump\", fill = \"Percent\")", 
         opts = list(label = "\"perc\"", exercise = "TRUE"), engine = "r")), 
@@ -1512,7 +1558,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","bslib","checkmate","cli","colorspace","compiler","crayon","curl","datasets","DBI","digest","dplyr","ellipsis","evaluate","fansi","fastmap","gapminder","generics","ggplot2","glue","graphics","grDevices","grid","gtable","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","markdown","methods","mime","munsell","pillar","pkgconfig","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","stats","stringi","stringr","tibble","tidyselect","tools","utf8","utils","vctrs","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.1.2","0.3.1","2.0.0","3.1.0","2.0-2","4.1.2","1.5.0","4.3.2","4.1.2","1.1.2","0.6.29","1.0.7","0.3.2","0.14","1.0.2","1.1.0","0.3.0","0.1.2","3.3.5","1.6.1","4.1.2","4.1.2","4.1.2","0.3.0","0.5.2","1.5.4","1.6.5","0.1.4","1.7.3","1.37","1.3.0","0.10.1.9019","1.0.1","2.0.1","1.1","4.1.2","0.12","0.5.0","1.7.0","2.0.3","1.2.0.1","0.3.4","2.5.1","1.0.8","1.0.1","2.11","2.0.2","0.13","0.4.0","1.1.1","1.7.1","4.1.2","1.7.6","1.4.0","3.1.6","1.1.1","4.1.2","1.2.2","4.1.2","0.3.8","2.4.3","0.29","1.8-4","2.2.1"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","bslib","checkmate","cli","colorspace","compiler","crayon","curl","datasets","DBI","digest","dplyr","ellipsis","evaluate","fansi","fastmap","gapminder","generics","ggplot2","glue","graphics","grDevices","grid","gtable","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","maps","markdown","methods","mime","munsell","pillar","pkgconfig","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","socviz","stats","stringi","stringr","tibble","tidyselect","tools","utf8","utils","vctrs","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.1.2","0.3.1","2.0.0","3.1.0","2.0-2","4.1.2","1.5.0","4.3.2","4.1.2","1.1.2","0.6.29","1.0.7","0.3.2","0.14","1.0.2","1.1.0","0.3.0","0.1.2","3.3.5","1.6.1","4.1.2","4.1.2","4.1.2","0.3.0","0.5.2","1.5.4","1.6.5","0.1.4","1.7.3","1.37","1.3.0","0.10.1.9019","1.0.1","2.0.1","3.4.0","1.1","4.1.2","0.12","0.5.0","1.7.0","2.0.3","1.2.0.1","0.3.4","2.5.1","1.0.8","1.0.1","2.11","2.0.2","0.13","0.4.0","1.1.1","1.7.1","1.2","4.1.2","1.7.6","1.4.0","3.1.6","1.1.1","4.1.2","1.2.2","4.1.2","0.3.8","2.4.3","0.29","1.8-4","2.2.1"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>

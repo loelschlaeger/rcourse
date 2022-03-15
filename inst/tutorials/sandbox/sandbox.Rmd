@@ -14,6 +14,10 @@ library(learnr)
 library(ggplot2)
 library(gapminder)
 knitr::opts_chunk$set(echo = FALSE)
+election <- socviz::election
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- dplyr::left_join(us_states, election)
 ```
 
 ## Part 1: Our first plot
@@ -50,7 +54,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 
 ### Order matters
 
-Does anything change if you switch the `geom_smooth()` and the `geom_point()` function?
+Switch the order of the `geom_smooth()` and the `geom_point()` function. Does anything happen to the plot?
 
 ```{r order, exercise = TRUE}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
@@ -60,7 +64,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 
 ### Improving the scale
 
-Probably, we could improve the graphic if we transform the x-axis from a linear to a log scale. Do you remember how to do this? Additionally, polish the x-axis format to dollar values.
+Probably, we could improve the graphic if we transform the x-axis from a linear to a log scale. Do you remember how to do this?
 
 ```{r log, exercise = TRUE}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
@@ -72,7 +76,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
   geom_point() + 
   geom_smooth(method = "lm") +
-  scale_x_log10(scales::dollar)
+  scale_x_log10()
 ```
 
 ### Bringing color into the game
@@ -137,7 +141,7 @@ quiz(
 
 ### Everything on the line
 
-Remember that we discussed the following code? Adjust it such that all facets are plotted in one row. You can consult `?facet_grip` for help.
+Remember that we discussed the following code? Adjust it such that all facets are plotted in one row. You can consult `?facet_wrap` for help.
 
 ```{r one-row, exercise = TRUE}
 ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
