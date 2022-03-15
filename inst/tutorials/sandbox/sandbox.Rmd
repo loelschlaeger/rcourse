@@ -377,7 +377,7 @@ ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
 We first merge our coordinates with the election data. Take a look at the generated object with `head(us_states_elec)`.
 
 ```{r, voting_data, exercise = TRUE}
-# library(socviz)
+election <- socviz::election
 election$region <- tolower(election$state)
 us_states_elec <- dplyr::left_join(us_states, election)
 ```
