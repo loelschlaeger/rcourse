@@ -1,6 +1,6 @@
 This is a tiny course on data visualization with {ggplot2}.
 
-Executing the following lines gives you access to the course material:
+Executing the following lines in R gives you access to the course material:
 
 ```r
 # install.packages("devtools")
