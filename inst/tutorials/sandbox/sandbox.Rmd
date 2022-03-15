@@ -333,3 +333,100 @@ ggplot(data = socviz::elections_historic,
     data = subset(socviz::elections_historic, year == 2016)
   )
 ```
+
+## Part 4: Draw maps 
+
+### Visualizing the US
+
+The following lines visualize the United States. Colorize the states by mapping the `region` variable to `fill`. You may additionally want to suppress the legend.
+
+```{r, usmap, exercise = TRUE}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group)) +
+  geom_polygon()
+```
+
+```{r, usmap-solution}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
+  geom_polygon() +
+  guides(fill = "none")
+```
+
+### The Albers projection
+
+Use the Albers projection instead of the default Mercator projection. Remember that you must specify two latitude parameters, `lat0` and `lat1`. Play around with different values to find a good projection.
+
+```{r, projection, exercise = TRUE}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
+  geom_polygon() +
+  guides(fill = "none")
+```
+
+```{r, projection-solution}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
+  geom_polygon() +
+  guides(fill = "none") +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45)
+```
+
+### Get the voting results on the map
+
+We first merge our coordinates with the election data. Take a look at the generated object with `head(us_states_elec)`.
+
+```{r, voting_data, exercise = TRUE}
+# library(socviz)
+election$region <- tolower(election$state)
+us_states_elec <- dplyr::left_join(us_states, election)
+```
+
+Now that all data is combined, you can plot it on the map. The following lines visualize the winner party in each state. Are you satisfied with the plot? You may want to 
+
+1. choose a different color scheme via `scale_fill_manual()`,
+2. remove the grid lines and axis labels via `theme_void()`,
+3. find a better location for the legend via `theme(legend.position = ...)`,
+4. and add a title via `labs(title = ...)`. 
+
+```{r, winner, exercise = TRUE}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45)
+```
+
+```{r, winner-solution}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Election Results 2016", fill = "")
+```
+
+### Who voted for Trump?
+
+Instead of plotting the winner, we can plot the percentage of the vote received by Trump from the `pct_trump` variable. Use `scale_fill_gradient(low = "white", high = "red")` for a better color gradient.
+
+```{r, perc, exercise = TRUE}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_trump)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Votes for Trump", fill = "Percent")
+```
+
+```{r, perc-solution}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_trump)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Votes for Trump", fill = "Percent") +
+  scale_fill_gradient(low = "white", high = "red")
+```

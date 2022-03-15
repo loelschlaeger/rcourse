@@ -1,7 +1,7 @@
 ---
 title: "How to {ggplot2}"
 author: "Lennart Oelschl&auml;ger"
-date: '`r format(Sys.Date(),"%d.%m.%Y")`'
+date: 'Last rendered on `r format(Sys.Date(),"%d.%m.%Y")`'
 output: slidy_presentation
 ---
   
@@ -26,6 +26,23 @@ Being in "decent control" of {ggplot2} to produce "meaningful" plots.
 Basic R skills + a not-too-old version of R + RStudio
 
 ### At the end of the day...
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(socviz)
+library(maps)
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- dplyr::left_join(us_states, election)
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "State Winner in 2016", fill = "")
+```
 
 ### My sources
 
@@ -275,3 +292,24 @@ ggplot(data = socviz::elections_historic,
   annotate(geom = "rect", xmin = 0, xmax = 0.5, ymin = 0, ymax = 0.5, fill = "red", alpha = 0.2) +
   annotate(geom = "text", x = 0.25, y = 0.25, label = "Some text.")
 ```
+
+## Draw Maps
+
+R can work with geographical data, and {ggplot2} can make [choropleth maps](https://en.wikipedia.org/wiki/Choropleth_map).
+
+```{r}
+# library(maps)
+world <- map_data("world")
+p <- ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", color = "black")
+plot(p)
+```
+
+Instead of the default [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection), we can use the [Albers projection](https://en.wikipedia.org/wiki/Albers_projection):
+
+```{r}
+# library(mapproj)
+p + coord_map(projection = "albers", lat0 = 15, lat1 = 45)
+```
+
+Now in the tutorials, we will visualize the results of the Trump vs. Clinton election 2016 on a map of the US states.
