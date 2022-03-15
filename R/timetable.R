@@ -10,7 +10,7 @@ timetable <- function() {
       "Facets and more geoms", "Annotations", "Draw Maps",
       "Final discussion"
     ),
-    practicals = c("", "yes", "", "yes", "yes", "yes", ""),
+    practicals = c("", "Part 1", "", "Part 2", "Part 3", "Part 4", ""),
     row.names = c("09 - 10", "10 - 12", "12 - 13", "13 - 14", "14 - 15", "15 - 16", "16")
   )
 }
