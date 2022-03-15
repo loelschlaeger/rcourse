@@ -19,3 +19,10 @@ To start the tutorial, type:
 ```r
 tutorial()
 ```
+
+My sources:
+
+- Healy (2019): [Data Visualization: A practical introduction](https://socviz.co/)
+- Wickham (2016): [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/)
+- Wilkinson (2005): The Grammar of Graphics
+- [Tufte](https://en.wikipedia.org/wiki/Edward_Tufte) (1983): The Visual Display of Quantitative Information
