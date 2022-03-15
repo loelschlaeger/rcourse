@@ -24,7 +24,7 @@ jobs:
       - name: Install dependenciess
         run: |
           install.packages(c("remotes","rmarkdown","tidyverse","gapminder",
-                             "socviz","maps","ggrepel"))
+                             "socviz","maps","ggrepel","mapproj"))
           remotes::install_github("hadley/emo")
         shell: Rscript {0}
       
