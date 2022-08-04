@@ -9,15 +9,14 @@ Description: Slides and tutorials on {gglot2} for data visualization in R.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
-Imports: 
+RoxygenNote: 7.2.1
+Depends: 
+  R (>= 4.0.0),
   learnr,
   tidyverse,
   gapminder,
   socviz,
   maps,
   mapproj
-Depends: 
-  R (>= 4.0.0)
 URL: https://github.com/loelschlaeger/howtoggplot2
 BugReports: https://github.com/loelschlaeger/howtoggplot2/issues

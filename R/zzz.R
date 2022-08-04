@@ -1,5 +1,6 @@
 #' @noRd
 #' @importFrom utils packageVersion
+#' @import learnr tidyverse gapminder socviz maps mapproj
 
 .onAttach <- function(lib, pkg) {
   # startup message
