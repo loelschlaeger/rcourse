@@ -1,6 +1,6 @@
 Package: howtoggplot2
 Title: A Tiny Course on {ggplot2}
-Version: 0.1.0
+Version: 0.0.0.9000
 Authors@R: 
     person("Lennart", "Oelschl\U00E4ger", 
            email = "lennart.oelschlaeger@uni-bielefeld.de", 
