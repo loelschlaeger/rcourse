@@ -20,7 +20,7 @@ To start the tutorial, type:
 tutorial()
 ```
 
-My sources:
+Sources:
 
 - Healy (2019): [Data Visualization: A practical introduction](https://socviz.co/)
 - Wickham (2016): [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/)
