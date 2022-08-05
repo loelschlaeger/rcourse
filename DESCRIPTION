@@ -12,11 +12,12 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Depends: 
   R (>= 4.0.0),
+  ggplot2,
   learnr,
-  tidyverse,
   gapminder,
   socviz,
   maps,
-  mapproj
+  mapproj,
+  ggrepel
 URL: https://github.com/loelschlaeger/howtoggplot2
 BugReports: https://github.com/loelschlaeger/howtoggplot2/issues

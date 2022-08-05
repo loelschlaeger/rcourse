@@ -1,6 +1,6 @@
 #' @noRd
 #' @importFrom utils packageVersion
-#' @import learnr tidyverse gapminder socviz maps mapproj
+#' @import ggplot2 learnr gapminder socviz maps mapproj ggrepel
 
 .onAttach <- function(lib, pkg) {
   # startup message

@@ -10,9 +10,6 @@ description: >
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
-library(ggplot2)
-library(gapminder)
 knitr::opts_chunk$set(echo = FALSE)
 election <- socviz::election
 us_states <- map_data("state")
