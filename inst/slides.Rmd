@@ -136,7 +136,7 @@ library(howtoggplot2)
 To start the tutorial, type:
 
 ```{r, eval = FALSE}
-tutorial()
+practicals()
 ```
 
 To open a copy of these slides, type:

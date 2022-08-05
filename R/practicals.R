@@ -7,6 +7,6 @@
 #'
 #' @importFrom learnr run_tutorial
 
-tutorial <- function() {
+practicals <- function() {
   learnr::run_tutorial("sandbox", package = "howtoggplot2")
 }

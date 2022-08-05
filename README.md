@@ -17,7 +17,7 @@ slides()
 To start the tutorial, type:
 
 ```r
-tutorial()
+practicals()
 ```
 
 Sources:
