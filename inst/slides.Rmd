@@ -195,8 +195,8 @@ ggplot(data = socviz::gss_sm, mapping = aes(x = age, y = childs)) +
   geom_smooth() +
   facet_grid(sex ~ race) +
   labs(x = "Age",
-       y = "Childs",
-       title = "Relationship between age and number of childs",
+       y = "No. of children",
+       title = "Relationship between age and number of children",
        subtitle = "Separated by sex (in rows) and race (in columns)")
 ```
 
