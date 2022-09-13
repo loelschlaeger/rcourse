@@ -21,7 +21,7 @@ The {ggplot2} package implements a *grammar of graphics*, a series of distinct t
 
 ### What is this course about?
 
-Being in "decent control" of {ggplot2} to produce "meaningful" plots. 
+Being in decent control of {ggplot2} to produce meaningful plots. 
 
 ### What do you need?
 
@@ -223,7 +223,8 @@ We address the message and the warning in the tutorials.
 ### Density plots
 
 ```{r}
-ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+library(dplyr)
+ggplot(data = filter(gapminder, year == 2007), 
        mapping = aes(x = lifeExp)) +
   geom_density()
 ```
@@ -231,7 +232,7 @@ ggplot(data = subset(gapminder::gapminder, subset = year == 2007),
 ### Boxplots
 
 ```{r}
-ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+ggplot(data = filter(gapminder, year == 2007), 
        mapping = aes(x = pop,
                      y = reorder(continent, pop))) +
   geom_boxplot() +
@@ -275,7 +276,7 @@ ggplot(data = socviz::elections_historic,
                      label = winner_label)) +
   geom_point() +
   ggrepel::geom_text_repel(
-    data = subset(socviz::elections_historic, popular_pct < 0.5 & ec_pct > 0.5)
+    data = filter(socviz::elections_historic, popular_pct < 0.5 & ec_pct > 0.5)
   ) + 
   geom_hline(yintercept = 0.5) +
   geom_vline(xintercept = 0.5)
