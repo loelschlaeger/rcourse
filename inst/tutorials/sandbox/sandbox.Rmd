@@ -213,13 +213,13 @@ ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
 We used the following code to plot a density of the life expectations in the gapminder data set for the year 2007. Employ aesthetics to separate the densities by continent.
 
 ```{r, density, exercise = TRUE}
-ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+ggplot(data = filter(gapminder, year == 2007), 
        mapping = aes(x = lifeExp)) +
   geom_density()
 ```
 
 ```{r, density-solution}
-ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+ggplot(data = filter(gapminder, year == 2007), 
        mapping = aes(x = lifeExp, fill = continent, color = continent)) +
   geom_density(alpha = 0.5)
 ```
@@ -231,7 +231,7 @@ All densities look (more or less) bimodal - any idea why that could be?
 Together we built the following boxplot. Exchange `geom_boxplot()` by `geom_violin()` to create a violin plot instead. Which one do you prefer?
 
 ```{r, boxplot, exercise = TRUE}
-ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+ggplot(data = filter(gapminder, year == 2007), 
        mapping = aes(x = pop,
                      y = reorder(continent, pop))) +
   geom_boxplot() +
@@ -241,7 +241,7 @@ ggplot(data = subset(gapminder::gapminder, subset = year == 2007),
 ```
 
 ```{r, boxplot-solution}
-ggplot(data = subset(gapminder::gapminder, subset = year == 2007), 
+ggplot(data = filter(gapminder, year == 2007), 
        mapping = aes(x = pop,
                      y = reorder(continent, pop))) +
   geom_violin() +
@@ -258,7 +258,7 @@ quiz(
     answer("plots the raw data."),
     answer("transforms the data before plotting.", correct = TRUE)
   ),
-  question("Which of the following geoms require a specification of the `y` mapping?",
+  question("Which of the following geoms requires a specification of the `y` mapping?",
     answer("`geom_point()`", correct = TRUE),
     answer("`geom_histogram()`"),
     answer("`geom_boxplot()`"),
@@ -331,7 +331,7 @@ ggplot(data = socviz::elections_historic,
        title = "Presidental Elections: Popular and Electoral College Margins", 
        subtitle = "1824 - 2016") +
   ggrepel::geom_text_repel(
-    data = subset(socviz::elections_historic, year == 2016)
+    data = filter(socviz::elections_historic, year == 2016)
   )
 ```
 
