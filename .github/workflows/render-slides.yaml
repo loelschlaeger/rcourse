@@ -25,7 +25,7 @@ jobs:
         run: |
           install.packages(c("remotes","rmarkdown","tidyverse","gapminder",
                              "socviz","maps","ggrepel","mapproj", "gganimate",
-                             "dplyr", "plotly", "gifski"))
+                             "plotly", "gifski"))
           remotes::install_github("hadley/emo")
         shell: Rscript {0}
       
