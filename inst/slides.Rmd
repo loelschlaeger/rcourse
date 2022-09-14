@@ -329,10 +329,35 @@ You can set the size and colour of the points to depend on certain variables in 
 Hint 4:
 Have a look at `?guide` to modify the legends.
 
+
+
+
+## Animations
+
+{ggplot2} itself does not allow for interactive or animated visualizations.
+
+However, there are of course R-packages to achieve this, e.g. {plotly}, {gganimate}, {shiny}
+
+```{r, message=FALSE}
+library(plotly)
+ggplotly(p)
 ```
 
 
 ```{r}
+library(gganimate)
+library(gifski)
+
+p <- ggplot(gapminder, aes(x = gdpPercap, y=lifeExp, size = pop, colour = continent)) +
+    geom_point(alpha = 0.7) +
+    scale_x_log10(labels = scales::dollar) +
+    guides(size="none") +
+    guides(colour=guide_legend(title="")) +
+    labs(x = "GDP per capita", y = "Life expectancy in years",
+    title = "Economic growth as an indicator for life expectancy",
+    caption = "Source: Gapminder")
+p + transition_time(year) +
+  labs(title = "Year: {frame_time}")
 ```
 
 
