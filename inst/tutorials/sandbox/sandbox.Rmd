@@ -267,75 +267,8 @@ quiz(
 )
 ```
 
-## Part 3: Annotations
 
-### Point annotations
-
-Remember out scatter plot about the presidental elections?
-
-1. Annotate each point via `ggrepel::geom_text_repel()`,
-2. add a title and labels for the axes, and
-3. adjust the labels of the scales to percentages.
-
-```{r, annotation, exercise = TRUE}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() 
-```
-
-```{r, annotation-solution}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() +
-  ggrepel::geom_text_repel() +
-  scale_x_continuous(labels = scales::percent) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(x = "Winner's share of Popular Vote", 
-       y = "Winner's share of Electoral College Vote", 
-       title = "Presidental Elections: Popular and Electoral College Margins", 
-       subtitle = "1824 - 2016")
-```
-
-### Outliers
-
-Building on the following code, annotate the results of Donald Trump in 2016:
-
-```{r, trump, exercise = TRUE}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() +
-  scale_x_continuous(labels = scales::percent) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(x = "Winner's share of Popular Vote", 
-       y = "Winner's share of Electoral College Vote", 
-       title = "Presidental Elections: Popular and Electoral College Margins", 
-       subtitle = "1824 - 2016")
-```
-
-```{r, trump-solution}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() +
-  scale_x_continuous(labels = scales::percent) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(x = "Winner's share of Popular Vote", 
-       y = "Winner's share of Electoral College Vote", 
-       title = "Presidental Elections: Popular and Electoral College Margins", 
-       subtitle = "1824 - 2016") +
-  ggrepel::geom_text_repel(
-    data = filter(socviz::elections_historic, year == 2016)
-  )
-```
-
-## Part 4: Draw maps 
+## Part 3: Draw maps 
 
 ### Visualizing the US
 
