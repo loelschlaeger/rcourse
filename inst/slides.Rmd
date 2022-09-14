@@ -243,58 +243,6 @@ ggplot(data = filter(gapminder, year == 2007),
 
 We look at a variant on the basic boxplot that {ggplot2} offers in the tutorials.
 
-## Annotations
-
-We can plot text annotations to plots via `geom_text()`:
-
-```{r}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() +
-  geom_text()
-```
-
-This is hard to read. Adjusting the position is possible, but it is fuzzy and not robust. The extension {ggrepel} is designed to do this task for us:
-
-```{r}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() +
-  ggrepel::geom_text_repel()
-```
-
-We can also annotate only selected points (outliers for example) like follows:
-
-```{r}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() +
-  ggrepel::geom_text_repel(
-    data = filter(socviz::elections_historic, popular_pct < 0.5 & ec_pct > 0.5)
-  ) + 
-  geom_hline(yintercept = 0.5) +
-  geom_vline(xintercept = 0.5)
-```
-
-And finally, we can annotate anywhere almost everything we wish via `annotate()`:
-
-```{r}
-ggplot(data = socviz::elections_historic, 
-       mapping = aes(x = popular_pct,
-                     y = ec_pct,
-                     label = winner_label)) +
-  geom_point() +
-  geom_hline(yintercept = 0.5) +
-  geom_vline(xintercept = 0.5) +
-  annotate(geom = "rect", xmin = 0, xmax = 0.5, ymin = 0, ymax = 0.5, fill = "red", alpha = 0.2) +
-  annotate(geom = "text", x = 0.25, y = 0.25, label = "Some text.")
-```
 
 ## Draw Maps
 
@@ -314,3 +262,17 @@ p + coord_map(projection = "albers", lat0 = 15, lat1 = 45)
 ```
 
 Now in the tutorials, we will visualize the results of the Trump vs. Clinton election 2016 on a map of the US states.
+
+```
+
+
+
+
+
+```
+
+
+```{r}
+```
+
+
