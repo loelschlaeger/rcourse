@@ -263,11 +263,71 @@ p + coord_map(projection = "albers", lat0 = 15, lat1 = 45)
 
 Now in the tutorials, we will visualize the results of the Trump vs. Clinton election 2016 on a map of the US states.
 
+## Challenge
+
+Reproduce this plot!
+
+```{r, echo=FALSE}
+p <- ggplot(filter(gapminder, year==2007), aes(x = gdpPercap, y=lifeExp, size = pop, colour = continent,
+                           text = paste("country:", country))) +
+    geom_point(alpha = 0.7) +
+    scale_x_log10(labels = scales::dollar) +
+    guides(size="none") +
+    guides(colour=guide_legend(title="")) +
+    labs(x = "GDP per capita", y = "Life expectancy in years",
+    title = "GDP & life expectancy in 2007",
+    subtitle = "Size of the points according to population size of each country",
+    caption = "Source: Gapminder")
+p
 ```
 
+If you want to see some hints, scroll down this page.
+
+` `  
+` `  
+` `  
+` `    
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+Don't forget to install and load the packages {ggplot2} and {dplyr} and load the gapminder dataset.
 
 
 
+Hint 1:
+Use your {dplyr}-knowledge to create an extract of the gapminder dataset that only contains values from the year 2007.
+
+` `  
+` `  
+` `  
+` `  
+
+Hint 2:
+Have a look at the 3rd slide of this presentation to copy the basic syntax and remember how to modify the labels.
+
+` `  
+` `  
+` `  
+` `  
+
+Hint 3:
+You can set the size and colour of the points to depend on certain variables in the aesthetics `aes()`.
+
+` `  
+` `  
+` `  
+` `  
+
+Hint 4:
+Have a look at `?guide` to modify the legends.
 
 ```
 
