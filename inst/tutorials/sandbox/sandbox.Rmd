@@ -2,7 +2,7 @@
 title: "Tutorial"
 output: 
   learnr::tutorial:
-    allow_skip: false
+    allow_skip: true
     progressive: true
 runtime: shiny_prerendered
 description: >
