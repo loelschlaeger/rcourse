@@ -1,5 +1,5 @@
 #' Submit an issue about an R course
-#' 
+#'
 #' @param id
 #' The course id.
 #'
@@ -7,7 +7,7 @@
 #' No return value.
 #'
 #' @export
-#' 
+#'
 #' @importFrom utils browseURL
 
 issue <- function(id = getOption("rcourse_id", default = select())) {

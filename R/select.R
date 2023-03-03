@@ -1,26 +1,26 @@
 #' Select an R course id
-#' 
-#' @return 
+#'
+#' @return
 #' The course id.
-#' 
+#'
 #' @importFrom utils menu
-#' 
+#'
 #' @export
 
 select <- function() {
   id <- utils::menu(
     choice = c(
-      "Best Practices", 
+      "Best Practices",
       "Data Manipulation",
       "Data Visualization"
     ),
     graphics = FALSE,
     title = "Select a course:"
-  ) 
+  )
   if (id == 0) {
-    stop("No course selected.", call. = FALSE) 
+    stop("No course selected.", call. = FALSE)
   } else {
-    options("rcourse_id" = id) 
+    options("rcourse_id" = id)
     return(invisible(id))
   }
 }
