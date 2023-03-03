@@ -2,13 +2,16 @@
 % Please edit documentation in R/slides.R
 \name{slides}
 \alias{slides}
-\title{Slides for the \emph{how_to_ggplot2}-course}
+\title{Open the slides of an R course}
 \usage{
-slides()
+slides(id = getOption("rcourse_id", default = select()))
+}
+\arguments{
+\item{id}{The course id.}
 }
 \value{
 No return value.
 }
 \description{
-Slides for the \emph{how_to_ggplot2}-course
+Open the slides of an R course
 }

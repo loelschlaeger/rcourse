@@ -2,13 +2,16 @@
 % Please edit documentation in R/issue.R
 \name{issue}
 \alias{issue}
-\title{Submit an issue for the \emph{how_to_ggplot2}-course}
+\title{Submit an issue about an R course}
 \usage{
-issue()
+issue(id = getOption("rcourse_id", default = select()))
+}
+\arguments{
+\item{id}{The course id.}
 }
 \value{
 No return value.
 }
 \description{
-Submit an issue for the \emph{how_to_ggplot2}-course
+Submit an issue about an R course
 }

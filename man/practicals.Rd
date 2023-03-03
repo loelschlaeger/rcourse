@@ -2,13 +2,16 @@
 % Please edit documentation in R/practicals.R
 \name{practicals}
 \alias{practicals}
-\title{Tutorial for the \emph{how_to_ggplot2}-course}
+\title{Start the practicals for an R course}
 \usage{
-practicals()
+practicals(id = getOption("rcourse_id", default = select()))
+}
+\arguments{
+\item{id}{The course id.}
 }
 \value{
 No return value.
 }
 \description{
-Tutorial for the \emph{how_to_ggplot2}-course
+Start the practicals for an R course
 }

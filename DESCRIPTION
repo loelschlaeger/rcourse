@@ -1,17 +1,21 @@
-Package: howtoggplot2
-Title: A Tiny Course on {ggplot2}
+Package: rcourse
+Title: R Course Materials
 Version: 0.0.0.9000
 Authors@R: 
     person("Lennart", "Oelschl\U00E4ger", 
            email = "lennart.oelschlaeger@uni-bielefeld.de", 
            role = c("aut", "cre"))
-Description: Slides and tutorials on {gglot2} for data visualization in R.
+Description: Slides and tutorials for R courses.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Depends: 
-  R (>= 4.0.0),
+  R (>= 4.0.0)
+Imports:
+  cli,
+  dplyr,
+  tibble,
   tidyverse,
   ggplot2,
   learnr,
@@ -19,6 +23,9 @@ Depends:
   socviz,
   maps,
   mapproj,
-  ggrepel
-URL: https://github.com/loelschlaeger/howtoggplot2
-BugReports: https://github.com/loelschlaeger/howtoggplot2/issues
+  ggrepel,
+  utils
+URL: https://github.com/loelschlaeger/rcourse
+BugReports: https://github.com/loelschlaeger/rcourse/issues
+LazyData: true
+LazyDataCompression: xz

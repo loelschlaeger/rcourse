@@ -1,0 +1,365 @@
+---
+title: "Tutorial"
+output: 
+  learnr::tutorial:
+    allow_skip: true
+    progressive: true
+runtime: shiny_prerendered
+description: >
+  The practical part of the "How to {ggplot2}" course.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+election <- socviz::election
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- dplyr::left_join(us_states, election)
+```
+
+## Part 1: Our first plot
+
+### From scratch
+
+Try to reproduce our scatter plot of the `gapminder` dataset, where we put `gdpPercap` on the x- and `lifeExp` on the y-axis and added a smoothed line.
+
+```{r firstplot, exercise = TRUE}
+# Hint: ggplot(data = <?>, mapping = ?) + ? + ?
+```
+
+```{r firstplot-solution}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+### A bit too linear
+
+Per default, {ggplot2} uses a generalized additive model to derive the smoothed line, but other options exist. Try adding `method = "lm"` as an argument to `geom_smooth()` to use a linear model instead. Is the linear model adequate?
+
+```{r lm, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+```{r lm-solution}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+### Order matters
+
+Switch the order of the `geom_smooth()` and the `geom_point()` function. Does anything happen to the plot?
+
+```{r order, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_smooth(method = "lm") +
+  geom_point()
+```
+
+### Improving the scale
+
+Probably, we could improve the graphic if we transform the x-axis from a linear to a log scale. Do you remember how to do this?
+
+```{r log, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+```{r log-solution}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  scale_x_log10()
+```
+
+### Bringing color into the game
+
+There is another popular aesthetic that maps a variable to a color. Try the following and understand what happens:
+
+```{r color, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) + 
+  geom_point()
+```
+
+Say we want to ink each point green. Why does the following not work? How to fix it?
+
+```{r green, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = "green")) + 
+  geom_point()
+```
+
+```{r green-solution}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(color = "green")
+```
+
+### Too much is too much
+
+Consider the following plot. We have a smoothing line for each separate continent. This might be a bit confusing, can you change the code such that we have only one overall smoothing line but still have the points color-coded by continents?
+
+```{r one-smooth, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent, fill = continent)) + 
+  geom_point() + 
+  geom_smooth() +
+  scale_x_log10()
+```
+
+```{r one-smooth-solution}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(mapping = aes(color = continent)) + 
+  geom_smooth() +
+  scale_x_log10()
+```
+
+### Quiz time!
+
+```{r quiz1}
+quiz(
+  question("Which of the R packages listed below can we load to access the `ggplot()` function?",
+    answer("gapminder"),
+    answer("ggplot"),
+    answer("ggplot2", correct = TRUE),
+    answer("tidyverse", correct = TRUE)
+  ),
+  question("What is the `aes()` function good for? Telling {ggplot2} ...",
+    answer("what data we use."),
+    answer("what relationships we want to see.", correct = TRUE),
+    answer("the plot type we want to produce."),
+    answer("that we want to adjust the x-axis.")
+  )
+)
+```
+
+## Part 2: Facets and more geoms
+
+### Everything on the line
+
+Remember that we discussed the following code? Adjust it such that all facets are plotted in one row. You can consult `?facet_wrap` for help.
+
+```{r one-row, exercise = TRUE}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(color = "grey", aes(group = country)) +
+  geom_smooth() +
+  facet_wrap(~continent) +
+  labs(x = "Year",
+       y = "Life expectancy",
+       title = "Life expectancy over time on five continents")
+```
+
+```{r one-row-solution}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(color = "grey", aes(group = country)) +
+  geom_smooth() +
+  facet_wrap(~continent, nrow = 1) +
+  labs(x = "Year",
+       y = "Life expectancy",
+       title = "Life expectancy over time on five continents")
+```
+
+### A new data set
+
+We looked at a new data set. Glimpse at it!
+
+```{r data-overview, exercise = TRUE}
+pillar::glimpse(socviz::gss_sm)
+```
+
+### Bar plots
+
+We created a bar plot for religious preferences and I announced that we can transform the y-axis to show relative frequencies. The following does the trick. Try to remove the `group = 1` argument, is it required?
+
+```{r barplot, exercise = TRUE}
+ggplot(socviz::gss_sm,aes(x = religion)) +
+  geom_bar(aes(y = ..prop.., group = 1))
+```
+
+Let's make it colorful! But somehow, the following is not as colorful as it could be. Where is the mistake? Expert level question: The legend is redundant, because the religions are already printed on the x-axis - how to remove the legend?
+
+```{r barplot-color, exercise = TRUE}
+ggplot(socviz::gss_sm,aes(x = religion, color = religion)) +
+  geom_bar()
+```
+
+```{r barplot-color-solution}
+ggplot(socviz::gss_sm,aes(x = religion, fill = religion)) +
+  geom_bar() +
+  guides(fill = "none") # to remove the legend
+```
+
+### Histograms
+
+Executing the following code will result in a message and a warning (both not the end of the world). Try to understand their meaning.
+
+```{r, histogram, exercise = TRUE}
+ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
+  geom_histogram()
+```
+
+```{r, histogram-solution}
+# the data set includes NA's which causes the warning
+sum(is.na(socviz::gss_sm$age)) 
+
+# choosing a number of bins silences the message
+ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
+  geom_histogram(bins = 20)
+```
+
+### Density plots
+
+We used the following code to plot a density of the life expectations in the gapminder data set for the year 2007. Employ aesthetics to separate the densities by continent.
+
+```{r, density, exercise = TRUE}
+ggplot(data = filter(gapminder, year == 2007), 
+       mapping = aes(x = lifeExp)) +
+  geom_density()
+```
+
+```{r, density-solution}
+ggplot(data = filter(gapminder, year == 2007), 
+       mapping = aes(x = lifeExp, fill = continent, color = continent)) +
+  geom_density(alpha = 0.5)
+```
+
+
+### Boxplots
+
+Together we built the following boxplot. Exchange `geom_boxplot()` by `geom_violin()` to create a violin plot instead. Which one do you prefer?
+
+```{r, boxplot, exercise = TRUE}
+ggplot(data = filter(gapminder, year == 2007), 
+       mapping = aes(x = pop,
+                     y = reorder(continent, pop))) +
+  geom_boxplot() +
+  scale_x_log10() + 
+  labs(y = NULL,
+       x = "Populations in 2007")
+```
+
+```{r, boxplot-solution}
+ggplot(data = filter(gapminder, year == 2007), 
+       mapping = aes(x = pop,
+                     y = reorder(continent, pop))) +
+  geom_violin() +
+  scale_x_log10() + 
+  labs(y = NULL,
+       x = "Populations in 2007")
+```
+
+### Two questions at the end...
+
+```{r quiz2}
+quiz(
+  question("When using `geom_bar()`, {ggplot2}...",
+    answer("plots the raw data."),
+    answer("transforms the data before plotting.", correct = TRUE)
+  ),
+  question("Which of the following geoms requires a specification of the `y` mapping?",
+    answer("`geom_point()`", correct = TRUE),
+    answer("`geom_histogram()`"),
+    answer("`geom_boxplot()`"),
+    answer("`geom_density()`")
+  )
+)
+```
+
+
+## Part 3: Draw maps 
+
+### Visualizing the US
+
+The following lines visualize the United States. Colorize the states by mapping the `region` variable to `fill`. You may additionally want to suppress the legend.
+
+```{r, usmap, exercise = TRUE}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group)) +
+  geom_polygon()
+```
+
+```{r, usmap-solution}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
+  geom_polygon() +
+  guides(fill = "none")
+```
+
+### The Albers projection
+
+Use the Albers projection instead of the default Mercator projection. Remember that you must specify two latitude parameters, `lat0` and `lat1`. Play around with different values to find a good projection.
+
+```{r, projection, exercise = TRUE}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
+  geom_polygon() +
+  guides(fill = "none")
+```
+
+```{r, projection-solution}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
+  geom_polygon() +
+  guides(fill = "none") +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45)
+```
+
+### Get the voting results on the map
+
+We first merge our coordinates with the election data. Take a look at the generated object with `head(us_states_elec)`.
+
+```{r, voting_data, exercise = TRUE}
+election <- socviz::election
+election$region <- tolower(election$state)
+us_states_elec <- dplyr::left_join(us_states, election)
+```
+
+Now that all data is combined, you can plot it on the map. The following lines visualize the winner party in each state. Are you satisfied with the plot? You may want to 
+
+1. choose a different color scheme via `scale_fill_manual()`,
+2. remove the grid lines and axis labels via `theme_void()`,
+3. find a better location for the legend via `theme(legend.position = ...)`,
+4. and add a title via `labs(title = ...)`. 
+
+```{r, winner, exercise = TRUE}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45)
+```
+
+```{r, winner-solution}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Election Results 2016", fill = "")
+```
+
+### Who voted for Trump?
+
+Instead of plotting the winner, we can plot the percentage of the vote received by Trump from the `pct_trump` variable. Use `scale_fill_gradient(low = "white", high = "red")` as an alternative color gradient.
+
+```{r, perc, exercise = TRUE}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_trump)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Votes for Trump", fill = "Percent")
+```
+
+```{r, perc-solution}
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_trump)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Votes for Trump", fill = "Percent") +
+  scale_fill_gradient(low = "white", high = "red")
+```

@@ -1,0 +1,70 @@
+---
+title: "Best Practices"
+author: "Lennart Oelschl&auml;ger"
+date: 'Last rendered on `r format(Sys.Date(),"%d.%m.%Y")`'
+output: 
+  slidy_presentation:
+    smart: true
+---
+
+```{r, include = FALSE}
+Sys.setenv(LANG = "en")
+```
+  
+## Why and what 
+
+Welcome to this tiny course on best practices in R! `r emo::ji("wave")`
+
+### Why do we care?
+
+...
+
+### What is this course about?
+
+...
+
+### What do you need?
+
+Basic R skills + a not-too-old version of R (>= 4.0.0) + RStudio
+
+### At the end of the day...
+
+...
+
+### Sources
+
+...
+
+### Found mistakes? Have suggestions?
+
+I'm sure you have! Please leave a note [here](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
+
+## First topic
+
+...
+
+## Now it's your turn
+
+This course includes practicals! `r emo::ji("strong")`
+
+Executing the following lines gives you access to the course material:
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("loelschlaeger/rcourse")
+library(rcourse)
+```
+
+To start the practicals, type:
+
+```{r, eval = FALSE}
+practicals()
+```
+
+To open a copy of these slides, type:
+
+```{r, eval = FALSE}
+slides()
+```
+
+
