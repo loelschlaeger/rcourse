@@ -1,7 +1,7 @@
 This repository is a collection of materials for `R` courses at Bielefeld University. Get access via executing the following lines in `R`:
 
 ```r
-install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("loelschlaeger/rcourse")
 library(rcourse)
 ```
