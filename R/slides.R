@@ -1,5 +1,5 @@
 #' Open the slides of an R course
-#' 
+#'
 #' @param id
 #' The course id.
 #'
@@ -7,7 +7,7 @@
 #' No return value.
 #'
 #' @export
-#' 
+#'
 #' @importFrom utils browseURL
 
 slides <- function(id = getOption("rcourse_id", default = select())) {
