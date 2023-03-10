@@ -15,6 +15,7 @@ Depends:
 Imports:
   cli,
   dplyr,
+  glue,
   tibble,
   tidyverse,
   ggplot2,

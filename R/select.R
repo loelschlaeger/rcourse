@@ -4,6 +4,8 @@
 #' The course id.
 #'
 #' @importFrom utils menu
+#' @importFrom glue glue
+#' @importFrom cli cli_text
 #'
 #' @export
 
