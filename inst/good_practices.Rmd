@@ -39,26 +39,14 @@ Basic R skills + a not-too-old version of R (>= 4.0.0) + RStudio
 
 I'm sure you have! Please leave a note [here](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
 
-## First topic
+### Course material
 
-...
-
-## Now it's your turn
-
-This course includes practicals! `r emo::ji("strong")`
-
-Executing the following lines gives you access to the course material:
+Executing the following lines in R gives you access to the course material:
 
 ```{r, eval = FALSE}
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("loelschlaeger/rcourse")
-library(rcourse)
-```
-
-To start the practicals, type:
-
-```{r, eval = FALSE}
-practicals()
+library("rcourse")
 ```
 
 To open a copy of these slides, type:
@@ -67,4 +55,58 @@ To open a copy of these slides, type:
 slides()
 ```
 
+To start the practicals, type:
 
+```{r, eval = FALSE}
+practicals()
+```
+
+## Bad practices
+
+Your colleague Bob gives you his code file named `stuff.r`:
+
+```r
+# Author: me
+# Purpose: some data work
+
+# here I get our data
+data1<-"C:\Users\bob\MyDocuments\RProject\data\metrics.rds"
+data2<- "C:\Users\bob\MyDocuments\RProject\data\prices.rda"
+hannoverrückaktie="C:\Users\bob\MyDocuments\RProject\data\stocks.csv"
+
+mean <- function(x) sum(x)
+
+print(data1["symbol"])
+print(data1["period"])
+print(data1["inventory"])
+print(data1["liabilities"])
+print(mean(data1[3,]))
+
+x = bobs_function(hannoverrückaktie)
+
+bobs_function <- function(x) {}
+```
+
+## Code style
+
+- Reproducible code (seed)
+- Paths
+- consistent
+- 80 character lines
+- `<-` instead of `=`
+
+## Functions
+
+- don't repeat yourself
+- warning, error, tryCatch
+
+## Debugging
+
+- divide and conquer
+- minimal reprex
+
+## Version control
+
+## R packages
+
+## Markdown

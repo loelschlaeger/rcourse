@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Lennart Oelschläger" />
-  <title>Best Practices</title>
+  <title>Good Practices</title>
   <style type="text/css">
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -521,15 +521,15 @@ list-style-type: none;
 </head>
 <body>
 <div class="slide titlepage">
-  <h1 class="title">Best Practices</h1>
+  <h1 class="title">Good Practices</h1>
   <p class="author">
 Lennart Oelschläger
   </p>
-  <p class="date">Last rendered on 03.03.2023</p>
+  <p class="date">Last rendered on 10.03.2023</p>
 </div>
 <div id="why-and-what" class="slide section level2">
 <h1>Why and what</h1>
-<p>Welcome to this tiny course on best practices in R! 👋</p>
+<p>Welcome to this tiny course on good practices in R! 👋</p>
 <h3 id="why-do-we-care">Why do we care?</h3>
 <p>…</p>
 <h3 id="what-is-this-course-about">What is this course about?</h3>
@@ -545,22 +545,73 @@ RStudio</p>
 suggestions?</h3>
 <p>I’m sure you have! Please leave a note <a href="https://github.com/loelschlaeger/rcourse/issues/new/choose">here</a>.
 🙏</p>
-</div>
-<div id="first-topic" class="slide section level2">
-<h1>First topic</h1>
-</div>
-<div id="now-its-your-turn" class="slide section level2">
-<h1>Now it’s your turn</h1>
-<p>This course includes practicals! 💪</p>
-<p>Executing the following lines gives you access to the course
+<h3 id="course-material">Course material</h3>
+<p>Executing the following lines in R gives you access to the course
 material:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;loelschlaeger/rcourse&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcourse)</span></code></pre></div>
-<p>To start the tutorial, type:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">practicals</span>()</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rcourse&quot;</span>)</span></code></pre></div>
 <p>To open a copy of these slides, type:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slides</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slides</span>()</span></code></pre></div>
+<p>To start the practicals, type:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">practicals</span>()</span></code></pre></div>
+</div>
+<div id="bad-practices" class="slide section level2">
+<h1>Bad practices</h1>
+<p>Your colleague Bob gives you his code file named
+<code>stuff.r</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: me</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: some data work</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># here I get our data</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data1<span class="ot">&lt;-</span><span class="st">&quot;C:\Users</span><span class="sc">\b</span><span class="st">ob\MyDocuments\RProject\data\metrics.rds&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>data2<span class="ot">&lt;-</span> <span class="st">&quot;C:\Users</span><span class="sc">\b</span><span class="st">ob\MyDocuments\RProject\data\prices.rda&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>hannoverrückaktie<span class="ot">=</span><span class="st">&quot;C:\Users</span><span class="sc">\b</span><span class="st">ob\MyDocuments\RProject\data\stocks.csv&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sum</span>(x)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data1[<span class="st">&quot;symbol&quot;</span>])</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data1[<span class="st">&quot;period&quot;</span>])</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data1[<span class="st">&quot;inventory&quot;</span>])</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data1[<span class="st">&quot;liabilities&quot;</span>])</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">mean</span>(data1[<span class="dv">3</span>,]))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">bobs_function</span>(hannoverrückaktie)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>bobs_function <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {}</span></code></pre></div>
+</div>
+<div id="code-style" class="slide section level2">
+<h1>Code style</h1>
+<ul>
+<li>Reproducible code (seed)</li>
+<li>Paths</li>
+<li>consistent</li>
+<li>80 character lines</li>
+<li><code>&lt;-</code> instead of <code>=</code></li>
+</ul>
+</div>
+<div id="functions" class="slide section level2">
+<h1>Functions</h1>
+<ul>
+<li>don’t repeat yourself</li>
+<li>warning, error, tryCatch</li>
+</ul>
+</div>
+<div id="debugging" class="slide section level2">
+<h1>Debugging</h1>
+<ul>
+<li>divide and conquer</li>
+<li>minimal reprex</li>
+</ul>
+</div>
+<div id="version-control" class="slide section level2">
+<h1>Version control</h1>
+</div>
+<div id="r-packages" class="slide section level2">
+<h1>R packages</h1>
+</div>
+<div id="markdown" class="slide section level2">
+<h1>Markdown</h1>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
