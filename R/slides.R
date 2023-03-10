@@ -13,7 +13,7 @@
 slides <- function(id = getOption("rcourse_id", default = select())) {
   if (isTRUE(all.equal(id, 1))) {
     utils::browseURL(
-      system.file("best_practices.html", package = "rcourse")
+      system.file("good_practices.html", package = "rcourse")
     )
   } else if (isTRUE(all.equal(id, 2))) {
     utils::browseURL(

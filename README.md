@@ -10,7 +10,7 @@ Current topics are:
 
 |                         | Description                                            | `id`                 | 
 |:------------------------|:-------------------------------------------------------|:---------------------|
-| **Best Practices**      | What are good coding practices to follow?              | `1`                  |
+| **Good Practices**      | What are good practices in R to follow?                | `1`                  |
 | **Data Manipulation**   | How to apply the {dplyr} package for data preparation? | `2`                  |
 | **Data Visualization**  | How to visualize data with the {ggplot2} package?      | `3`                  |
 

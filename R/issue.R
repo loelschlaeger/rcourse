@@ -13,7 +13,7 @@
 issue <- function(id = getOption("rcourse_id", default = select())) {
   if (isTRUE(all.equal(id, 1))) {
     utils::browseURL(
-      "https://github.com/loelschlaeger/rcourse/issues/new?labels=best%20practices&template=mistake.md"
+      "https://github.com/loelschlaeger/rcourse/issues/new?labels=good%20practices&template=mistake.md"
     )
   } else if (isTRUE(all.equal(id, 2))) {
     utils::browseURL(

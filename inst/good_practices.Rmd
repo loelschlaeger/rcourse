@@ -1,5 +1,5 @@
 ---
-title: "Best Practices"
+title: "Good Practices"
 author: "Lennart Oelschl&auml;ger"
 date: 'Last rendered on `r format(Sys.Date(),"%d.%m.%Y")`'
 output: 
@@ -13,7 +13,7 @@ Sys.setenv(LANG = "en")
   
 ## Why and what 
 
-Welcome to this tiny course on best practices in R! `r emo::ji("wave")`
+Welcome to this tiny course on good practices in R! `r emo::ji("wave")`
 
 ### Why do we care?
 

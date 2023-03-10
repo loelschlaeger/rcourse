@@ -10,7 +10,7 @@
 select <- function() {
   id <- utils::menu(
     choice = c(
-      "Best Practices",
+      "Good Practices",
       "Data Manipulation",
       "Data Visualization"
     ),

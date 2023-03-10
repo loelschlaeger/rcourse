@@ -13,7 +13,7 @@
 practicals <- function(id = getOption("rcourse_id", default = select())) {
   if (isTRUE(all.equal(id, 1))) {
     learnr::run_tutorial(
-      "best_practices",
+      "good_practices",
       package = "rcourse"
     )
   } else if (isTRUE(all.equal(id, 2))) {
