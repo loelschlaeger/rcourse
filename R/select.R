@@ -8,12 +8,13 @@
 #' @export
 
 select <- function() {
+  choice <- c(
+    "Good Practices",
+    "Data Manipulation",
+    "Data Visualization"
+  )
   id <- utils::menu(
-    choice = c(
-      "Good Practices",
-      "Data Manipulation",
-      "Data Visualization"
-    ),
+    choice = choice,
     graphics = FALSE,
     title = "Select a course:"
   )
@@ -21,6 +22,11 @@ select <- function() {
     stop("No course selected.", call. = FALSE)
   } else {
     options("rcourse_id" = id)
+    glue::glue(
+      cli::cli_text("You selected {.var {choice[id]}}. Now:"),
+      cli::cli_text("Run {.run rcourse::slides()} to open the slides."),
+      cli::cli_text("Run {.run rcourse::practicals()} to start the praticals.")
+    )
     return(invisible(id))
   }
 }
