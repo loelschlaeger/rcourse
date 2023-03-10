@@ -26,7 +26,8 @@ jobs:
           install.packages(c("remotes","rmarkdown","tidyverse","gapminder",
                              "socviz","maps","ggrepel","mapproj", "gganimate",
                              "plotly", "gifski"))
-          remotes::install_github("hadley/emo")
+          remotes::install_github("hadley/emo", upgrade = "never")
+          remotes::install_github("loelschlaeger/rcourse", upgrade = "never")
         shell: Rscript {0}
       
       - name: Render slides
