@@ -26,6 +26,9 @@ Imports:
   mapproj,
   ggrepel,
   utils
+Suggests:
+  devtools,
+  yaml
 URL: https://github.com/loelschlaeger/rcourse
 BugReports: https://github.com/loelschlaeger/rcourse/issues
 LazyData: true
