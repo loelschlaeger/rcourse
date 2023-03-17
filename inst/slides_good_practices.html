@@ -529,7 +529,7 @@ Lennart Oelschläger
 <h3 id="what-is-this-course-about">What is this course about?</h3>
 <p>…</p>
 <h3 id="what-do-you-need">What do you need?</h3>
-<p>Basic R skills + a not-too-old version of R (&gt;= 4.0.0) +
+<p>Basic R skills + a not-too-old version of R (&gt;= 2.10) +
 RStudio</p>
 <h3 id="at-the-end-of-the-day">At the end of the day…</h3>
 <p>…</p>
@@ -543,15 +543,15 @@ suggestions?</h3>
 <p>Executing the following lines in R gives you access to the course
 material:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;loelschlaeger/rcourse&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;loelschlaeger/rcourse&quot;</span>, <span class="at">upgrade =</span> <span class="st">&quot;never&quot;</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rcourse&quot;</span>)</span></code></pre></div>
 <p>To open a copy of these slides, type:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slides</span>()</span></code></pre></div>
 <p>To start the practicals, type:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">practicals</span>()</span></code></pre></div>
 </div>
-<div id="bad-practices" class="slide section level2">
-<h1>Bad practices</h1>
+<div id="code-formatting" class="slide section level2">
+<h1>Code formatting</h1>
 <p>Your colleague Bob hands you a code file named <code>stuff.r</code>
 and expresses his desire to collaborate with you on his new project.
 Without any time for explanations, he simply requests, “please check out
@@ -560,7 +560,7 @@ my code, we can discuss it later.” 👦</p>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: finance data work</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># here I get our data</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>prices<span class="ot">=</span><span class="st">&quot;C:\Users</span><span class="sc">\b</span><span class="st">ob\MyDocuments\RProject\data\stocks.csv&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>prices<span class="ot">=</span><span class="fu">read.csv</span>(<span class="st">&quot;C:\Users</span><span class="sc">\b</span><span class="st">ob\MyDocuments\RProject\data\stocks.csv&quot;</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>bC6rsenaktienpreisevonmcdonalds <span class="ot">&lt;-</span> prices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(symbol <span class="sc">==</span> <span class="st">&quot;MCD&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="st">&quot;open&quot;</span> <span class="ot">=</span> <span class="fu">lag</span>(close))</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">### Calculate Returns</span></span>
@@ -587,11 +587,8 @@ my code, we can discuss it later.” 👦</p>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(bC6rsenaktienpreisevonmcdonalds, <span class="st">&#39;output.csv&#39;</span>)</span></code></pre></div>
 <p>What are the things you like / dislike about Bob’s code? 👍 👎</p>
 </div>
-<div id="code-formatting" class="slide section level2">
-<h1>Code formatting</h1>
-</div>
-<div id="functions" class="slide section level2">
-<h1>Functions</h1>
+<div id="functions-and-exception-handling" class="slide section level2">
+<h1>Functions and exception handling</h1>
 <ul>
 <li>don’t repeat yourself</li>
 <li>warning, error, tryCatch</li>
@@ -601,50 +598,48 @@ my code, we can discuss it later.” 👦</p>
 <h1>Debugging</h1>
 <ul>
 <li>divide and conquer</li>
-<li>minimal reprex</li>
+<li>Getting help: minimal reprex, Stack Overflow</li>
 </ul>
 </div>
 <div id="version-control-and-collaboration" class="slide section level2">
 <h1>Version control and collaboration</h1>
 </div>
-<div id="r-packages" class="slide section level2">
-<h1>R packages</h1>
-</div>
-<div id="summary-of-good-practices" class="slide section level2">
-<h1>Summary of good practices</h1>
+<div id="overview-of-good-practices-in-r" class="slide section level2">
+<h1>Overview of good practices in R</h1>
 <p>Following good coding practices helps to maintain consistency,
-readability, and understandability of the code. In the R programming
-language, adhering to a consistent code style is particularly important
-due to the language’s flexibility and wide use in data analysis and
-visualization.</p>
+readability, and intelligibility of the code. In R, adhering to a
+consistent code style is particularly important due to the language’s
+flexibility and wide use in data analysis and visualization.</p>
 <ul>
-<li><p>Naming: Use meaningful and descriptive names for variables,
-functions, and data objects. In R, it is common to use
-<code>lower_case_with_underscores</code>,
-<code>period.separated.names</code>, or <code>camelCase</code>.</p></li>
-<li><p>Indentation: Use consistent indentation to clearly delineate code
-blocks and improve readability.</p></li>
-<li><p>Spacing: Use spaces around operators, after commas, and between
-arguments in functions to make the code more readable.</p></li>
+<li><p><strong>Naming:</strong> Treat variable, function, and data
+object names like a secret handshake between you and your future self.
+Make them meaningful and descriptive, so when you look back at your
+code, you’ll both know exactly what’s going on without needing a decoder
+ring.</p></li>
+<li><p>Indentation: Use consistent indentation to improve code
+readability.</p></li>
+<li><p><strong>Spacing:</strong> Treat spaces in your code like breaths
+in a conversation - place them around operators, after commas, and
+between function arguments to give your code room to speak clearly,
+ensuring its story is easily understood by anyone who reads it.</p></li>
+<li><p>Line length limit: Shorter lines are easier to read and
+understand, as they require less horizontal scanning by the reader. Long
+lines can be difficult to follow, increasing the cognitive load and the
+risk of misinterpretation. 80 character lines are recommended.</p></li>
 <li><p>Commenting: Include comments to explain the purpose of code
 blocks, functions, and complex calculations. This helps other
 programmers and your future self understand the code more
 easily.</p></li>
 <li><p>Assignments: R allows both <code>&lt;-</code> and <code>=</code>
 for assignment, but it’s generally recommended to use <code>&lt;-</code>
-for assignment and <code>=</code> for passing arguments in functions.
-Consistency helps avoid confusion and errors.</p></li>
+for assignment and <code>=</code> for passing arguments in
+functions.</p></li>
 <li><p>Organizing code: Organize your code into logical sections or
 functions, separating data preparation, analysis, and visualization.
 This makes your code easier to understand, maintain, and debug.</p></li>
 <li><p>Following a style guide: To maintain consistency across projects
-and teams, it’s helpful to follow a style guide. The Google R Style
-Guide and the tidyverse style guide are popular choices in the R
-community.</p></li>
-<li><p>Use of libraries: When using third-party libraries, follow the
-conventions and style used by those libraries. This will make your code
-more consistent and easier to understand for others who are familiar
-with those libraries.</p></li>
+and teams, it’s helpful to follow a style guide. The tidyverse style
+guide is a popular choice in the R community.</p></li>
 <li><p>Version control: Use version control tools like Git to track
 changes and collaborate with others, allowing you to easily revert to
 previous versions of your code if needed.</p></li>
@@ -655,13 +650,19 @@ fields. In R, you can simply use <code>set.seed()</code>.</p></li>
 <li><p>Paths: Use relative but never absolute paths for file inputs and
 outputs to ensure that the code can be run on different systems without
 modification.</p></li>
+</ul>
+<h3 id="outlook">Outlook</h3>
+<ul>
 <li><p>Presentation of results: Consider RMarkdown to create dynamic
 documents that combine code, results, and narrative, making it easier
 for others to understand and reproduce your work.</p></li>
-<li><p>Line length limit: Shorter lines are easier to read and
-understand, as they require less horizontal scanning by the reader. Long
-lines can be difficult to follow, increasing the cognitive load and the
-risk of misinterpretation. 80 character lines are recommended.</p></li>
+<li><p>Use the tidyverse: Using the tidyverse is like having a skilled
+personal assistant for R data scientists: it takes the drudgery out of
+data manipulation and visualization tasks, leaving you with more time to
+enjoy a hot cup of coffee and plot world domination through data
+analysis! Two of the most popular packages from the tidyverse ecosystem
+are {ggplot2} for data visualization and {dplyr} for data
+manipulation.</p></li>
 </ul>
 </div>
 
