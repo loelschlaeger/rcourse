@@ -21,25 +21,22 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
       
-      - name: Install dependenciess
+      - name: Install package
         run: |
-          install.packages(c("remotes","rmarkdown","tidyverse","gapminder",
-                             "socviz","maps","ggrepel","mapproj", "gganimate",
-                             "plotly", "gifski"))
-          remotes::install_github("hadley/emo", upgrade = "never")
           remotes::install_github("loelschlaeger/rcourse", upgrade = "never")
         shell: Rscript {0}
       
       - name: Render slides
         run: | 
-          rmarkdown::render("inst/data_manipulation.Rmd")
-          rmarkdown::render("inst/data_visualization.Rmd")
+          rmarkdown::render("inst/slides_data_manipulation.Rmd")
+          rmarkdown::render("inst/slides_data_visualization.Rmd")
+          rmarkdown::render("inst/slides_good_practices.Rmd")
         shell: Rscript {0}
       
       - name: Commit results
         run: |
           git config --local user.email "oelschlaeger.lennart@gmail.com"
           git config --local user.name "Lennart Oelschlaeger"
-          git add 'inst/*.html'
-          git commit -m 'Rendered slides :construction_worker:'
+          git add "inst/*"
+          git commit -m "Rendered slides :construction_worker:"
           git push origin 

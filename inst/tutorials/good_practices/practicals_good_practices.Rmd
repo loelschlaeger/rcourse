@@ -1,0 +1,140 @@
+---
+title: "Tutorial"
+output: 
+  learnr::tutorial:
+    allow_skip: true
+    progressive: true
+runtime: shiny_prerendered
+description: >
+  The practical part of the good practices in R course.
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("rcourse")
+packages_required <- c("learnr")
+install_if_missing(packages_required)
+tutorial_options(
+  exercise.completion = FALSE,
+  exercise.diagnostics = FALSE
+)
+```
+
+## Part 1: Code formatting
+
+### Code style
+
+You can modify and expand the code snippet below as needed. Run the code by clicking on `Run Code`. Reset your work via `Start Over`. Sometimes, there are `Hints`. Find your exercises below. When you finished your exercises, click `Continue`.
+
+```{r code_style, exercise = TRUE}
+a<-10
+b<-5
+c<-2
+d<-a*b+c
+if(d>0){
+msg<-"Positive"
+}else if(d<0){
+msg<-"Negative"
+}else{
+msg<-"Zero"
+}
+print(msg)
+```
+
+```{r code_style-hint-1}
+# You don't really need a hint for this exercise, do you?
+```
+
+1. Please execute the code and understand what it does.
+2. Then improve the code style by focusing on variable naming, spacing, indentation, and commenting.
+
+### Line length
+
+```{r fix, exercise = TRUE}
+example_function <- function(x,y,z){result <- x * y + z; if(result > 0){return("Positive")}else if(result < 0){return("Negative")}else{return("Zero")}}
+example_function(1,1,1)
+```
+
+1. What is similar in this code to the previous code? Where are differences?
+2. Again find and fix issues related to inconsistent indentation and excessive line length in the following R code.
+3. Now find inputs such that the output of `example_function()` is `"Negative"`.
+
+### The tidyverse style guide
+
+The tidyverse is like a Swiss Army knife for R data scientists - a nifty collection of packages that turns messy data into a neat and tidy playground for exploration and visualization! It provides a style guide, which is a set of coding conventions and best practices for writing consistent, readable, and maintainable R code. It covers topics like syntax, naming conventions, indentation, and white space usage, promoting a unified coding style across projects. You can find it here: https://style.tidyverse.org/index.html
+
+1. Please read the chapters "Files", "Syntax", and "Functions". The other chapters are also interesting, but more advanced.
+2. Afterwards, answer the following questions.
+
+```{r quiz1}
+quiz(
+  question("What are (according to the tidyverse style guide) good variable names?",
+    answer("`day_one`", correct = TRUE),
+    answer("`day_1`", correct = TRUE),
+    answer("`DayOne`"),
+    answer("`dayone`"),
+    answer("`first_day_of_the_month`"),
+    answer("`djm1`"),
+    answer("`mean`"),
+    answer("`T`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How to assign values to variables?",
+    answer("`x <- 5`", correct = TRUE),
+    answer("`x = 5`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How to put spaces around commas?",
+    answer("`x[, 1]`", correct = TRUE),
+    answer("`x[,1]`"),
+    answer("`x[ ,1]`"),
+    answer("`x[ , 1]`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How to put spaces around parantheses?",
+    answer("`mean(x, na.rm = TRUE)`", correct = TRUE),
+    answer("`mean (x, na.rm = TRUE)`"),
+    answer("`mean( x, na.rm = TRUE )`"),
+    answer("`if (debug) { }`", correct = TRUE),
+    answer("`function (x) {}`"),
+    answer("`function(x) {}`", correct = TRUE),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How to put spaces around infix operators?",
+    answer("`height <- (feet * 12) + inches`", correct = TRUE),
+    answer("`mean(x, na.rm=TRUE)`"),
+    answer("`x <- 1 : 10`"),
+    answer("`? mean`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What are good file names for R code?",
+    answer("`fit_models.R`", correct = TRUE),
+    answer("`utility_functions.R`", correct = TRUE),
+    answer("`fit models.R`"),
+    answer("`stuff.r`"),
+    answer("`Datenanalyse.r`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("In code, use comments to explain the ...?",
+    answer("\"why\".", correct = TRUE),
+    answer("\"what\"."),
+    answer("\"how\"."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("Where should you load add-on packages for your R script?",
+    answer("Load them all at once at the very beginning of the file.", correct = TRUE),
+    answer("Use `library()` calls at the first place in the code where the package is used."),
+    answer("Use a startup file such as `.Rprofile`."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+)
+```
+

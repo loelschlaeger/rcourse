@@ -1,0 +1,375 @@
+---
+title: "Data Visualization"
+author: 
+- "Carlina Feldmann"
+- "Lennart Oelschl&auml;ger"
+date: "Version of `r format(Sys.Date(),'%d.%m.%Y')`"
+output: 
+  slidy_presentation:
+    smart: true
+    highlight: rstudio
+---
+  
+```{r, include = FALSE}
+Sys.setenv(LANG = "en")
+```  
+  
+## Why and what 
+
+Welcome to this tiny course on data visualization in R with [{ggplot2}](https://ggplot2.tidyverse.org/)! `r emo::ji("wave")`
+
+### Why do we care?
+
+Potentially, plots can [beautifully inform](https://en.wikipedia.org/wiki/Charles_Joseph_Minard#The_map_of_Napoleon's_Russian_campaign) or [horribly mislead](https://en.wikipedia.org/wiki/Misleading_graph#Truncated_graph). [Colors](https://michaelbach.de/ot) and [shape](http://vis.stanford.edu/files/2010-MTurk-CHI.pdf) matter! `r emo::ji("balance_scale")`
+
+### Why {ggplot2}?
+
+The {ggplot2} package implements a *grammar of graphics*, a series of distinct tasks to make a graphic.
+
+### What is this course about?
+
+Being in decent control of {ggplot2} to produce meaningful plots. 
+
+### What do you need?
+
+Basic R skills + a not-too-old version of R (>= 4.0.0) + RStudio
+
+### At the end of the day...
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(socviz)
+library(maps)
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- dplyr::left_join(us_states, election)
+ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
+  geom_polygon(color = "grey", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_void() +
+  theme(legend.position = "bottom", 
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "State Winner in 2016", fill = "")
+```
+
+### Sources
+
+- Healy (2019): [Data Visualization: A practical introduction](https://socviz.co/)
+- Wickham (2016): [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/)
+- Wilkinson (2005): The Grammar of Graphics
+- [Tufte](https://en.wikipedia.org/wiki/Edward_Tufte) (1983): The Visual Display of Quantitative Information
+
+### Found mistakes? Have suggestions?
+
+I'm sure you have! Please leave a note [here](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
+
+## Our first plot
+
+First we get {ggplot2}.
+
+```{r}
+# install.packages(ggplot2)
+library(ggplot2)
+```
+
+Next we need data, let's go with an excerpt from the famous [Gapminder dataset](https://www.gapminder.org/tools):
+
+```{r, warning=FALSE}
+# install.packages(gapminder)
+library(gapminder)
+head(gapminder)
+str(gapminder)
+```
+
+First, we tell the `ggplot()` function what data we use and what variables we wish to see on each axis:
+
+```{r}
+ggplot(
+  data = gapminder, 
+  mapping = aes(x = gdpPercap, y = lifeExp)
+) 
+```
+
+Something is missing ... `r emo::ji("thinking")` We need an additional layer, a `geom_*` function!
+
+```{r}
+ggplot(
+  data = gapminder, 
+  mapping = aes(x = gdpPercap, y = lifeExp)
+) +
+  geom_point()
+```
+
+There are more of them which we can simply add (literally add!):
+
+```{r, message=FALSE}
+p <- ggplot(
+  data = gapminder, 
+  mapping = aes(x = gdpPercap, y = lifeExp)
+)
+p <- p + geom_point() + geom_smooth()
+p
+```
+
+As a last polishing step for now, we improve the x-axis scale and the plot labels.
+
+```{r, message=FALSE}
+p + scale_x_log10(labels = scales::dollar) +
+  labs(x = "GDP per capita",
+       y = "Life expectancy in years",
+       title = "Economic growth as an indicator for life expectancy",
+       subtitle = "Data points are country-years",
+       caption = "Source: Gapminder")
+```
+
+Finally, we can use the `ggsave()` function to save our plot:
+
+```{r, eval = FALSE}
+ggsave("some_descriptive_name.pdf")
+```
+
+### Summary of the {ggplot2} workflow
+
+1. Call `ggplot()`
+2. Set `data = ...`
+3. Set `mapping = aes(...)`
+4. Add one (or more) `geom_*()` functions
+5. Adjust the scale and labels
+
+## Now it's your turn
+
+This course includes practicals! `r emo::ji("strong")`
+
+Executing the following lines gives you access to the course material:
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("loelschlaeger/rcourse")
+library(rcourse)
+```
+
+To start the practicals, type:
+
+```{r, eval = FALSE}
+practicals()
+```
+
+To open a copy of these slides, type:
+
+```{r, eval = FALSE}
+slides()
+```
+
+## Facets and more geoms
+
+Our goal is to plot the trajectory of life expectancy over time for each country in the gapminder data. 
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line()
+```
+
+This look odd, we forgot to group by country! `r emo::ji("light_bulb")`
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(aes(group = country))
+```
+
+But can you make sense of this mess? Luckily, we can additionally group by continents:
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(aes(group = country)) +
+  facet_wrap(~continent)
+```
+
+Better don't `facet_wrap(~country)`... `r emo::ji("stop_sign")` Let's polish our plot with the things we already learned:
+
+```{r, message = FALSE}
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) +
+  geom_line(color = "grey", aes(group = country)) +
+  geom_smooth() +
+  facet_wrap(~continent) +
+  labs(x = "Year",
+       y = "Life expectancy",
+       title = "Life expectancy over time on five continents")
+```
+
+Notice that we supplied a formula to `facet_wrap`. This can be more advanced, for example (with `facet_grid`):
+
+```{r, message = FALSE, warning = FALSE}
+ggplot(data = socviz::gss_sm, mapping = aes(x = age, y = childs)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth() +
+  facet_grid(sex ~ race) +
+  labs(x = "Age",
+       y = "No. of children",
+       title = "Relationship between age and number of children",
+       subtitle = "Separated by sex (in rows) and race (in columns)")
+```
+
+As a last input for this part, we learn four new geoms:
+
+### Bar plots
+
+```{r}
+ggplot(data = socviz::gss_sm, mapping = aes(x = religion)) +
+  geom_bar()
+```
+
+Using relative instead of absolute counts on the y-axis is covered in the tutorials.
+
+### Histograms
+
+```{r, warning=TRUE, message=TRUE}
+ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
+  geom_histogram()
+```
+
+There is a message and a warning. We will adress both in the practicals.
+
+### Density plots
+
+```{r, warning=FALSE}
+library(dplyr)
+ggplot(data = filter(gapminder, year == 2007), 
+       mapping = aes(x = lifeExp)) +
+  geom_density()
+```
+
+### Boxplots
+
+```{r}
+ggplot(data = filter(gapminder, year == 2007), 
+       mapping = aes(x = pop,
+                     y = reorder(continent, pop))) +
+  geom_boxplot() +
+  scale_x_log10() + 
+  labs(y = NULL,
+       x = "Populations in 2007")
+```
+
+We look at a variant on the basic boxplot that {ggplot2} offers in the tutorials.
+
+
+## Draw Maps
+
+R can work with geographical data, and {ggplot2} can produce [choropleth maps](https://en.wikipedia.org/wiki/Choropleth_map).
+
+```{r}
+world <- map_data("world")
+p <- ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", color = "black")
+plot(p)
+```
+
+Instead of the default [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection), we can use the [Albers projection](https://en.wikipedia.org/wiki/Albers_projection):
+
+```{r}
+p + coord_map(projection = "albers", lat0 = 15, lat1 = 45)
+```
+
+Now in the tutorials, we will visualize the results of the Trump vs. Clinton election 2016 on a map of the US states.
+
+## Challenge
+
+Reproduce this plot! `r emo::ji("sunglasses")`
+
+```{r, echo = FALSE}
+ggplot(
+  filter(gapminder, year == 2007), 
+  aes(x = gdpPercap, y=lifeExp, size = pop, colour = continent, text = paste("country:", country))
+) +
+  geom_point(alpha = 0.7) +
+  scale_x_log10(labels = scales::dollar) +
+  guides(size="none") +
+  guides(colour=guide_legend(title="")) +
+  labs(
+    x = "GDP per capita", y = "Life expectancy in years",
+    title = "GDP & life expectancy in 2007",
+    subtitle = "Size of the points according to population size of each country",
+    caption = "Source: Gapminder"
+  )
+```
+
+Don't forget to install and load the packages {ggplot2} and {dplyr} and load the gapminder dataset. If you want to see some hints, scroll down this page.
+
+` `  
+` `  
+` `  
+` `    
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+` `  
+
+Hint 1:
+Use your {dplyr} knowledge to create an extract of the gapminder dataset that only contains values from 2007.
+
+` `  
+` `  
+` `  
+` `  
+
+Hint 2:
+Have a look at the 3rd slide of this presentation to copy the basic syntax and remember how to modify the labels.
+
+` `  
+` `  
+` `  
+` `  
+
+Hint 3:
+You can set the size and colour of the points to depend on certain variables in the aesthetics `aes()`.
+
+` `  
+` `  
+` `  
+` `  
+
+Hint 4:
+Have a look at `?guide` to modify the legends.
+
+## Animations
+
+{ggplot2} itself does not allow for interactive or animated visualizations. However, there are (of course) packages to achieve this, e.g. {plotly}, {gganimate}, {shiny}.
+
+```{r, fig.dim=c(16,9)}
+plot <- ggplot(gapminder, aes(x = gdpPercap, y=lifeExp, size = pop, colour = continent)) +
+    geom_point(alpha = 0.7) +
+    scale_x_log10(labels = scales::dollar) +
+    guides(size="none") +
+    guides(colour=guide_legend(title="")) +
+    labs(
+      x = "GDP per capita", 
+      y = "Life expectancy in years",
+      title = "Economic growth as an indicator for life expectancy",
+      caption = "Source: Gapminder"
+    )
+```
+
+```{r, message = FALSE, warning = FALSE}
+library(plotly)
+ggplotly(plot)
+```
+
+```{r, warning = FALSE}
+library(gganimate)
+library(gifski)
+```
+
+```{r, out.width="50%", out.height="50%"}
+plot + transition_time(year) +
+  labs(title = "Year: {frame_time}")
+```
+
+

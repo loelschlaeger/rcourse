@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.2",
+    "Version": "4.2.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -970,10 +970,10 @@
     },
     "learnr": {
       "Package": "learnr",
-      "Version": "0.11.2",
+      "Version": "0.11.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "8514ddb0495f0061cbff3379c3ccb6d9",
+      "Hash": "eb611c8535c23f4a8c519e1625f45b18",
       "Requirements": [
         "checkmate",
         "curl",
@@ -1450,10 +1450,10 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.5",
+      "Version": "0.17.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6a38294e7d12f5d8e656b08c5bd8ae34",
+      "Hash": "7a319d4e5743230d48bfd9ad42d02c2e",
       "Requirements": []
     },
     "reprex": {
