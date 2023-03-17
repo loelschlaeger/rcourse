@@ -4,10 +4,16 @@
 \alias{practicals}
 \title{Start the practicals for an R course}
 \usage{
-practicals(id = getOption("rcourse_id", default = select()))
+practicals(
+  id = getOption("rcourse_id", default = select()),
+  as_rstudio_job = FALSE,
+  launch.browser = TRUE
+)
 }
 \arguments{
 \item{id}{The course id.}
+
+\item{as_rstudio_job, launch.browser}{Passed to \code{\link[learnr]{run_tutorial}}.}
 }
 \value{
 No return value.
