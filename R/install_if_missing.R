@@ -2,9 +2,9 @@
 #'
 #' @param package_names
 #' A vector of package names.
-#' 
+#'
 #' @importFrom utils install.packages
-#' 
+#'
 #' @export
 #'
 #' @return

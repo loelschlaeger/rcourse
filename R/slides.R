@@ -24,6 +24,6 @@ slides <- function(id = getOption("rcourse_id", default = select())) {
       system.file("slides_data_visualization.html", package = "rcourse")
     )
   } else {
-    stop("No course selected.", call. = FALSE) 
+    stop("No course selected.", call. = FALSE)
   }
 }

@@ -27,6 +27,6 @@ practicals <- function(id = getOption("rcourse_id", default = select())) {
       package = "rcourse"
     )
   } else {
-    stop("No course selected.", call. = FALSE) 
+    stop("No course selected.", call. = FALSE)
   }
 }
