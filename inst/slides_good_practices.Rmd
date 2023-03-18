@@ -100,9 +100,63 @@ write.csv(bC6rsenaktienpreisevonmcdonalds, 'output.csv')
 
 What are the things you like / dislike about Bob's code? `r emo::ji("thumbsup")` `r emo::ji("thumbsdown")`
 
-## Functions and exception handling
+## Functions
 
-- don't repeat yourself
+Suppose you have a dataset of sales transactions, and you want to calculate the total sales, the total number of transactions, and the average sales amount for each day. `r emo::ji("man_office_worker")` `r emo::ji("woman_office_worker")`
+
+```r
+# Sample data frame
+sales_data <- data.frame(
+  date = as.Date(c("2023-01-01", "2023-01-01", "2023-01-02", "2023-01-02", "2023-01-03")),
+  amount = c(50, 30, 40, 20, 60)
+)
+
+# Day 1
+day1_data <- subset(sales_data, date == "2023-01-01")
+total_sales_day1 <- sum(day1_data$amount)
+transaction_count_day1 <- nrow(day1_data)
+average_sales_day1 <- total_sales_day1 / transaction_count_day1
+
+# Day 2
+day2_data <- subset(sales_data, date == "2023-01-02")
+total_sales_day2 <- sum(day2_data$amount)
+transaction_count_day2 <- nrow(day2_data)
+average_sales_day2 <- total_sales_day2 / transaction_count_day2
+
+# Day 3
+day3_data <- subset(sales_data, date == "2023-01-03")
+total_sales_day3 <- sum(day3_data$amount)
+transaction_count_day3 <- nrow(day3_data)
+average_sales_day3 <- total_sales_day3 / transaction_count_day3
+```
+
+Instead of writing repetitive code, you can use a function:
+
+```r
+# Function to calculate sales metrics
+calculate_sales_metrics <- function(data, date) {
+  day_data <- subset(data, date == as.Date(date))
+  total_sales <- sum(day_data$amount)
+  transaction_count <- nrow(day_data)
+  average_sales <- total_sales / transaction_count
+  metrics <- list(
+    total_sales = total_sales, 
+    transaction_count = transaction_count, 
+    average_sales = average_sales
+  )
+  return(metrics)
+}
+
+# Calculate sales metrics for each day
+sales_metrics_day1 <- calculate_sales_metrics(sales_data, "2023-01-01")
+sales_metrics_day2 <- calculate_sales_metrics(sales_data, "2023-01-02")
+sales_metrics_day3 <- calculate_sales_metrics(sales_data, "2023-01-03")
+```
+
+By using a function, you can **avoid code duplication** and make your code more **maintainable** and **scalable**.
+
+## Exceptions
+
 - warning, error, tryCatch
 
 ## Debugging

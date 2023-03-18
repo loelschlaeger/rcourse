@@ -519,7 +519,7 @@ list-style-type: none;
   <p class="author">
 Lennart Oelschläger
   </p>
-  <p class="date">Version of 17.03.2023</p>
+  <p class="date">Version of 18.03.2023</p>
 </div>
 <div id="why-and-what" class="slide section level2">
 <h1>Why and what</h1>
@@ -587,10 +587,60 @@ my code, we can discuss it later.” 👦</p>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(bC6rsenaktienpreisevonmcdonalds, <span class="st">&#39;output.csv&#39;</span>)</span></code></pre></div>
 <p>What are the things you like / dislike about Bob’s code? 👍 👎</p>
 </div>
-<div id="functions-and-exception-handling" class="slide section level2">
-<h1>Functions and exception handling</h1>
+<div id="functions" class="slide section level2">
+<h1>Functions</h1>
+<p>Suppose you have a dataset of sales transactions, and you want to
+calculate the total sales, the total number of transactions, and the
+average sales amount for each day. 👨‍💼 👩‍💼</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data frame</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sales_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;2023-01-01&quot;</span>, <span class="st">&quot;2023-01-01&quot;</span>, <span class="st">&quot;2023-01-02&quot;</span>, <span class="st">&quot;2023-01-02&quot;</span>, <span class="st">&quot;2023-01-03&quot;</span>)),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">amount =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">20</span>, <span class="dv">60</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Day 1</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>day1_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(sales_data, date <span class="sc">==</span> <span class="st">&quot;2023-01-01&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>total_sales_day1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(day1_data<span class="sc">$</span>amount)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>transaction_count_day1 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(day1_data)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>average_sales_day1 <span class="ot">&lt;-</span> total_sales_day1 <span class="sc">/</span> transaction_count_day1</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Day 2</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>day2_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(sales_data, date <span class="sc">==</span> <span class="st">&quot;2023-01-02&quot;</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>total_sales_day2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(day2_data<span class="sc">$</span>amount)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>transaction_count_day2 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(day2_data)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>average_sales_day2 <span class="ot">&lt;-</span> total_sales_day2 <span class="sc">/</span> transaction_count_day2</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Day 3</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>day3_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(sales_data, date <span class="sc">==</span> <span class="st">&quot;2023-01-03&quot;</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>total_sales_day3 <span class="ot">&lt;-</span> <span class="fu">sum</span>(day3_data<span class="sc">$</span>amount)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>transaction_count_day3 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(day3_data)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>average_sales_day3 <span class="ot">&lt;-</span> total_sales_day3 <span class="sc">/</span> transaction_count_day3</span></code></pre></div>
+<p>Instead of writing repetitive code, you can use a function:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to calculate sales metrics</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>calculate_sales_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(data, date) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  day_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, date <span class="sc">==</span> <span class="fu">as.Date</span>(date))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  total_sales <span class="ot">&lt;-</span> <span class="fu">sum</span>(day_data<span class="sc">$</span>amount)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  transaction_count <span class="ot">&lt;-</span> <span class="fu">nrow</span>(day_data)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  average_sales <span class="ot">&lt;-</span> total_sales <span class="sc">/</span> transaction_count</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  metrics <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_sales =</span> total_sales, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">transaction_count =</span> transaction_count, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">average_sales =</span> average_sales</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(metrics)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate sales metrics for each day</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>sales_metrics_day1 <span class="ot">&lt;-</span> <span class="fu">calculate_sales_metrics</span>(sales_data, <span class="st">&quot;2023-01-01&quot;</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>sales_metrics_day2 <span class="ot">&lt;-</span> <span class="fu">calculate_sales_metrics</span>(sales_data, <span class="st">&quot;2023-01-02&quot;</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>sales_metrics_day3 <span class="ot">&lt;-</span> <span class="fu">calculate_sales_metrics</span>(sales_data, <span class="st">&quot;2023-01-03&quot;</span>)</span></code></pre></div>
+<p>By using a function, you can <strong>avoid code duplication</strong>
+and make your code more <strong>maintainable</strong> and
+<strong>scalable</strong>.</p>
+</div>
+<div id="exceptions" class="slide section level2">
+<h1>Exceptions</h1>
 <ul>
-<li>don’t repeat yourself</li>
 <li>warning, error, tryCatch</li>
 </ul>
 </div>
@@ -616,53 +666,57 @@ object names like a secret handshake between you and your future self.
 Make them meaningful and descriptive, so when you look back at your
 code, you’ll both know exactly what’s going on without needing a decoder
 ring.</p></li>
-<li><p>Indentation: Use consistent indentation to improve code
-readability.</p></li>
+<li><p><strong>Indentation:</strong> Always use consistent indentation
+to improve code readability.</p></li>
 <li><p><strong>Spacing:</strong> Treat spaces in your code like breaths
 in a conversation - place them around operators, after commas, and
 between function arguments to give your code room to speak clearly,
 ensuring its story is easily understood by anyone who reads it.</p></li>
-<li><p>Line length limit: Shorter lines are easier to read and
-understand, as they require less horizontal scanning by the reader. Long
-lines can be difficult to follow, increasing the cognitive load and the
-risk of misinterpretation. 80 character lines are recommended.</p></li>
-<li><p>Commenting: Include comments to explain the purpose of code
-blocks, functions, and complex calculations. This helps other
-programmers and your future self understand the code more
+<li><p><strong>Line limits:</strong> Shorter lines are easier to read
+and understand, as they require less horizontal scanning by the reader.
+Long lines can be difficult to follow, increasing the cognitive load and
+the risk of misinterpretation. 80 character lines are
+recommended.</p></li>
+<li><p><strong>Commenting:</strong> Include comments to explain the
+purpose of code blocks, functions, and complex calculations. This helps
+other programmers and your future self understand the code more
 easily.</p></li>
-<li><p>Assignments: R allows both <code>&lt;-</code> and <code>=</code>
-for assignment, but it’s generally recommended to use <code>&lt;-</code>
-for assignment and <code>=</code> for passing arguments in
-functions.</p></li>
-<li><p>Organizing code: Organize your code into logical sections or
-functions, separating data preparation, analysis, and visualization.
-This makes your code easier to understand, maintain, and debug.</p></li>
-<li><p>Following a style guide: To maintain consistency across projects
-and teams, it’s helpful to follow a style guide. The tidyverse style
-guide is a popular choice in the R community.</p></li>
-<li><p>Version control: Use version control tools like Git to track
-changes and collaborate with others, allowing you to easily revert to
-previous versions of your code if needed.</p></li>
-<li><p>Reproducible code: By ensuring your code in R is reproducible,
-you contribute to the scientific integrity, transparency, and overall
-quality of your work, which is essential in research and data-driven
-fields. In R, you can simply use <code>set.seed()</code>.</p></li>
-<li><p>Paths: Use relative but never absolute paths for file inputs and
-outputs to ensure that the code can be run on different systems without
-modification.</p></li>
+<li><p><strong>Assignments:</strong> R allows both <code>&lt;-</code>
+and <code>=</code> for assignment, but it’s generally recommended to use
+<code>&lt;-</code> for assignment and <code>=</code> for passing
+arguments in functions.</p></li>
+<li><p><strong>Organizing code:</strong> Organize your code into logical
+sections or functions, separating data preparation, analysis, and
+visualization. This makes your code easier to understand, maintain, and
+debug.</p></li>
+<li><p><strong>Following a style guide:</strong> To maintain consistency
+across projects and teams, it’s helpful to follow a style guide. The
+tidyverse style guide is a popular choice in the R community.</p></li>
+<li><p><strong>Version control:</strong> Use version control tools like
+Git to track changes and collaborate with others, allowing you to easily
+revert to previous versions of your code if needed.</p></li>
+<li><p><strong>Reproducible code:</strong> By ensuring your code in R is
+reproducible, you contribute to the scientific integrity, transparency,
+and overall quality of your work, which is essential in research and
+data-driven fields. In R, you can simply use
+<code>set.seed()</code>.</p></li>
+<li><p><strong>Paths:</strong> Use relative but never absolute paths for
+file inputs and outputs to ensure that the code can be run on different
+systems without modification.</p></li>
 </ul>
 <h3 id="outlook">Outlook</h3>
 <ul>
-<li><p>Presentation of results: Consider RMarkdown to create dynamic
-documents that combine code, results, and narrative, making it easier
-for others to understand and reproduce your work.</p></li>
-<li><p>Use the tidyverse: Using the tidyverse is like having a skilled
-personal assistant for R data scientists: it takes the drudgery out of
-data manipulation and visualization tasks, leaving you with more time to
-enjoy a hot cup of coffee and plot world domination through data
-analysis! Two of the most popular packages from the tidyverse ecosystem
-are {ggplot2} for data visualization and {dplyr} for data
-manipulation.</p></li>
+<li><p><strong>Presentation of results:</strong> Consider RMarkdown to
+create dynamic documents that combine code, results, and narrative,
+making it easier for others to understand and reproduce your
+work.</p></li>
+<li><p><strong>Use the tidyverse:</strong> Using the tidyverse is like
+having a skilled personal assistant for R data scientists: it takes the
+drudgery out of data manipulation and visualization tasks, leaving you
+with more time to enjoy a hot cup of coffee and plot world domination
+through data analysis! Two of the most popular packages from the
+tidyverse ecosystem are {ggplot2} for data visualization and {dplyr} for
+data manipulation.</p></li>
 </ul>
 </div>
 

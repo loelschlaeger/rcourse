@@ -24,9 +24,9 @@ tutorial_options(
 
 ### Code style
 
-You can modify and expand the code snippet below as needed. Run the code by clicking on `Run Code`. Reset your work via `Start Over`. Sometimes, there are `Hints`. Find your exercises below. When you finished your exercises, click `Continue`.
+You can modify and expand the code snippet below as needed. Run the code by clicking on `Run Code`. Find your exercises below. When you finished your exercises, click `Continue`.
 
-```{r code_style, exercise = TRUE}
+```{r code_style_1, exercise = TRUE}
 a<-10
 b<-5
 c<-2
@@ -41,16 +41,12 @@ msg<-"Zero"
 print(msg)
 ```
 
-```{r code_style-hint-1}
-# You don't really need a hint for this exercise, do you?
-```
-
 1. Please execute the code and understand what it does.
 2. Then improve the code style by focusing on variable naming, spacing, indentation, and commenting.
 
 ### Line length
 
-```{r fix, exercise = TRUE}
+```{r code_style_2, exercise = TRUE}
 example_function <- function(x,y,z){result <- x * y + z; if(result > 0){return("Positive")}else if(result < 0){return("Negative")}else{return("Zero")}}
 example_function(1,1,1)
 ```
@@ -138,3 +134,98 @@ quiz(
 )
 ```
 
+## Part 2: Functions and exceptions
+
+### Functions
+
+```{r quiz1}
+quiz(
+  question("How do you define a function in R?",
+    answer("`function_name <- function() { ... }`", correct = TRUE),
+    answer("`function function_name() { ... }`"),
+    answer("`func function_name() { ... }`"),
+    answer("`def function_name() { ... }`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How do you return a value from a function in R?",
+    answer("`return(value)`", correct = TRUE),
+    answer("`output(value)`"),
+    answer("`result(value)`"),
+    answer("`answer(value)`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How do you call a function with named arguments in R?",
+    answer("`function_name(arg1 = value1, arg2 = value2)`", correct = TRUE),
+    answer("`function_name{arg1 = value1, arg2 = value2}`"),
+    answer("`function_name[arg1 = value1, arg2 = value2]`"),
+    answer("`function_name<arg1 = value1, arg2 = value2>`"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+)
+```
+
+Now you will program your own functions. The following R code calculates the area of three rectangles. Improve the code to use a function that calculates the area of a rectangle given its length and width.
+
+```{r function_1, exercise = TRUE}
+# Rectangle 1
+length1 <- 10
+width1 <- 5
+area1 <- length1 * width1
+
+# Rectangle 2
+length2 <- 8
+width2 <- 4
+area2 <- length2 * width2
+
+# Rectangle 3
+length3 <- 15
+width3 <- 6
+area3 <- length3 * width3
+```
+
+Next, you are given the following R code that transforms three strings by removing whitespace and converting them to lowercase. Improve the code to use a function that performs the string transformation for any given input string.
+
+```{r function_2, exercise = TRUE}
+string1 <- " Hello World! "
+string2 <- " My name is John. "
+string3 <- " Welcome to R programming. "
+
+# Transform strings
+clean_string1 <- tolower(trimws(string1))
+clean_string2 <- tolower(trimws(string2))
+clean_string3 <- tolower(trimws(string3))
+```
+
+### Exceptions
+
+Write a function `safe_division` that takes two arguments, `numerator` and `denominator`, and performs division. The function should handle the division-by-zero exception and return an appropriate warning when the denominator is zero.
+
+```{r exception_1, exercise = TRUE}
+safe_division <- function(numerator, denominator) {
+  warning()
+}
+```
+
+Create a function `safe_sqrt` that takes a numeric value as input and computes its square root. The function should handle exceptions for negative input values, returning an error message when the input is negative.
+
+```{r exception_2, exercise = TRUE}
+
+
+```
+
+### For experts
+
+Create a function called `temp_conversion` that takes two arguments: a temperature value (`temp`) and a character indicating the conversion type (`type`). The function should convert temperatures between Celsius and Fahrenheit scales. If type is `"F_to_C"`, the function should convert the given temperature from Fahrenheit to Celsius. If type is `"C_to_F"`, the function should convert the temperature from Celsius to Fahrenheit. If the type is invalid, the function should return an appropriate error message. Test your function with different temperature values and conversion types.
+
+Hint: The formulas for temperature conversion are as follows:
+
+- Celsius to Fahrenheit: `temp * 9/5 + 32`
+- Fahrenheit to Celsius: `(temp - 32) * 5/9`
+
+```{r function_exception, exercise = TRUE}
+
+
+```
