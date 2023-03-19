@@ -55,6 +55,7 @@ jobs:
           git config --local user.name "Lennart Oelschlaeger"
           git add "inst/*.html"
           git commit -m "Rendered slides :construction_worker:"
+          git push
       - name: Build binary package
         run: |
           if (!require(devtools, quietly = TRUE)) {
@@ -67,6 +68,7 @@ jobs:
         shell: Rscript {0}
       - name: Commit binary package
         run: |
+          git pull
           git config --local user.email "oelschlaeger.lennart@gmail.com"
           git config --local user.name "Lennart Oelschlaeger"
           git add "rcourse.zip"
