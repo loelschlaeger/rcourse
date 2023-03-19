@@ -1450,8 +1450,11 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.17.2",
-      "Source": "Repository"
+      "Version": "0.17.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7a319d4e5743230d48bfd9ad42d02c2e",
+      "Requirements": []
     },
     "reprex": {
       "Package": "reprex",
