@@ -25,6 +25,7 @@ Suggests:
   ggrepel,
   mapproj,
   maps,
+  qrcode,
   socviz,
   tibble,
   tidyverse,

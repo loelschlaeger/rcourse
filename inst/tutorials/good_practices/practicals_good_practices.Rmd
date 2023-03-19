@@ -255,3 +255,47 @@ Hint: The formulas for temperature conversion are as follows:
 
 
 ```
+
+## Part 4: Debugging
+
+```{r debug, exercise = TRUE}
+factorial <- function(n){
+  if (n > 1) result <- n * factorial(n - 1)
+    return(result)
+  } else {
+    return(1)
+}
+factorial(5)
+```
+
+1. Investigate and debug the code such that it works properly.
+2. Make the function more robust. Let the user know what went wrong in the following cases:
+  - `factorial(5.23)`
+  - `factorial("ABC")`
+  - `factorial(-4)`
+  
+## Part 5: Code performance and efficiency
+
+### Vectorization
+
+Practice using vectorized operations to improve performance in R.
+
+```{r vectorization, exercise = TRUE}
+
+```
+
+1. Generate a numeric vector of 10,000 random numbers between 1 and 100.
+2. Calculate the square of each number in the vector using a for loop.
+3. Now, use a vectorized approach (element-wise operations) to perform the same calculation.
+4. Compare the time taken for each approach using the `system.time()` function.
+
+### Pre-allocation
+
+```{r pre-allocation, exercise = TRUE}
+
+```
+
+1. Create a function that calculates the first `n` Fibonacci numbers using a for loop.
+2. Test the function without pre-allocating memory for the result vector.
+3. Modify the function to pre-allocate memory for the result vector.
+4. Compare the time taken for each approach using the `system.time()` function.

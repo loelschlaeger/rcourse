@@ -11,7 +11,7 @@ output:
 ```{r, include = FALSE}
 Sys.setenv(LANG = "en")
 ```
-  
+
 ## Why and what 
 
 Welcome to this tiny course on good practices in R! `r emo::ji("wave")`
@@ -31,10 +31,6 @@ Basic R skills + a not-too-old version of R (>= 2.10) + RStudio
 ### At the end of the day...
 
 ... you will have improved your code style, writing readable and maintainable code, using functions effectively, leveraging version control, and creating reproducible analyses.
-
-### Found mistakes? Have suggestions?
-
-I'm sure you have! Please leave a note [here](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
 
 ### Course material
 
@@ -58,9 +54,57 @@ To start the practicals, type:
 practicals()
 ```
 
+### Found mistakes? Have suggestions?
+
+You can leave a note [here on GitHub](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
+
+## Reproducible science
+
+In science, we aim for: `r emo::ji("man_scientist")` `r emo::ji("woman_scientist")`
+
+1. Knowledge
+
+2. Reproducible results
+
+### How to gain knowledge?
+
+- Learning and understanding
+
+- Exploring and discovering
+
+- Synthesizing and applying
+
+### Why should we work reproducible?
+
+- Convince with your work (yourself, supervisor, reviewer, public)
+
+- Simplify further research
+
+- Write better publications and improve your reputation
+
+### How to work reproducible?
+
+- Documentation (answer the *how?* and *why?*)
+
+- Version control
+
+- Make sure that work can be executed again with identical results
+
+### Our focus
+
+As statisticians, our computers serve as our laboratories, and our R codes act as our test tubes. `r emo::ji("test_tube")` `r emo::ji("computer")`
+
+How experienced are you with R? What would you like to learn today? Please give me a quick feedback.
+
+```{r, echo = FALSE, eval = TRUE, fig.align = 'center'}
+url <- "https://forms.gle/PSJGa8h1svMgEvQP7"
+plot(qrcode::qr_code(url))
+title(url, cex.main = 2, line = 2)
+```
+
 ## Code formatting
 
-Your colleague Bob hands you a code file named `stuff.r` and expresses his desire to collaborate with you on his new project. Without any time for explanations, he simply requests, "please check out my code, we can discuss it later." `r emo::ji("boy")`
+Your colleague Bob hands you a code file named `stuff.R` and expresses his desire to collaborate with you on his new research project. Without any time for explanations, he simply requests, "please check out my code, we can discuss it later." `r emo::ji("boy")`
 
 ```{r, eval = FALSE}
 # Author: me
@@ -155,7 +199,7 @@ By using a function, you can **avoid code duplication** and make your code more 
 
 What happens when something goes wrong with your R code? `r emo::ji("cold_sweat")`
 
-- **Warnings**
+### Warnings
 
 Basic R functions throw warnings if unexpected things happen:
 
@@ -183,7 +227,7 @@ boil_egg(minutes = 4)
 boil_egg(minutes = 20)
 ```
 
-- **Errors**
+### Errors
 
 Warnings do not stop execution, but errors do:
 
@@ -197,7 +241,7 @@ Sometimes, error messages are confusing:
 calculate_sales_metrics(data = data, date = "2023-01-01")
 ```
 
-- **Error recovery** 
+### Error recovery
 
 Detect, handle, and recover from errors that occur during the execution of a program.
 
@@ -229,19 +273,20 @@ head(data)
 - divide and conquer
 - Getting help: minimal reprex, Stack Overflow
 
-## Version control and collaboration
+## Code performance and efficiency
+
+- vectorized
+- pre-allocated
 
 ## Overview of good practices in R
 
 Following good coding practices helps to maintain consistency, readability, and intelligibility of the code. In R, adhering to a consistent code style is particularly important due to the language's flexibility and wide use in data analysis and visualization.
 
-- **Naming:** Treat variable, function, and data object names like a secret handshake between you and your future self. Make them meaningful and descriptive, so when you look back at your code, you'll both know exactly what's going on without needing a decoder ring.
+- **Naming:** Treat variable, function, and data object names like a secret handshake between you and your future self: make them meaningful and descriptive, so when you look back at your code, you'll both know exactly what's going on without needing a decoder ring.
 
-- **Indentation:** Always use consistent indentation to improve code readability.
+- **Spacing and indentation:** Always use consistent spacing and indentation to improve code readability.
 
-- **Spacing:** Treat spaces in your code like breaths in a conversation - place them around operators, after commas, and between function arguments to give your code room to speak clearly, ensuring its story is easily understood by anyone who reads it.
-
-- **Line limits:** Shorter lines are easier to read and understand, as they require less horizontal scanning by the reader. Long lines can be difficult to follow, increasing the cognitive load and the risk of misinterpretation. 80 character lines are recommended.
+- **Line limits:** Shorter lines are easier to read and understand, as they require less horizontal scanning by the reader. Long lines can be difficult to follow, increasing the cognitive load and the risk of misinterpretation.
 
 - **Commenting:** Include comments to explain the purpose of code blocks, functions, and complex calculations. This helps other programmers and your future self understand the code more easily.
 
@@ -251,16 +296,15 @@ Following good coding practices helps to maintain consistency, readability, and 
 
 - **Following a style guide:** To maintain consistency across projects and teams, it's helpful to follow a style guide. The tidyverse style guide is a popular choice in the R community.
 
-- **Version control:** Use version control tools like Git to track changes and collaborate with others, allowing you to easily revert to previous versions of your code if needed.
-
 - **Reproducible code:** By ensuring your code in R is reproducible, you contribute to the scientific integrity, transparency, and overall quality of your work, which is essential in research and data-driven fields. In R, you can simply use `set.seed()`.
 
 - **Paths:** Use relative but never absolute paths for file inputs and outputs to ensure that the code can be run on different systems without modification.
 
 ### Outlook
 
+- **Version control:** Use version control tools like Git to track changes and collaborate with others, allowing you to easily revert to previous versions of your code if needed.
+
 - **Presentation of results:** Consider RMarkdown to create dynamic documents that combine code, results, and narrative, making it easier for others to understand and reproduce your work.
 
-- **Use the tidyverse:** Using the tidyverse is like having a skilled personal assistant for R data scientists: it takes the drudgery out of data manipulation and visualization tasks, leaving you with more time to enjoy a hot cup of coffee and plot world domination through data analysis! Two of the most popular packages from the tidyverse ecosystem are {ggplot2} for data visualization and {dplyr} for data manipulation.
-
+- **Use the tidyverse:** Using the tidyverse is like having a skilled personal assistant for R data scientists: it takes the drudgery out of data manipulation and visualization tasks. Two of the most popular packages from the tidyverse ecosystem are {ggplot2} for data visualization and {dplyr} for data manipulation.
 
