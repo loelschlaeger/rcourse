@@ -42,13 +42,35 @@ prices %>%
   table()
 ```
 
+### Course material
+
+Executing the following lines in R gives you access to the course material:
+
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("loelschlaeger/rcourse", upgrade = "never")
+library("rcourse")
+```
+
+To open a copy of these slides, type:
+
+```{r, eval = FALSE}
+slides()
+```
+
+To start the practicals, type:
+
+```{r, eval = FALSE}
+practicals()
+```
+
 ### Sources
 
 - Wickham and Grolemund (2020): [R for Data Science](https://r4ds.had.co.nz/)
 
 ### Found mistakes? Have suggestions?
 
-I'm sure you have! Please leave a note [here](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
+You can leave a note [here on GitHub](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
 
 ## Filter and arrange data rows
 
@@ -117,30 +139,6 @@ You can provide more than one variable name to sort with respect to multiple col
 
 ```{r}
 arrange(stocks, sector, industry)
-```
-
-## Now it's your turn
-
-This course includes practicals! `r emo::ji("strong")`
-
-Executing the following lines gives you access to the course material:
-
-```{r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("loelschlaeger/rcourse")
-library(rcourse)
-```
-
-To start the practicals, type:
-
-```{r, eval = FALSE}
-practicals()
-```
-
-To open a copy of these slides, type:
-
-```{r, eval = FALSE}
-slides()
 ```
 
 ## Select and create data columns

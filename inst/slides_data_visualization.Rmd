@@ -53,6 +53,28 @@ ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party
   labs(title = "State Winner in 2016", fill = "")
 ```
 
+### Course material
+
+Executing the following lines in R gives you access to the course material:
+
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("loelschlaeger/rcourse", upgrade = "never")
+library("rcourse")
+```
+
+To open a copy of these slides, type:
+
+```{r, eval = FALSE}
+slides()
+```
+
+To start the practicals, type:
+
+```{r, eval = FALSE}
+practicals()
+```
+
 ### Sources
 
 - Healy (2019): [Data Visualization: A practical introduction](https://socviz.co/)
@@ -62,7 +84,7 @@ ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party
 
 ### Found mistakes? Have suggestions?
 
-I'm sure you have! Please leave a note [here](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
+You can leave a note [here on GitHub](https://github.com/loelschlaeger/rcourse/issues/new/choose). `r emo::ji("wish")`
 
 ## Our first plot
 
@@ -136,30 +158,6 @@ ggsave("some_descriptive_name.pdf")
 3. Set `mapping = aes(...)`
 4. Add one (or more) `geom_*()` functions
 5. Adjust the scale and labels
-
-## Now it's your turn
-
-This course includes practicals! `r emo::ji("strong")`
-
-Executing the following lines gives you access to the course material:
-
-```{r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("loelschlaeger/rcourse")
-library(rcourse)
-```
-
-To start the practicals, type:
-
-```{r, eval = FALSE}
-practicals()
-```
-
-To open a copy of these slides, type:
-
-```{r, eval = FALSE}
-slides()
-```
 
 ## Facets and more geoms
 
