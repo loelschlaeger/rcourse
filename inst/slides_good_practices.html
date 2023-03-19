@@ -559,20 +559,21 @@ on GitHub</a>. 🙏</p>
 <li><p>Knowledge</p></li>
 <li><p>Reproducible results</p></li>
 </ol>
-<p><strong>How to gain knowledge?</strong></p>
+<h3 id="how-to-gain-knowledge">How to gain knowledge?</h3>
 <ul>
 <li><p>Learning and understanding</p></li>
 <li><p>Exploring and discovering</p></li>
 <li><p>Synthesizing and applying</p></li>
 </ul>
-<p><strong>Why should we work reproducible?</strong></p>
+<h3 id="why-should-we-work-reproducible">Why should we work
+reproducible?</h3>
 <ul>
 <li><p>Convince with your work (yourself, supervisor, reviewer,
 public)</p></li>
 <li><p>Simplify further research</p></li>
 <li><p>Write better publications and improve your reputation</p></li>
 </ul>
-<p><strong>How to work reproducible?</strong></p>
+<h3 id="how-to-work-reproducible">How to work reproducible?</h3>
 <ul>
 <li><p>Documentation (answer the <em>how?</em> and
 <em>why?</em>)</p></li>
@@ -580,7 +581,7 @@ public)</p></li>
 <li><p>Make sure that work can be executed again with identical
 results</p></li>
 </ul>
-<p><strong>Our focus</strong></p>
+<h3 id="our-focus">Our focus</h3>
 <p>As statisticians, our computers serve as our laboratories, and our R
 codes act as our test tubes. 🧪 💻</p>
 <p>How experienced are you with R? What would you like to learn today?
@@ -678,9 +679,7 @@ and make your code more <strong>maintainable</strong> and
 <div id="exceptions" class="slide section level2">
 <h1>Exceptions</h1>
 <p>What happens when something goes wrong with your R code? 😰</p>
-<ul>
-<li><strong>Warnings</strong></li>
-</ul>
+<h3 id="warnings">Warnings</h3>
 <p>Basic R functions throw warnings if unexpected things happen:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Warning in log(-1): NaNs produced</code></pre>
@@ -702,18 +701,14 @@ things:</p>
 <pre><code>## Warning in boil_egg(minutes = 4): Too short!</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boil_egg</span>(<span class="at">minutes =</span> <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>## Warning in boil_egg(minutes = 20): Too long!</code></pre>
-<ul>
-<li><strong>Errors</strong></li>
-</ul>
+<h3 id="errors">Errors</h3>
 <p>Warnings do not stop execution, but errors do:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="st">&quot;a&quot;</span></span></code></pre></div>
 <pre><code>## Error in 1 + &quot;a&quot;: non-numeric argument to binary operator</code></pre>
 <p>Sometimes, error messages are confusing:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_sales_metrics</span>(<span class="at">data =</span> data, <span class="at">date =</span> <span class="st">&quot;2023-01-01&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in x[subset &amp; !is.na(subset)]: object of type &#39;closure&#39; is not subsettable</code></pre>
-<ul>
-<li><strong>Error recovery</strong></li>
-</ul>
+<h3 id="error-recovery">Error recovery</h3>
 <p>Detect, handle, and recover from errors that occur during the
 execution of a program.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function that uses try() to handle errors</span></span>
@@ -754,10 +749,11 @@ execution of a program.</p>
 <li>Getting help: minimal reprex, Stack Overflow</li>
 </ul>
 </div>
-<div id="version-control" class="slide section level2">
-<h1>Version control</h1>
+<div id="code-performance-and-efficiency" class="slide section level2">
+<h1>Code performance and efficiency</h1>
 <ul>
-<li>Git</li>
+<li>vectorized</li>
+<li>pre-allocated</li>
 </ul>
 </div>
 <div id="overview-of-good-practices-in-r" class="slide section level2">
@@ -793,9 +789,6 @@ debug.</p></li>
 <li><p><strong>Following a style guide:</strong> To maintain consistency
 across projects and teams, it’s helpful to follow a style guide. The
 tidyverse style guide is a popular choice in the R community.</p></li>
-<li><p><strong>Version control:</strong> Use version control tools like
-Git to track changes and collaborate with others, allowing you to easily
-revert to previous versions of your code if needed.</p></li>
 <li><p><strong>Reproducible code:</strong> By ensuring your code in R is
 reproducible, you contribute to the scientific integrity, transparency,
 and overall quality of your work, which is essential in research and
@@ -807,6 +800,9 @@ systems without modification.</p></li>
 </ul>
 <h3 id="outlook">Outlook</h3>
 <ul>
+<li><p><strong>Version control:</strong> Use version control tools like
+Git to track changes and collaborate with others, allowing you to easily
+revert to previous versions of your code if needed.</p></li>
 <li><p><strong>Presentation of results:</strong> Consider RMarkdown to
 create dynamic documents that combine code, results, and narrative,
 making it easier for others to understand and reproduce your
