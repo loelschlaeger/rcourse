@@ -29,6 +29,7 @@ jobs:
   render-slides:
     name: Render slides and build binary package
     runs-on: windows-latest
+    needs: R-CMD-check
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -45,9 +46,10 @@ jobs:
         shell: Rscript {0}
       - name: Render slides
         run: | 
-          rmarkdown::render("inst/slides_data_manipulation.Rmd")
-          rmarkdown::render("inst/slides_data_visualization.Rmd")
-          rmarkdown::render("inst/slides_good_practices.Rmd")
+          paths <- list.files(path = "inst/", pattern = "*.Rmd", full.names = TRUE)
+          for (path in paths) {
+            rmarkdown::render(path)
+          }
         shell: Rscript {0}
       - name: Commit slides
         run: |
