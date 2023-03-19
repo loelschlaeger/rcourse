@@ -14,6 +14,8 @@ Sys.setenv(LANG = "en")
 
 ## Why and what 
 
+This is just a test.
+
 Welcome to this tiny course on good practices in R! `r emo::ji("wave")`
 
 ### Why do we care?
