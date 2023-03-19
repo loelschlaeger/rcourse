@@ -1,0 +1,91 @@
+name: Package update
+on: [push]
+
+jobs:
+  R-CMD-check:
+    name: R CMD check for ${{ matrix.config.os }} (${{ matrix.config.r }})
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: macOS-latest,   r: 'release'}
+          - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-latest,  r: 'release'}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+    steps:
+      - uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+      - uses: r-lib/actions/check-r-package@v2
+      
+  render-slides:
+    name: Render slides
+    runs-on: windows-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-renv@v2
+      - name: Install self
+        run: |
+          remotes::install_github("loelschlaeger/rcourse", upgrade = "never")
+        shell: Rscript {0}
+      - name: Render slides
+        run: | 
+          rmarkdown::render("inst/slides_data_manipulation.Rmd")
+          rmarkdown::render("inst/slides_data_visualization.Rmd")
+          rmarkdown::render("inst/slides_good_practices.Rmd")
+        shell: Rscript {0}
+          
+  build-binary:
+    name: Build binary package
+    runs-on: windows-latest
+    needs: render-slides
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-renv@v2
+      - name: Build binary
+        run: |
+          devtools::build(
+            binary = TRUE,
+            path = "./rcourse.zip"
+          )
+        shell: Rscript {0}
+          
+  commit-changes:
+    name: Commit and push changes
+    runs-on: windows-latest
+    needs: build-binary
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "oelschlaeger.lennart@gmail.com"
+          git config --local user.name "Lennart Oelschlaeger"
+          git add "inst/*.html"
+          git add "rcourse.zip"
+          git commit -m "Automatic package update :construction_worker:"
+          git push origin 
+      
