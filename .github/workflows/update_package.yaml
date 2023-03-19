@@ -63,7 +63,7 @@ jobs:
           }
           devtools::build(
             binary = TRUE,
-            path = "./rcourse.zip"
+            path = "rcourse.zip"
           )
         shell: Rscript {0}
       - name: Commit binary package
