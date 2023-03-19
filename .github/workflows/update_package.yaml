@@ -22,6 +22,9 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: rcmdcheck
       - uses: r-lib/actions/check-r-package@v2
       
   render-slides:
@@ -51,7 +54,7 @@ jobs:
   build-binary:
     name: Build binary package
     runs-on: windows-latest
-    needs: render-slides
+    needs: [R-CMD-check, render-slides]
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -72,7 +75,7 @@ jobs:
   commit-changes:
     name: Commit and push changes
     runs-on: windows-latest
-    needs: build-binary
+    needs: [render-slides, build-binary]
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
