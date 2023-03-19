@@ -49,11 +49,12 @@ jobs:
           rmarkdown::render("inst/slides_data_visualization.Rmd")
           rmarkdown::render("inst/slides_good_practices.Rmd")
         shell: Rscript {0}
-      - name: Stage slides
+      - name: Commit slides
         run: |
           git config --local user.email "oelschlaeger.lennart@gmail.com"
           git config --local user.name "Lennart Oelschlaeger"
           git add "inst/*.html"
+          git commit -m "Rendered slides :construction_worker:"
           
   build-binary:
     name: Build binary package
@@ -76,14 +77,15 @@ jobs:
             path = "./rcourse.zip"
           )
         shell: Rscript {0}
-      - name: Stage binary package
+      - name: Commit binary package
         run: |
           git config --local user.email "oelschlaeger.lennart@gmail.com"
           git config --local user.name "Lennart Oelschlaeger"
           git add "rcourse.zip"
+          git commit -m "Built binary package :construction_worker:"
           
   commit-update:
-    name: Commit and push update
+    name: Push update
     runs-on: windows-latest
     needs: [render-slides, build-binary]
     env:
@@ -93,8 +95,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Commit and push update
+      - name: Push update
         run: |
-          git commit -m "Automatic package update :construction_worker:"
           git push origin 
       
