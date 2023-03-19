@@ -1,9 +1,20 @@
 This repository is a collection of materials for `R` courses at Bielefeld University. Get access via executing the following lines in `R`:
 
 ```r
-# install.packages("devtools")
-devtools::install_github("loelschlaeger/rcourse")
+install.packages("remotes")
+remotes::install_github("loelschlaeger/rcourse")
 library(rcourse)
+```
+
+If this fails and you are on Windows, you can try:
+
+```r
+url <- "https://github.com/loelschlaeger/rcourse/raw/master/rcourse.zip"
+destfile <- "rcourse.zip"
+download.file(url, destfile)
+install.packages(destfile)
+install.packages(c("cli", "learnr", "utils"))
+library("rcourse")
 ```
 
 Current topics are:
