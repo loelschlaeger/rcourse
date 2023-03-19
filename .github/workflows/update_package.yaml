@@ -29,6 +29,8 @@ jobs:
   render-slides:
     name: Render slides
     runs-on: windows-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
