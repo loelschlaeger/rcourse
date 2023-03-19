@@ -4,7 +4,6 @@
 #' The course id.
 #'
 #' @importFrom utils menu
-#' @importFrom glue glue
 #' @importFrom cli cli_text
 #'
 #' @export
@@ -24,11 +23,9 @@ select <- function() {
     stop("No course selected.", call. = FALSE)
   } else {
     options("rcourse_id" = id)
-    glue::glue(
-      cli::cli_text("You selected {.var {choice[id]}}. Now:"),
-      cli::cli_text("Run {.run rcourse::slides()} to open the slides."),
-      cli::cli_text("Run {.run rcourse::practicals()} to start the praticals.")
-    )
+    cli::cli_text(paste0("You selected {.var ", choice[id], "}. Now:"))
+    cli::cli_text("Run {.run rcourse::slides()} to open the slides.")
+    cli::cli_text("Run {.run rcourse::practicals()} to start the praticals.")
     return(invisible(id))
   }
 }
