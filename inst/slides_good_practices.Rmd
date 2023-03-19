@@ -18,11 +18,11 @@ Welcome to this tiny course on good practices in R! `r emo::ji("wave")`
 
 ### Why do we care?
 
-...
+Good practices in R enhance readability, maintainability, and collaboration, making code more efficient and less prone to errors.
 
 ### What is this course about?
 
-...
+We will discuss several good practices in R, including code formatting, exception handling, debugging. 
 
 ### What do you need?
 
@@ -30,11 +30,7 @@ Basic R skills + a not-too-old version of R (>= 2.10) + RStudio
 
 ### At the end of the day...
 
-...
-
-### Sources
-
-...
+... you will have improved your code style, writing readable and maintainable code, using functions effectively, leveraging version control, and creating reproducible analyses.
 
 ### Found mistakes? Have suggestions?
 
@@ -66,7 +62,7 @@ practicals()
 
 Your colleague Bob hands you a code file named `stuff.r` and expresses his desire to collaborate with you on his new project. Without any time for explanations, he simply requests, "please check out my code, we can discuss it later." `r emo::ji("boy")`
 
-```r
+```{r, eval = FALSE}
 # Author: me
 # Purpose: finance data work
 
@@ -102,9 +98,9 @@ What are the things you like / dislike about Bob's code? `r emo::ji("thumbsup")`
 
 ## Functions
 
-Suppose you have a dataset of sales transactions, and you want to calculate the total sales, the total number of transactions, and the average sales amount for each day. `r emo::ji("man_office_worker")` `r emo::ji("woman_office_worker")`
+Suppose you have a dataset of sales transactions, and you want to calculate the total sales, the total number of transactions, and the average sales amount for each day. `r emo::ji("woman_office_worker")` `r emo::ji("chart")`
 
-```r
+```{r}
 # Sample data frame
 sales_data <- data.frame(
   date = as.Date(c("2023-01-01", "2023-01-01", "2023-01-02", "2023-01-02", "2023-01-03")),
@@ -132,7 +128,7 @@ average_sales_day3 <- total_sales_day3 / transaction_count_day3
 
 Instead of writing repetitive code, you can use a function:
 
-```r
+```{r, eval = TRUE}
 # Function to calculate sales metrics
 calculate_sales_metrics <- function(data, date) {
   day_data <- subset(data, date == as.Date(date))
@@ -140,9 +136,9 @@ calculate_sales_metrics <- function(data, date) {
   transaction_count <- nrow(day_data)
   average_sales <- total_sales / transaction_count
   metrics <- list(
-    total_sales = total_sales, 
-    transaction_count = transaction_count, 
-    average_sales = average_sales
+    "total_sales" = total_sales, 
+    "transaction_count" = transaction_count, 
+    "average_sales" = average_sales
   )
   return(metrics)
 }
@@ -157,7 +153,76 @@ By using a function, you can **avoid code duplication** and make your code more 
 
 ## Exceptions
 
-- warning, error, tryCatch
+What happens when something goes wrong with your R code? `r emo::ji("cold_sweat")`
+
+- **Warnings**
+
+Basic R functions throw warnings if unexpected things happen:
+
+```{r}
+log(-1)
+```
+
+Include warnings in your own code to inform the user about bad things:
+
+```{r}
+boil_egg <- function(minutes) {
+ if (minutes < 5) {
+   warning("Too short!")
+ } else if (minutes >= 5 && minutes <= 8) {
+   cat("Yummy!")
+ } else {
+   warning("Too long!")
+ }
+}
+```
+
+```{r}
+boil_egg(minutes = 5)
+boil_egg(minutes = 4)
+boil_egg(minutes = 20)
+```
+
+- **Errors**
+
+Warnings do not stop execution, but errors do:
+
+```{r, error = TRUE}
+1 + "a"
+```
+
+Sometimes, error messages are confusing:
+
+```{r, error = TRUE}
+calculate_sales_metrics(data = data, date = "2023-01-01")
+```
+
+- **Error recovery** 
+
+Detect, handle, and recover from errors that occur during the execution of a program.
+
+```{r, eval = TRUE}
+# Define a function that uses try() to handle errors
+safe_calculate_sales_metrics <- function(data, date) {
+  result <- try(calculate_sales_metrics(data = data, date = date), silent = TRUE)
+  if (inherits(result, "try-error")) {
+    cat("Unable to compute sales metrics, please check your inputs.")
+    return(NULL)
+  }
+  return(result)
+}
+```
+
+```{r, eval = TRUE}
+safe_calculate_sales_metrics(data = data, date = "2023-01-01")
+safe_calculate_sales_metrics(data = sales_data, date = "2023-01-01")
+```
+
+What is the problem with `data`?
+
+```{r}
+head(data)
+```
 
 ## Debugging
 
