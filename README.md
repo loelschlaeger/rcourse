@@ -3,7 +3,7 @@ This repository is a collection of materials for `R` courses at Bielefeld Univer
 ```r
 install.packages("remotes")
 remotes::install_github("loelschlaeger/rcourse")
-library(rcourse)
+library("rcourse")
 ```
 
 If this fails and you are on Windows, you can try:
