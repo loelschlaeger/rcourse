@@ -538,7 +538,7 @@ popular member.</p>
 <p>Being in “decent control” of {dplyr} for efficient data
 wrangling.</p>
 <h3 id="what-do-you-need">What do you need?</h3>
-<p>Basic R skills + a not-too-old version of R (&gt;= 4.0.0) +
+<p>Basic R skills + a not-too-old version of R (&gt;= 2.10) +
 RStudio</p>
 <h3 id="at-the-end-of-the-day">At the end of the day…</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>prices <span class="sc">%&gt;%</span> </span>
@@ -546,6 +546,16 @@ RStudio</p>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(count) <span class="sc">%&gt;%</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span></code></pre></div>
+<h3 id="course-material">Course material</h3>
+<p>Executing the following lines in R gives you access to the course
+material:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;loelschlaeger/rcourse&quot;</span>, <span class="at">upgrade =</span> <span class="st">&quot;never&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rcourse&quot;</span>)</span></code></pre></div>
+<p>To open a copy of these slides, type:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slides</span>()</span></code></pre></div>
+<p>To start the practicals, type:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">practicals</span>()</span></code></pre></div>
 <h3 id="sources">Sources</h3>
 <ul>
 <li>Wickham and Grolemund (2020): <a href="https://r4ds.had.co.nz/">R
@@ -553,14 +563,15 @@ for Data Science</a></li>
 </ul>
 <h3 id="found-mistakes-have-suggestions">Found mistakes? Have
 suggestions?</h3>
-<p>I’m sure you have! Please leave a note <a href="https://github.com/loelschlaeger/rcourse/issues/new/choose">here</a>.
-🙏</p>
+<p>You can leave a note <a href="https://github.com/loelschlaeger/rcourse/issues/new/choose">here
+on GitHub</a>. 🙏</p>
 </div>
 <div id="filter-and-arrange-data-rows" class="slide section level2">
 <h1>Filter and arrange data rows</h1>
 <p>Load {dplyr}.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(dplyr)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(dplyr)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.2.2</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -572,7 +583,7 @@ suggestions?</h3>
 <p>Just started and already warnings… 😏 What do they tell us?</p>
 <p>We’ll work with a data set of stocks in the American S&amp;P 500
 index from 2012 to 2016: 💸</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(stocks <span class="ot">&lt;-</span> rcourse<span class="sc">::</span>stocks)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(stocks <span class="ot">&lt;-</span> rcourse<span class="sc">::</span>stocks)</span></code></pre></div>
 <pre><code>## # A tibble: 505 × 6
 ##    symbol name                sector                 industry   hq    added     
 ##    &lt;chr&gt;  &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;    
@@ -589,7 +600,7 @@ index from 2012 to 2016: 💸</p>
 ## # … with 495 more rows</code></pre>
 <p>We learn the first {dplyr} verb: <code>filter()</code>. It allows to
 subset observations based on their values. For example:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(stocks, sector <span class="sc">==</span> <span class="st">&quot;Energy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(stocks, sector <span class="sc">==</span> <span class="st">&quot;Energy&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 36 × 6
 ##    symbol name                    sector industry               hq    added     
 ##    &lt;chr&gt;  &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;                  &lt;chr&gt; &lt;date&gt;    
@@ -615,7 +626,7 @@ subset observations based on their values. For example:</p>
 </ul>
 <p>You can add multiple arguments to <code>filter()</code>, for
 example:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(stocks, sector <span class="sc">!=</span> <span class="st">&quot;Industrials&quot;</span>, added <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">&quot;1970-01-01&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(stocks, sector <span class="sc">!=</span> <span class="st">&quot;Industrials&quot;</span>, added <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">&quot;1970-01-01&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 6
 ##   symbol name                             sector        indus…¹ hq    added     
 ##   &lt;chr&gt;  &lt;chr&gt;                            &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt; &lt;date&gt;    
@@ -636,7 +647,7 @@ the output. All logical operators:</p>
 </ul>
 <p><code>filter()</code> excludes missing values (<code>NA</code>). To
 preserve them:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(stocks, added <span class="sc">&gt;</span> <span class="fu">as.Date</span>(<span class="st">&quot;2016-01-01&quot;</span>) <span class="sc">|</span> <span class="fu">is.na</span>(added))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(stocks, added <span class="sc">&gt;</span> <span class="fu">as.Date</span>(<span class="st">&quot;2016-01-01&quot;</span>) <span class="sc">|</span> <span class="fu">is.na</span>(added))</span></code></pre></div>
 <pre><code>## # A tibble: 227 × 6
 ##    symbol name                     sector               indus…¹ hq    added     
 ##    &lt;chr&gt;  &lt;chr&gt;                    &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt; &lt;date&gt;    
@@ -654,7 +665,7 @@ preserve them:</p>
 <p>We learn a second {dplyr} verb: <code>arrange()</code>. It works
 similar to <code>filter()</code> and changes the order of the data rows.
 For example:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(stocks, symbol)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(stocks, symbol)</span></code></pre></div>
 <pre><code>## # A tibble: 505 × 6
 ##    symbol name                     sector               indus…¹ hq    added     
 ##    &lt;chr&gt;  &lt;chr&gt;                    &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt; &lt;date&gt;    
@@ -671,7 +682,7 @@ For example:</p>
 ## # … with 495 more rows, and abbreviated variable name ¹​industry</code></pre>
 <p>Use <code>desc()</code> to reorder by a column in descending
 order:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(stocks, <span class="fu">desc</span>(symbol))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(stocks, <span class="fu">desc</span>(symbol))</span></code></pre></div>
 <pre><code>## # A tibble: 505 × 6
 ##    symbol name                   sector                 indus…¹ hq    added     
 ##    &lt;chr&gt;  &lt;chr&gt;                  &lt;chr&gt;                  &lt;chr&gt;   &lt;chr&gt; &lt;date&gt;    
@@ -688,7 +699,7 @@ order:</p>
 ## # … with 495 more rows, and abbreviated variable name ¹​industry</code></pre>
 <p>You can provide more than one variable name to sort with respect to
 multiple columns:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(stocks, sector, industry)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(stocks, sector, industry)</span></code></pre></div>
 <pre><code>## # A tibble: 505 × 6
 ##    symbol name               sector                 industry    hq    added     
 ##    &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt;                  &lt;chr&gt;       &lt;chr&gt; &lt;date&gt;    
@@ -704,19 +715,6 @@ multiple columns:</p>
 ## 10 HBI    Hanesbrands Inc    Consumer Discretionary Apparel, A… Nort… 2015-03-20
 ## # … with 495 more rows</code></pre>
 </div>
-<div id="now-its-your-turn" class="slide section level2">
-<h1>Now it’s your turn</h1>
-<p>This course includes practicals! 💪</p>
-<p>Executing the following lines gives you access to the course
-material:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;loelschlaeger/rcourse&quot;</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcourse)</span></code></pre></div>
-<p>To start the practicals, type:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">practicals</span>()</span></code></pre></div>
-<p>To open a copy of these slides, type:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slides</span>()</span></code></pre></div>
-</div>
 <div id="select-and-create-data-columns" class="slide section level2">
 <h1>Select and create data columns</h1>
 <p>The <code>stocks</code> data set only has 6 columns, but it is not
@@ -725,7 +723,7 @@ might want to narrow down the data to the variables you are interested
 in.</p>
 <p>The <code>metrics</code> data set contains some stock fundamentals
 and does have more columns:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(metrics <span class="ot">&lt;-</span> rcourse<span class="sc">::</span>metrics)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>(metrics <span class="ot">&lt;-</span> rcourse<span class="sc">::</span>metrics)</span></code></pre></div>
 <pre><code>## # A tibble: 1,781 × 11
 ##    symbol period     ebit      ebt     rd       ni inven…¹    cr liabil…²    eps
 ##    &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
@@ -743,7 +741,7 @@ and does have more columns:</p>
 ## #   names ¹​inventory, ²​liabilities</code></pre>
 <p>We learn another {dplyr} verb: <code>select()</code>. Let’s see it in
 action: 🎬</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, symbol, period, inventory)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, symbol, period, inventory)</span></code></pre></div>
 <pre><code>## # A tibble: 1,781 × 3
 ##    symbol period      inventory
 ##    &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;
@@ -758,7 +756,7 @@ action: 🎬</p>
 ##  9 AAPL   2013-09-28 1764000000
 ## 10 AAPL   2014-09-27 2111000000
 ## # … with 1,771 more rows</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1,781 × 3
 ##    symbol period            ebit
 ##    &lt;chr&gt;  &lt;chr&gt;            &lt;dbl&gt;
@@ -773,7 +771,7 @@ action: 🎬</p>
 ##  9 AAPL   2013-09-28 50155000000
 ## 10 AAPL   2014-09-27 53483000000
 ## # … with 1,771 more rows</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, <span class="sc">-</span>(symbol<span class="sc">:</span>ebit))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, <span class="sc">-</span>(symbol<span class="sc">:</span>ebit))</span></code></pre></div>
 <pre><code>## # A tibble: 1,781 × 8
 ##            ebt         rd          ni  inventory    cr liabilities    eps   roe
 ##          &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -788,7 +786,7 @@ action: 🎬</p>
 ##  9 50155000000 4475000000 37037000000 1764000000    93  8320000000  40.0     30
 ## 10 53483000000 6041000000 39510000000 2111000000    40 13408000000   6.49    35
 ## # … with 1,771 more rows</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, <span class="fu">contains</span>(<span class="st">&quot;eb&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(metrics, <span class="fu">contains</span>(<span class="st">&quot;eb&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1,781 × 2
 ##           ebit         ebt
 ##          &lt;dbl&gt;       &lt;dbl&gt;
@@ -805,7 +803,7 @@ action: 🎬</p>
 ## # … with 1,771 more rows</code></pre>
 <p>The <code>ni</code> column gives the company’s net income. You don’t
 like this label? Then <code>rename()</code> it:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(metrics, <span class="at">net_income =</span> ni)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(metrics, <span class="at">net_income =</span> ni)</span></code></pre></div>
 <pre><code>## # A tibble: 1,781 × 11
 ##    symbol period     ebit      ebt     rd net_in…¹ inven…²    cr liabil…³    eps
 ##    &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
@@ -827,8 +825,8 @@ defined as</p>
 reserves}}{\text{Liabilities}}.\]</span> We can use this identity and
 the {dplyr} verb <code>mutate()</code> to create a new variable
 <code>cash</code> for the company’s cash reserves:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>metrics_small <span class="ot">&lt;-</span> <span class="fu">select</span>(metrics, symbol, period, cr, liabilities)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(metrics_small, <span class="at">cash =</span> cr <span class="sc">*</span> liabilities)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>metrics_small <span class="ot">&lt;-</span> <span class="fu">select</span>(metrics, symbol, period, cr, liabilities)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(metrics_small, <span class="at">cash =</span> cr <span class="sc">*</span> liabilities)</span></code></pre></div>
 <pre><code>## # A tibble: 1,781 × 5
 ##    symbol period        cr liabilities         cash
 ##    &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
@@ -848,7 +846,7 @@ the {dplyr} verb <code>mutate()</code> to create a new variable
 <h1>Summarize data columns</h1>
 <p>The <code>prices</code> data set contains closing prices and trading
 volumes at the New York Stock Exchange from 2012 to 2016.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(prices <span class="ot">&lt;-</span> rcourse<span class="sc">::</span>prices)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>(prices <span class="ot">&lt;-</span> rcourse<span class="sc">::</span>prices)</span></code></pre></div>
 <pre><code>## # A tibble: 851,264 × 4
 ##    date       symbol close  volume
 ##    &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -865,7 +863,7 @@ volumes at the New York Stock Exchange from 2012 to 2016.</p>
 ## # … with 851,254 more rows</code></pre>
 <p>The {dplyr} verb <code>summarize()</code> collapses a data frame to a
 single row:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(prices, <span class="at">mean_close =</span> <span class="fu">mean</span>(close))</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(prices, <span class="at">mean_close =</span> <span class="fu">mean</span>(close))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   mean_close
 ##        &lt;dbl&gt;
@@ -874,7 +872,7 @@ single row:</p>
 <p>Summaries are more powerful when we pair them with
 <code>group_by()</code>: this allows to compute statistics for each
 group separately, e.g.:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>(by_stock <span class="ot">&lt;-</span> <span class="fu">group_by</span>(prices, symbol))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>(by_stock <span class="ot">&lt;-</span> <span class="fu">group_by</span>(prices, symbol))</span></code></pre></div>
 <pre><code>## # A tibble: 851,264 × 4
 ## # Groups:   symbol [501]
 ##    date       symbol close  volume
@@ -890,7 +888,7 @@ group separately, e.g.:</p>
 ##  9 2016-01-15 WLTW    113. 1093700
 ## 10 2016-01-19 WLTW    110. 1523500
 ## # … with 851,254 more rows</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(by_stock, <span class="at">mean_close =</span> <span class="fu">mean</span>(close))</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(by_stock, <span class="at">mean_close =</span> <span class="fu">mean</span>(close))</span></code></pre></div>
 <pre><code>## # A tibble: 501 × 2
 ##    symbol mean_close
 ##    &lt;chr&gt;       &lt;dbl&gt;
@@ -910,9 +908,9 @@ operations</h3>
 <p>We can make the last chunk more compact using the pipe operator
 <code>%&gt;%</code> (contained in {dplyr} but exported from
 {magrittr}):</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>prices <span class="sc">%&gt;%</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(symbol) <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_close =</span> <span class="fu">mean</span>(close))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>prices <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(symbol) <span class="sc">%&gt;%</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_close =</span> <span class="fu">mean</span>(close))</span></code></pre></div>
 <pre><code>## # A tibble: 501 × 2
 ##    symbol mean_close
 ##    &lt;chr&gt;       &lt;dbl&gt;

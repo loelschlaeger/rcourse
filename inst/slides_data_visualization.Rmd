@@ -32,7 +32,7 @@ Being in decent control of {ggplot2} to produce meaningful plots.
 
 ### What do you need?
 
-Basic R skills + a not-too-old version of R (>= 4.0.0) + RStudio
+Basic R skills + a not-too-old version of R (>= 2.10) + RStudio
 
 ### At the end of the day...
 
@@ -58,8 +58,8 @@ ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party
 Executing the following lines in R gives you access to the course material:
 
 ```{r, eval = FALSE}
-install.packages("devtools")
-devtools::install_github("loelschlaeger/rcourse", upgrade = "never")
+install.packages("remotes")
+remotes::install_github("loelschlaeger/rcourse", upgrade = "never")
 library("rcourse")
 ```
 

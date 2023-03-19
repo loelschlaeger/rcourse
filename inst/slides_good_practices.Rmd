@@ -37,8 +37,8 @@ Basic R skills + a not-too-old version of R (>= 2.10) + RStudio
 Executing the following lines in R gives you access to the course material:
 
 ```{r, eval = FALSE}
-install.packages("devtools")
-devtools::install_github("loelschlaeger/rcourse", upgrade = "never")
+install.packages("remotes")
+remotes::install_github("loelschlaeger/rcourse", upgrade = "never")
 library("rcourse")
 ```
 
