@@ -13,6 +13,8 @@ url <- "https://github.com/loelschlaeger/rcourse/raw/master/rcourse.zip"
 destfile <- "rcourse.zip"
 download.file(url, destfile)
 install.packages(destfile)
+install.packages(c("cli", "learnr", "utils"))
+library("rcourse")
 ```
 
 Current topics are:
