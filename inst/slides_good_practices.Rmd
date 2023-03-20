@@ -273,20 +273,21 @@ head(data)
 
 ## Debugging
 
+How to debug code? `r emo::ji("worker")`
+
 ```{r, echo = FALSE}
-f <- function(a) g(a)
-g <- function(b) h(b)
-h <- function(c) i(c)
-i <- function(d) "a" + d
+f <- function (x) stop("BUG!")
 ```
 
 ```{r, error = TRUE}
 f(10)
 ```
 
+Strategies:
 
 - divide and conquer
-- Getting help: minimal reprex, Stack Overflow
+- In R: `traceback()`, `browser()`
+- Getting help: Google, Stack Overflow (minimal reproducible example)
 
 ## Code efficiency
 
