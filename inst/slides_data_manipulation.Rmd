@@ -1,6 +1,8 @@
 ---
 title: "Data Manipulation"
-author: "Lennart Oelschl&auml;ger"
+author: 
+- "Carlina Feldmann"
+- "Lennart Oelschl&auml;ger"
 date: "Version of `r format(Sys.Date(), '%d.%m.%Y')`"
 output: 
   slidy_presentation:
@@ -201,7 +203,7 @@ summarize(by_stock, mean_close = mean(close))
 
 ### Combining multiple operations
 
-We can make the last chunk more compact using the pipe operator `%>%` (contained in {dplyr} but exported from {magrittr}):
+We can make the last chunk more compact using the pipe operator `%>%` (contained in {dplyr}):
 
 ```{r}
 prices %>%
