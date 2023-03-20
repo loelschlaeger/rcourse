@@ -81,7 +81,7 @@ Load {dplyr}.
 library(dplyr)
 ```
 
-Just started and already warnings... `r emo::ji("smirk")` What do they tell us?
+Just started and already warnings... What do they tell us?
 
 We'll work with a data set of stocks in the American S&P 500 index from 2012 to 2016: `r emo::ji("money_with_wings")`
 
