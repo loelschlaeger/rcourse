@@ -12,7 +12,7 @@ description: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library("rcourse")
-packages_required <- c("dplyr", "ggplot2", "maps", "learnr", "pillar", "socviz")
+packages_required <- c("dplyr", "ggplot2", "maps", "learnr", "pillar", "socviz", "gapminder")
 install_if_missing(packages_required)
 us_states <- map_data("state")
 election$region <- tolower(election$state)
