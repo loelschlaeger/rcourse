@@ -519,7 +519,7 @@ list-style-type: none;
   <p class="author">
 Lennart Oelschläger
   </p>
-  <p class="date">Version of 19.03.2023</p>
+  <p class="date">Version of 20.03.2023</p>
 </div>
 <div id="why-and-what" class="slide section level2">
 <h1>Why and what</h1>
@@ -535,8 +535,8 @@ formatting, exception handling, debugging.</p>
 RStudio</p>
 <h3 id="at-the-end-of-the-day">At the end of the day…</h3>
 <p>… you will have improved your code style, writing readable and
-maintainable code, using functions effectively, leveraging version
-control, and creating reproducible analyses.</p>
+maintainable code, using functions effectively, for creating
+reproducible analyses.</p>
 <h3 id="course-material">Course material</h3>
 <p>Executing the following lines in R gives you access to the course
 material:</p>
@@ -623,6 +623,7 @@ check out my code, we can discuss it later.” 👦</p>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(bC6rsenaktienpreisevonmcdonalds, <span class="st">&#39;output.csv&#39;</span>)</span></code></pre></div>
+<p>What is Bob’s project about? 📊</p>
 <p>What are the things you like / dislike about Bob’s code? 👍 👎</p>
 </div>
 <div id="functions" class="slide section level2">
@@ -705,25 +706,27 @@ things:</p>
 <p>Warnings do not stop execution, but errors do:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="st">&quot;a&quot;</span></span></code></pre></div>
 <pre><code>## Error in 1 + &quot;a&quot;: non-numeric argument to binary operator</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stop</span>(<span class="st">&quot;This is bad.&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): This is bad.</code></pre>
 <p>Sometimes, error messages are confusing:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_sales_metrics</span>(<span class="at">data =</span> data, <span class="at">date =</span> <span class="st">&quot;2023-01-01&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_sales_metrics</span>(<span class="at">data =</span> data, <span class="at">date =</span> <span class="st">&quot;2023-01-01&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in x[subset &amp; !is.na(subset)]: object of type &#39;closure&#39; is not subsettable</code></pre>
 <h3 id="error-recovery">Error recovery</h3>
 <p>Detect, handle, and recover from errors that occur during the
 execution of a program.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function that uses try() to handle errors</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>safe_calculate_sales_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(data, date) {</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">calculate_sales_metrics</span>(<span class="at">data =</span> data, <span class="at">date =</span> date), <span class="at">silent =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">inherits</span>(result, <span class="st">&quot;try-error&quot;</span>)) {</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Unable to compute sales metrics, please check your inputs.&quot;</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_calculate_sales_metrics</span>(<span class="at">data =</span> data, <span class="at">date =</span> <span class="st">&quot;2023-01-01&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function that uses try() to handle errors</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>safe_calculate_sales_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(data, date) {</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">calculate_sales_metrics</span>(<span class="at">data =</span> data, <span class="at">date =</span> date), <span class="at">silent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">inherits</span>(result, <span class="st">&quot;try-error&quot;</span>)) {</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Unable to compute sales metrics, please check your inputs.&quot;</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_calculate_sales_metrics</span>(<span class="at">data =</span> data, <span class="at">date =</span> <span class="st">&quot;2023-01-01&quot;</span>)</span></code></pre></div>
 <pre><code>## Unable to compute sales metrics, please check your inputs.</code></pre>
 <pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_calculate_sales_metrics</span>(<span class="at">data =</span> sales_data, <span class="at">date =</span> <span class="st">&quot;2023-01-01&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_calculate_sales_metrics</span>(<span class="at">data =</span> sales_data, <span class="at">date =</span> <span class="st">&quot;2023-01-01&quot;</span>)</span></code></pre></div>
 <pre><code>## $total_sales
 ## [1] 200
 ## 
@@ -733,7 +736,7 @@ execution of a program.</p>
 ## $average_sales
 ## [1] 40</code></pre>
 <p>What is the problem with <code>data</code>?</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##                                                                             
 ## 1 function (..., list = character(), package = NULL, lib.loc = NULL,        
 ## 2     verbose = getOption(&quot;verbose&quot;), envir = .GlobalEnv, overwrite = TRUE) 
@@ -744,6 +747,8 @@ execution of a program.</p>
 </div>
 <div id="debugging" class="slide section level2">
 <h1>Debugging</h1>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## Error in &quot;a&quot; + d: non-numeric argument to binary operator</code></pre>
 <ul>
 <li>divide and conquer</li>
 <li>Getting help: minimal reprex, Stack Overflow</li>
@@ -751,10 +756,30 @@ execution of a program.</p>
 </div>
 <div id="code-performance-and-efficiency" class="slide section level2">
 <h1>Code performance and efficiency</h1>
-<ul>
-<li>vectorized</li>
-<li>pre-allocated</li>
-</ul>
+<p>How can we make our R code faster? 🏃</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>monte_carlo_v1 <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  hits <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(N)) {</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    u1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    u2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">sqrt</span>(u1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u2<span class="sc">^</span><span class="dv">2</span>) <span class="sc">&lt;=</span> <span class="dv">1</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>      hits <span class="ot">&lt;-</span> hits <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="dv">4</span> <span class="sc">*</span> hits <span class="sc">/</span> N)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>monte_carlo_v2 <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span> <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">sqrt</span>(<span class="fu">runif</span>(N)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">runif</span>(N)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="sc">/</span> N</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>rbenchmark<span class="sc">::</span><span class="fu">benchmark</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">monte_carlo_v1</span>(N),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">monte_carlo_v2</span>(N),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">replications =</span> <span class="dv">100</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;test&quot;</span>, <span class="st">&quot;elapsed&quot;</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>##                test elapsed
+## 1 monte_carlo_v1(N)    4.05
+## 2 monte_carlo_v2(N)    0.08</code></pre>
 </div>
 <div id="overview-of-good-practices-in-r" class="slide section level2">
 <h1>Overview of good practices in R</h1>

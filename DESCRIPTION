@@ -25,6 +25,7 @@ Suggests:
   mapproj,
   maps,
   qrcode,
+  rbenchmark,
   socviz,
   tibble,
   tidyverse,

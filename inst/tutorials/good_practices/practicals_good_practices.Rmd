@@ -26,6 +26,8 @@ tutorial_options(
 
 You can modify and expand the code snippet below as needed. Run the code by clicking on `Run Code`. Find your exercises below. When you finished your exercises, click `Continue`.
 
+If you prefer to work in RStudio, you can start a new session and copy the code there.
+
 ```{r code_style_1, exercise = TRUE}
 a<-10
 b<-5
@@ -41,7 +43,7 @@ msg<-"Zero"
 print(msg)
 ```
 
-1. Please execute the code and understand what it does.
+1. Please run the code and understand what it does.
 2. Then improve the code style by focusing on spacing, indentation, and commenting.
 
 ### Line length
@@ -52,15 +54,15 @@ example_function(1,1,1)
 ```
 
 1. What is similar in this code to the previous code? Where are differences?
-2. Again find and fix issues related to inconsistent indentation and excessive line length in the following R code.
+2. Again find and fix issues related to inconsistent indentation and excessive line length.
 3. Now find inputs such that the output of `example_function()` is `"Zero"`.
 
 ### The tidyverse style guide
 
 The tidyverse is like a Swiss Army knife for R data scientists - a nifty collection of packages that turns messy data into a neat and tidy playground for exploration and visualization! It provides a style guide, which is a set of coding conventions and best practices for writing consistent, readable, and maintainable R code. It covers topics like syntax, naming conventions, indentation, and white space usage, promoting a unified coding style across projects.
 
-1. Please open <a href="https://style.tidyverse.org/index.html" target="_blank">the tidyverse style guide</a> and read the chapters "Files", "Syntax", and "Functions". The other chapters are also interesting, but more advanced.
-2. Afterwards, answer the following multiple choice questions.
+1. Open <a href="https://style.tidyverse.org/index.html" target="_blank">the tidyverse style guide</a> and read the chapters "Files", "Syntax", and "Functions". The other chapters are also interesting, but more advanced.
+2. Afterwards, please answer the following multiple choice questions.
 
 ```{r quiz_tidyverse}
 quiz(
@@ -136,6 +138,10 @@ quiz(
 
 ## Part 2: Functions
 
+### Getting started with function programming
+
+If you are new to function programming in R, you can find detailed explanations <a href="https://r4ds.had.co.nz/functions.html" target="_blank">here</a>.
+
 ```{r quiz_functions}
 quiz(
   question("How do you define a function in R?",
@@ -161,15 +167,40 @@ quiz(
     answer("`function_name<arg1 = value1, arg2 = value2>`"),
     allow_retry = TRUE,
     random_answer_order = TRUE
+  ),
+  question("Which of the following statements correctly describes default function arguments in R?",
+    answer("Default function arguments are always required and must be specified when calling a function.", correct = TRUE),
+    answer("Default function arguments allow a function to have optional arguments with predefined values."),
+    answer("Default function arguments prevent a function from accepting any arguments."),
+    answer("Default function arguments can only be used with user-defined functions, not with built-in functions."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
   )
 )
 ```
 
-### Code a function
+### Programming a function
+
+Write your own function to compute the variance of a numeric vector. Remember that the variance is defined as $Var(x) = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, where $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$ denotes the arithmetic mean. Avoid to use the R functions `mean()`, `sd()`, or `var()`.
+
+```{r function_variance, exercise = TRUE}
+
+
+```
+
+```{r function_variance-hint}
+calculate_variance <- function(x) {
+  mean <- ...
+  variance <- ...
+  return()
+}
+```
+
+### Avoid code duplication
 
 The following R code calculates the area of three rectangles. Improve the code to use a function that calculates the area of any rectangle given its length and width.
 
-```{r function_1, exercise = TRUE}
+```{r function_area, exercise = TRUE}
 # Rectangle 1
 length1 <- 10
 width1 <- 5
@@ -186,18 +217,16 @@ width3 <- 6
 area3 <- length3 * width3
 ```
 
-```{r function_1-hint}
+```{r function_area-hint}
 calcualte_area <- function(length, width) {
   area <- ...
   return()
 }
 ```
 
-### Code another function
+Next, you are given the following R code that transforms three strings by removing whitespace and converting them to lowercase. Improve the code to use a function that performs the string transformation for any given input string.
 
-Now, you are given the following R code that transforms three strings by removing whitespace and converting them to lowercase. Improve the code to use a function that performs the string transformation for any given input string.
-
-```{r function_2, exercise = TRUE}
+```{r function_whitespace, exercise = TRUE}
 string1 <- " Hello World! "
 string2 <- " My name is Lennart. "
 string3 <- " Welcome to R programming. "
@@ -221,11 +250,15 @@ Write a function `safe_division` that takes two arguments, `numerator` and `deno
 
 ```{r exception_1-hint}
 safe_division <- function(numerator, denominator) {
-  warning()
+  result <- ...
+  if (denominator == 0) {
+    warning()
+  } 
+  return()
 }
 ```
 
-Try adding `call. = TRUE` versus `call. = FALSE` to the `warning()` call. What is the difference?
+Try adding `call. = TRUE` versus `call. = FALSE` to the `warning()` call. What is the difference? What do you prefer?
 
 ### Errors
 
@@ -236,11 +269,6 @@ Create a function `safe_sqrt` that takes a numeric value as input and computes i
 
 ```
 
-```{r exception_2-hint}
-safe_sqrt <- function(numerator, denominator) {
-  warning()
-}
-```
 
 ### Safe temperature conversion
 
@@ -256,7 +284,11 @@ Hint: The formulas for temperature conversion are as follows:
 
 ```
 
+You can find more about errors and warnings in R <a href="https://adv-r.hadley.nz/conditions.html" target="_blank">here</a>.
+
 ## Part 4: Debugging
+
+### Application
 
 ```{r debug, exercise = TRUE}
 factorial <- function(n){
@@ -274,20 +306,11 @@ factorial(5)
   - `factorial("ABC")`
   - `factorial(-4)`
   
-## Part 5: Code performance and efficiency
+### Minimal reproducible example
 
-### Vectorization
-
-Practice using vectorized operations to improve performance in R.
-
-```{r vectorization, exercise = TRUE}
-
-```
-
-1. Generate a numeric vector of 10,000 random numbers between 1 and 100.
-2. Calculate the square of each number in the vector using a for loop.
-3. Now, use a vectorized approach (element-wise operations) to perform the same calculation.
-4. Compare the time taken for each approach using the `system.time()` function.
+What is a minimal reproducible example? Read about it <a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example" target="_blank">here</a>. 
+  
+## Part 5: Code efficiency
 
 ### Pre-allocation
 
@@ -295,7 +318,19 @@ Practice using vectorized operations to improve performance in R.
 
 ```
 
-1. Create a function that calculates the first `n` Fibonacci numbers using a for loop.
+1. Create a function that calculates the first `n` <a href="https://en.wikipedia.org/wiki/Fibonacci_sequence" target="_blank">Fibonacci numbers</a> using a `for` loop.
 2. Test the function without pre-allocating memory for the result vector.
 3. Modify the function to pre-allocate memory for the result vector.
 4. Compare the time taken for each approach using the `system.time()` function.
+
+### Vectorization
+
+```{r vectorization, exercise = TRUE}
+
+```
+
+1. Generate a numeric vector of 10,000 random numbers between 1 and 100.
+2. Calculate the square of each number in the vector using a `for` loop.
+3. Now, use a vectorized approach (element-wise operations) to perform the same calculation.
+4. Again, compare the time taken for each approach using the `system.time()` function.
+

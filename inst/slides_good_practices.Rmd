@@ -30,7 +30,7 @@ Basic R skills + a not-too-old version of R (>= 2.10) + RStudio
 
 ### At the end of the day...
 
-... you will have improved your code style, writing readable and maintainable code, using functions effectively, leveraging version control, and creating reproducible analyses.
+... you will have improved your code style, writing readable and maintainable code, using functions effectively, for creating reproducible analyses.
 
 ### Course material
 
@@ -138,6 +138,8 @@ for (i in 10:1762) {
 write.csv(bC6rsenaktienpreisevonmcdonalds, 'output.csv')
 ```
 
+What is Bob's project about? `r emo::ji("bar_chart")`
+
 What are the things you like / dislike about Bob's code? `r emo::ji("thumbsup")` `r emo::ji("thumbsdown")`
 
 ## Functions
@@ -233,6 +235,7 @@ Warnings do not stop execution, but errors do:
 
 ```{r, error = TRUE}
 1 + "a"
+stop("This is bad.")
 ```
 
 Sometimes, error messages are confusing:
@@ -270,13 +273,58 @@ head(data)
 
 ## Debugging
 
+```{r, echo = FALSE}
+f <- function(a) g(a)
+g <- function(b) h(b)
+h <- function(c) i(c)
+i <- function(d) "a" + d
+```
+
+```{r, error = TRUE}
+f(10)
+```
+
+
 - divide and conquer
 - Getting help: minimal reprex, Stack Overflow
 
-## Code performance and efficiency
+## Code efficiency
 
-- vectorized
-- pre-allocated
+How can we make our R code faster? `r emo::ji("running")`
+
+```{r}
+monte_carlo_v1 <- function(N) {
+  hits <- 0
+  for (i in seq_len(N)) {
+    u1 <- runif(1)
+    u2 <- runif(1)
+    if (sqrt(u1^2 + u2^2) <= 1)
+      hits <- hits + 1
+  }
+  return(4 * hits / N)
+}
+```
+
+```{r}
+monte_carlo_v2 <- function(N) {
+  4 * sum(sqrt(runif(N)^2 + runif(N)^2) <= 1) / N
+}
+```
+
+```{r}
+N <- 10000
+rbenchmark::benchmark(
+  monte_carlo_v1(N),
+  monte_carlo_v2(N),
+  replications = 100,
+  columns = c("test", "elapsed")
+)
+```
+
+Two tips:
+
+1. Never let vectors grow, instead pre-allocate memory.
+2. Vectorise code whenever possible.
 
 ## Overview of good practices in R
 

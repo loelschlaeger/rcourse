@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.1",
+    "Version": "4.2.2",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -1586,6 +1586,13 @@
         "R"
       ],
       "Hash": "1c3bb00ca681781e8dacd7378fa17101"
+    },
+    "rbenchmark": {
+      "Package": "rbenchmark",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ee3d5d435f751a88bc69091c51111bd8"
     },
     "rcmdcheck": {
       "Package": "rcmdcheck",
