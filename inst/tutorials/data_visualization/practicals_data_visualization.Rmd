@@ -51,15 +51,6 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth(method = "lm")
 ```
 
-### Order matters
-
-Switch the order of the `geom_smooth()` and the `geom_point()` function. Does anything happen to the plot?
-
-```{r order, exercise = TRUE}
-ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
-  geom_smooth(method = "lm") +
-  geom_point()
-```
 
 ### Improving the scale
 
@@ -176,7 +167,7 @@ We created a bar plot for religious preferences and I announced that we can tran
 
 ```{r barplot, exercise = TRUE}
 ggplot(socviz::gss_sm,aes(x = religion)) +
-  geom_bar(aes(y = ..prop.., group = 1))
+  geom_bar(aes(y = after_stat(prop), group = 1))
 ```
 
 Let's make it colorful! But somehow, the following is not as colorful as it could be. Where is the mistake? Expert level question: The legend is redundant, because the religions are already printed on the x-axis - how to remove the legend?
@@ -208,22 +199,6 @@ sum(is.na(socviz::gss_sm$age))
 # choosing a number of bins silences the message
 ggplot(data = socviz::gss_sm, mapping = aes(x = age)) +
   geom_histogram(bins = 20)
-```
-
-### Density plots
-
-We used the following code to plot a density of the life expectations in the gapminder data set for the year 2007. Employ aesthetics to separate the densities by continent.
-
-```{r, density, exercise = TRUE}
-ggplot(data = filter(gapminder, year == 2007), 
-       mapping = aes(x = lifeExp)) +
-  geom_density()
-```
-
-```{r, density-solution}
-ggplot(data = filter(gapminder, year == 2007), 
-       mapping = aes(x = lifeExp, fill = continent, color = continent)) +
-  geom_density(alpha = 0.5)
 ```
 
 
@@ -278,33 +253,16 @@ The following lines visualize the United States. Colorize the states by mapping 
 ```{r, usmap, exercise = TRUE}
 us_states <- map_data("state")
 ggplot(data = us_states, aes(x = long, y = lat, group = group)) +
-  geom_polygon()
+  geom_polygon() +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45)
 ```
 
 ```{r, usmap-solution}
 us_states <- map_data("state")
 ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
   geom_polygon() +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
   guides(fill = "none")
-```
-
-### The Albers projection
-
-Use the Albers projection instead of the default Mercator projection. Remember that you must specify two latitude parameters, `lat0` and `lat1`. Play around with different values to find a good projection.
-
-```{r, projection, exercise = TRUE}
-us_states <- map_data("state")
-ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
-  geom_polygon() +
-  guides(fill = "none")
-```
-
-```{r, projection-solution}
-us_states <- map_data("state")
-ggplot(data = us_states, aes(x = long, y = lat, group = group, fill = region)) +
-  geom_polygon() +
-  guides(fill = "none") +
-  coord_map(projection = "albers", lat0 = 39, lat1 = 45)
 ```
 
 ### Get the voting results on the map
@@ -326,13 +284,13 @@ Now that all data is combined, you can plot it on the map. The following lines v
 
 ```{r, winner, exercise = TRUE}
 ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
-  geom_polygon(color = "grey", size = 0.1) +
+  geom_polygon(color = "grey", linewidth = 0.1) +
   coord_map(projection = "albers", lat0 = 39, lat1 = 45)
 ```
 
 ```{r, winner-solution}
 ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = party)) +
-  geom_polygon(color = "grey", size = 0.1) +
+  geom_polygon(color = "grey", linewidth = 0.1) +
   coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
   scale_fill_manual(values = c("blue", "red")) +
   theme_void() +
@@ -347,7 +305,7 @@ Instead of plotting the winner, we can plot the percentage of the vote received 
 
 ```{r, perc, exercise = TRUE}
 ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_trump)) +
-  geom_polygon(color = "grey", size = 0.1) +
+  geom_polygon(color = "grey", linewidth = 0.1) +
   coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
   theme_void() +
   theme(legend.position = "bottom", 
@@ -357,7 +315,7 @@ ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_t
 
 ```{r, perc-solution}
 ggplot(data = us_states_elec, aes(x = long, y = lat, group = group, fill = pct_trump)) +
-  geom_polygon(color = "grey", size = 0.1) +
+  geom_polygon(color = "grey", linewidth = 0.1) +
   coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
   theme_void() +
   theme(legend.position = "bottom", 
