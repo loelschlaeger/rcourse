@@ -261,7 +261,7 @@ prices %>%
   summarize(total_trading_volume = sum(volume))
 ```
 
-From the help page we know that `prices` contains closing prices and trading volumes at the New York Stock Exchange from 2012 to 2016. How many records per stock does the data set have? Use `table()` to get an overview.
+From the help page we know that `prices` contains closing prices and trading volumes at the New York Stock Exchange from 2012 to 2016. How many records per stock does the data set have? 
 
 ```{r count, exercise = TRUE}
 
@@ -272,25 +272,6 @@ From the help page we know that `prices` contains closing prices and trading vol
 counts <- prices %>% 
   group_by(symbol) %>% 
   summarize(count = n()) 
-
-### overview
-counts %>% 
-  select(count) %>%
-  table()
-```
-
-We see that for most of the stocks we have 1762 records, but for some we have less. E.g., for one stock we only have 126 data points. Which one is it? 
-
-```{r lessrec, exercise = TRUE}
-
-```
-
-```{r lessrec-solution}
-prices %>% 
-  group_by(symbol) %>% 
-  summarize(count = n()) %>% 
-  filter(count == 126)
-### The Fortive company (FTV) was founded in July 2016.
 ```
 
 The following chunk computes the number of stocks that had days with zero trading volume. Try to understand what `count()` and `as.numeric()` do.
@@ -306,11 +287,6 @@ prices %>%
 
 ```{r quiz3}
 quiz(
-  question("What is the name of the {dplyr} verb to compute summary statistics?",
-    answer("`summarize()`", correct = TRUE),
-    answer("`summary()`"),
-    answer("`summarise()`", correct = TRUE)
-  ),
   question("What is the result of `1:4 %>% sum()`?",
     answer("`10`", correct = TRUE),
     answer("`5`"),
