@@ -138,21 +138,16 @@ xor(x > 1, x < 3)
 
 ```{r quiz1}
 quiz(
-  question("What does the package name 'dplyr' actually mean?",
-    answer("'d' is for data frames, 'plyr' is to evoke pliers", correct = TRUE),
-    answer("short for 'data manipulations in R'"),
-    answer("'d' is for data, 'plyr' is for the layer"),
-    answer("just random letters without any meaning")
-  ),
   question("What do you think is the result of `NA | TRUE`?",
     answer("`NA`"),
     answer("`FALSE`"),
     answer("`TRUE`", correct = TRUE),
     answer("produces an error")
   ),
-  question("How many rows does `filter(stocks, hq == \"Texas\", hq == \"New York\")` print?",
+  question("Which rows does `filter(stocks, hq == \"Texas\", hq == \"New York\")` print?",
     answer("produces an error"),
     answer("all rows in `stocks`"),
+    answer("all rows with either `hq` either equal to Texas or New York"),
     answer("no rows at all", correct = TRUE)
   )
 )
@@ -174,19 +169,40 @@ Find as many ways as possible to select the columns `symbol`, `period`, and `rd`
 
 ```
 
+```{r select-solution}
+# only some options...
+select(metrics, symbol, period, rd)
+select(metrics, 1, 2, 5)
+select(metrics, 1:5) %>%
+  select(!3:4)
+```
+
+
 Give the `rd` column a more descriptive name.
 
 ```{r rd, exercise = TRUE}
 
 ```
 
+```{r rd-solution}
+rename(metrics, research_investment = rd)
+```
+
+
 ### Create columns
 
-Use the columns `roe` and `ni` from `metrics` to create a column `equity` with the company's equity. You might first have to create a small version of the data set to see the created column in the output.
+Use the columns `eps` and `ni` from `metrics` to create a column `shares` with the company's number of shares.
 
-```{r equity, exercise = TRUE}
+```{r shares, exercise = TRUE}
 
 ```
+
+
+```{r shares-solution}
+select(metrics, ni, eps) %>% 
+  mutate(shares = ni/eps)
+```
+
 
 What is the difference if you'd use `transmute()` instead of `mutate()`?
 
@@ -195,9 +211,8 @@ What is the difference if you'd use `transmute()` instead of `mutate()`?
 ```
 
 ```{r transmute-solution}
-metrics_small <- select(metrics, symbol, period, roe, ni)
-mutate(metrics, equity = roe * ni)
-transmute(metrics, equity = roe * ni)
+mutate(metrics, shares = ni/eps)
+transmute(metrics, shares = ni/eps)
 ```
 
 ### Quiz time!
@@ -214,7 +229,7 @@ quiz(
     answer("the last definition is used", correct = TRUE),
     answer("produces a warning")
   ),
-  question("What does the `symbol` column in `mutate(metrics, symbol = NULL)` will look like?",
+  question("What will the `symbol` column in `mutate(metrics, symbol = NULL)` look like?",
     answer("a column where the first entry is `NULL` and the rest is `NA`"),
     answer("a column where each value is `NULL`"),
     answer("the output won't have a `symbol` column", correct = TRUE)
