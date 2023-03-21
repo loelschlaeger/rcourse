@@ -178,6 +178,18 @@ metrics_small <- select(metrics, symbol, period, cr, liabilities)
 mutate(metrics_small, cash = cr * liabilities)
 ```
 
+### Combining multiple operations
+
+We can make the last chunk more compact using the pipe operator `%>%` (contained in {dplyr}):
+
+```{r}
+metrics %>%
+  select(symbol, period, cr, liabilities) %>%
+  mutate(cash = cr * liabilities)
+```
+
+The output of `select()` (which is a data set) is the first argument of `mutate()`.
+
 ## Summarize data columns
 
 The `prices` data set contains closing prices and trading volumes at the New York Stock Exchange from 2012 to 2016.
@@ -203,7 +215,7 @@ summarize(by_stock, mean_close = mean(close))
 
 ### Combining multiple operations
 
-We can make the last chunk more compact using the pipe operator `%>%` (contained in {dplyr}):
+Again, we can make the last chunk more compact using the pipe operator `%>%`:
 
 ```{r}
 prices %>%
