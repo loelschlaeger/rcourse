@@ -125,12 +125,13 @@ arrange(stocks, desc(is.na(added)))
 
 ### Logical operators
 
-What is the difference between `&` and `&&`? Try to find out yourself with the following code:
+What is the difference between `&`, `|` and `xor()`? Try to find out yourself with the following code:
 
 ```{r logicaland, exercise = TRUE}
 x <- 1:3
 x > 1 & x < 3
-x > 1 && x < 3
+x > 1 | x < 3
+xor(x > 1, x < 3)
 ```
 
 ### Quiz time!
